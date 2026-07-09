@@ -1,21 +1,59 @@
 "use client";
 
+import { useRef } from "react";
 import { motion } from "motion/react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { site } from "@/lib/content";
 import { ArrowRightIcon } from "./Icons";
 import { ExchangePanel } from "./ExchangePanel";
+import { FlowField } from "./FlowField";
+import { CursorGlow } from "./CursorGlow";
+import { Magnetic, TiltCard } from "./ui/Interactive";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
-  return (
-    <section id="top" className="relative overflow-hidden pt-36 pb-20 sm:pt-44 sm:pb-28">
-      {/* Ambient background */}
-      <div className="pointer-events-none absolute inset-0 grid-bg [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,black,transparent)]" />
-      <div className="pointer-events-none absolute left-1/2 top-[-10%] h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-brand/12 blur-[130px]" />
-      <div className="pointer-events-none absolute right-[-10%] top-[20%] h-[420px] w-[520px] rounded-full bg-cyan/10 blur-[120px]" />
+  const scope = useRef<HTMLElement>(null);
 
-      <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-14 px-5 lg:grid-cols-[1.05fr_1fr]">
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(
+        { desktop: "(min-width: 768px)", motionOK: "(prefers-reduced-motion: no-preference)" },
+        (ctx) => {
+          if (!ctx.conditions?.motionOK) return;
+          gsap.utils.toArray<HTMLElement>(".gf-parallax").forEach((layer, i) => {
+            gsap.to(layer, {
+              yPercent: (i + 1) * 14,
+              ease: "none",
+              scrollTrigger: { trigger: scope.current, start: "top top", end: "bottom top", scrub: 0.6 },
+            });
+          });
+        },
+      );
+      return () => mm.revert();
+    },
+    { scope },
+  );
+
+  return (
+    <section
+      id="top"
+      ref={scope}
+      className="relative overflow-hidden pt-36 pb-20 sm:pt-44 sm:pb-28"
+    >
+      {/* Ambient layers */}
+      <FlowField className="pointer-events-none absolute inset-0 h-full w-full [mask-image:radial-gradient(ellipse_75%_60%_at_50%_30%,black,transparent)]" />
+      <div className="pointer-events-none absolute inset-0 grid-bg [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,black,transparent)]" />
+      <div className="gf-parallax pointer-events-none absolute left-1/2 top-[-10%] h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-brand/12 blur-[130px]" />
+      <div className="gf-parallax pointer-events-none absolute right-[-10%] top-[20%] h-[420px] w-[520px] rounded-full bg-cyan/10 blur-[120px]" />
+      <CursorGlow />
+
+      <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-1 items-center gap-14 px-5 lg:grid-cols-[1.05fr_1fr]">
         <div>
           <motion.a
             href="#product"
@@ -58,15 +96,17 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.19, ease }}
             className="mt-9 flex flex-wrap items-center gap-3"
           >
-            <a
-              href={site.demoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.03]"
-            >
-              Schedule a Demo
-              <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </a>
+            <Magnetic className="inline-block">
+              <a
+                href={site.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.03]"
+              >
+                Schedule a Demo
+                <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </a>
+            </Magnetic>
             <a
               href="#features"
               className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-surface"
@@ -92,7 +132,9 @@ export function Hero() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2, ease }}
         >
-          <ExchangePanel />
+          <TiltCard max={6}>
+            <ExchangePanel />
+          </TiltCard>
         </motion.div>
       </div>
     </section>

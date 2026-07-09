@@ -1,6 +1,7 @@
 import { site } from "@/lib/content";
 import { ArrowRightIcon } from "./Icons";
 import { Reveal } from "./ui/Reveal";
+import { Magnetic } from "./ui/Interactive";
 
 export function CtaSection() {
   return (
@@ -20,15 +21,17 @@ export function CtaSection() {
                 venue from concept to live trading — usually in under two months.
               </p>
               <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-                <a
-                  href={site.demoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.03]"
-                >
-                  Schedule a Demo
-                  <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </a>
+                <Magnetic className="inline-block">
+                  <a
+                    href={site.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.03]"
+                  >
+                    Schedule a Demo
+                    <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </a>
+                </Magnetic>
                 <a
                   href="#features"
                   className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold text-ink transition-colors hover:bg-surface"
