@@ -18,14 +18,23 @@ export function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
+      {/* Full-width scrim masks page content passing under the floating pill */}
       <div
-        className={`mx-auto flex max-w-6xl items-center justify-between px-5 transition-all duration-300 ${
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-32 transition-opacity duration-300"
+        style={{
+          background: "linear-gradient(to bottom, var(--bg) 0%, var(--bg) 74%, transparent 100%)",
+          opacity: scrolled ? 1 : 0,
+        }}
+      />
+      <div
+        className={`relative z-10 mx-auto flex max-w-6xl items-center justify-between px-5 transition-all duration-300 ${
           scrolled
             ? "my-3 rounded-2xl glass py-2.5 shadow-glow"
             : "my-4 border border-transparent py-3"
         }`}
       >
-        <a href="#top" className="flex items-center gap-2.5" aria-label={site.name}>
+        <a href="/#top" className="flex items-center gap-2.5" aria-label={site.name}>
           <Logo className="h-7 w-7" />
           <span className="text-[17px] font-semibold tracking-tight">
             Gamma<span className="text-brand">Floww</span>
@@ -76,7 +85,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="mx-3 rounded-2xl glass p-4 md:hidden">
+        <div className="relative z-10 mx-3 rounded-2xl glass p-4 md:hidden">
           <nav className="flex flex-col">
             {nav.map((item) => (
               <a
