@@ -29,6 +29,18 @@ export const charts: Record<string, ChartData> = {
     sourceHref: "https://data.coindesk.com/reports/exchange-review-march-2026",
     asOf: "March 2026",
   },
+  "binance-fee-comparison": {
+    title: "Binance standard-tier fees: spot vs. USDⓈ-M futures",
+    data: [
+      { label: "Spot maker", value: 0.1, display: "0.10%", tone: "cyan" },
+      { label: "Spot taker", value: 0.1, display: "0.10%", tone: "cyan" },
+      { label: "Futures maker", value: 0.02, display: "0.02%", tone: "brand" },
+      { label: "Futures taker", value: 0.04, display: "0.04%", tone: "brand" },
+    ],
+    source: "Binance fee schedules (spot & USDⓈ-M futures)",
+    sourceHref: "https://www.binance.com/en/fee/futureFee",
+    asOf: "2026",
+  },
 };
 
 export const sourceSets: Record<string, Source[]> = {
@@ -73,5 +85,26 @@ export const sourceSets: Record<string, Source[]> = {
   "crypto-leverage-explained": [
     { label: "Liquidation Price Calculation under Isolated Mode", href: "https://www.bybit.com/en/help-center/article/Liquidation-Price-Calculation-under-Isolated-Mode-Unified-Trading-Account", publisher: "Bybit" },
     { label: "Introduction to Binance Futures Funding Rates", href: "https://www.binance.com/en/support/faq/detail/360033525031", publisher: "Binance" },
+  ],
+  "maker-taker-fees-explained": [
+    { label: "Spot trading fee schedule (standard 0.10%)", href: "https://www.binance.com/en/fee/schedule", publisher: "Binance" },
+    { label: "USDⓈ-M futures fee schedule (standard ~0.02%/0.04%)", href: "https://www.binance.com/en/fee/futureFee", publisher: "Binance" },
+  ],
+  "crypto-exchange-liquidity-cold-start": [
+    { label: "How market makers provide liquidity and stabilize crypto markets", href: "https://www.xbto.com/resources/how-market-makers-provide-liquidity-and-stabilize-crypto-markets", publisher: "XBTO" },
+    { label: "Building liquidity in crypto exchanges: how-to and tools", href: "https://www.openware.com/news/articles/building-liquidity-in-crypto-exchanges-how-to-and-tools", publisher: "Openware" },
+  ],
+  "inside-a-crypto-matching-engine": [
+    { label: "What is a matching engine in crypto?", href: "https://paybis.com/blog/glossary/matching-engine/", publisher: "Paybis" },
+    { label: "Matching engine (glossary)", href: "https://markets.bitcoin.com/glossary/matching-engine", publisher: "Bitcoin.com" },
+  ],
+  "risk-and-liquidation-engines": [
+    { label: "Auto-Deleveraging (ADL) mechanism", href: "https://www.bybit.com/en/help-center/article/Auto-Deleveraging-ADL", publisher: "Bybit" },
+    { label: "Liquidation Price Calculation under Isolated Mode", href: "https://www.bybit.com/en/help-center/article/Liquidation-Price-Calculation-under-Isolated-Mode-Unified-Trading-Account", publisher: "Bybit" },
+    { label: "Maintenance Margin (USDT Perpetual and Expiry Contracts)", href: "https://www.bybit.com/en/help-center/article/Maintenance-Margin-USDT-Contract", publisher: "Bybit" },
+  ],
+  "go-to-market-new-crypto-exchange": [
+    { label: "Exchange Review, March 2026 (derivatives = 76.5% of CEX volume)", href: "https://data.coindesk.com/reports/exchange-review-march-2026", publisher: "CCData" },
+    { label: "2025 Annual Crypto Report", href: "https://www.coingecko.com/research/publications/2025-annual-crypto-report", publisher: "CoinGecko" },
   ],
 };

@@ -5,6 +5,7 @@ import { BarChart } from "./BarChart";
 import { RevenueEstimator } from "./RevenueEstimator";
 import { LiquidationCalculator } from "./LiquidationCalculator";
 import { FundingCalculator } from "./FundingCalculator";
+import { SlippageCalculator } from "./SlippageCalculator";
 
 type A = ComponentPropsWithoutRef<"a">;
 
@@ -65,4 +66,5 @@ export const mdxComponents = {
   RevenueEstimator,
   LiquidationCalculator,
   FundingCalculator,
+  SlippageCalculator,
 };

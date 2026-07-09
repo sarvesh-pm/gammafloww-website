@@ -1,0 +1,45 @@
+---
+title: "How a New Exchange Gets Liquidity (Solving the Cold-Start Problem)"
+description: "A new exchange with no traders has no liquidity — and no liquidity means no traders. Here's how venues break the cold-start loop, with the mechanics sourced, plus a slippage demo."
+cluster: "Operator Playbook"
+keyword: "how do crypto exchanges get liquidity"
+date: "2026-06-30"
+author: "GammaFloww Team"
+---
+
+Every new exchange faces the same chicken-and-egg problem: traders won't come without liquidity, but you can't build liquidity without traders. Solving this "cold start" is arguably the hardest part of launching a venue — and it's exactly where a white-label engine earns its keep.
+
+## Why liquidity is everything
+
+Liquidity is depth on the order book — resting buy and sell orders at many price levels. Deep books mean tight spreads and low **slippage** (the gap between the price you expect and the price you get). Thin books mean every decent-sized order moves the market against the trader, who then leaves. See it for yourself:
+
+<SlippageCalculator />
+
+The lesson: the same order costs a fraction on a deep book versus a thin one. Depth isn't a nice-to-have — it's the product.
+
+## Where liquidity actually comes from
+
+New venues break the cold-start loop with a mix of the following ([XBTO on market makers](https://www.xbto.com/resources/how-market-makers-provide-liquidity-and-stabilize-crypto-markets), [Openware on building liquidity](https://www.openware.com/news/articles/building-liquidity-in-crypto-exchanges-how-to-and-tools)):
+
+- **Professional market makers.** Firms that continuously quote both sides of the book, profiting from the bid-ask spread while providing depth. Exchanges court them with **maker rebates** and volume incentives.
+- **In-house / partner market making.** Many venues run their own desks to guarantee minimum depth on every listed pair from day one.
+- **Liquidity aggregation.** Pulling order flow and depth from a broader network so a new venue doesn't start from zero.
+- **Maker-friendly fees.** Low or negative maker fees are a direct subsidy for the liquidity you need — see [Maker-Taker Fees](/blog/maker-taker-fees-explained).
+
+<Callout title="The white-label advantage">
+This is the single biggest reason operators choose a white-label engine: liquidity is aggregated for you, so your order books are deep from launch day. You skip the months (and capital) it takes to court market makers and bootstrap depth alone.
+</Callout>
+
+## What to get right
+
+- **Depth on your top pairs first.** Concentrate liquidity where volume will be, not spread thin across hundreds of pairs.
+- **Reliable market data & matching.** Market makers won't quote tightly on a venue with a slow or unpredictable [matching engine](/blog/inside-a-crypto-matching-engine).
+- **Clear incentives.** A transparent rebate and tier structure attracts and retains the firms that give you depth.
+
+## The takeaway
+
+Liquidity is the flywheel: depth attracts traders, traders attract more liquidity. The hard part is starting it spinning. Aggregated liquidity plus maker incentives is how modern venues launch deep instead of empty.
+
+<SourceList id="crypto-exchange-liquidity-cold-start" />
+
+*The slippage tool is a simplified model for intuition, not an exchange formula.*

@@ -1,0 +1,54 @@
+---
+title: "Inside a Matching Engine: Latency, Order Books & Throughput"
+description: "The matching engine is the heart of any exchange. Here's how price-time priority works, why latency and throughput matter, and what separates a professional engine from a toy — sourced."
+cluster: "Operator Playbook"
+keyword: "crypto matching engine"
+date: "2026-06-29"
+author: "GammaFloww Team"
+---
+
+Every trade on an exchange passes through one system: the **matching engine**. It decides who trades with whom, at what price, and in what order. It's the least visible part of a venue and the most important — a slow or unfair engine drives away exactly the professional traders and market makers you need.
+
+## What the matching engine does
+
+The matching engine processes incoming buy and sell orders against the order book, finds compatible orders, and executes trades ([Paybis: what is a matching engine](https://paybis.com/blog/glossary/matching-engine/)). Everything else — the UI, the API, the charts — is a wrapper around this core.
+
+## Price-time priority (FIFO)
+
+The standard matching algorithm is **price-time priority**, and it works in two steps:
+
+1. **Price priority** — the best price is filled first. For buys, that's the highest bid; for sells, the lowest ask.
+2. **Time priority** — among orders at the same price, the one that arrived first is filled first.
+
+These deterministic rules guarantee fair, predictable treatment and reward traders who improve the price or provide liquidity early — the same logic used on Coinbase, most of Binance's spot pairs, and traditional venues like the NYSE ([Bitcoin.com: matching engine](https://markets.bitcoin.com/glossary/matching-engine)).
+
+## Why latency and throughput matter
+
+Two performance metrics make or break a venue:
+
+- **Latency** — how fast an order is acknowledged and matched. Market makers quote tighter when they trust that fills are fast and deterministic; high or jittery latency makes them widen spreads to protect themselves, which worsens [liquidity](/blog/crypto-exchange-liquidity-cold-start) for everyone.
+- **Throughput** — how many orders per second the engine can process without falling behind. Volatility spikes produce order bursts; an engine that can't keep up creates stale prices and failed orders exactly when it matters most.
+
+<Callout title="Why this is hard to build">
+A production matching engine has to be fast, deterministic, and correct under load — and stay that way during a market crash, a listing frenzy, or a DDoS. That combination is why most operators use a proven engine rather than building one; it's years of specialized systems work with no room for bugs.
+</Callout>
+
+## Order types the engine must support
+
+A professional engine handles more than market and limit orders:
+
+| Order type | Purpose |
+|---|---|
+| Market | Immediate execution at best available price |
+| Limit | Execute only at a set price or better (adds liquidity as a maker) |
+| Stop / stop-limit | Trigger an order when price crosses a level (risk management) |
+| Post-only | Guarantees maker status, or cancels |
+| Reduce-only | Can only shrink a position, never flip it |
+
+These aren't luxuries — they're what serious traders and the [risk engine](/blog/risk-and-liquidation-engines) rely on.
+
+## The takeaway
+
+The matching engine is the exchange. Price-time priority makes it fair; low latency and high throughput make it trustworthy under pressure. Getting it right is a systems-engineering discipline — and the core of what a white-label backend provides.
+
+<SourceList id="inside-a-crypto-matching-engine" />

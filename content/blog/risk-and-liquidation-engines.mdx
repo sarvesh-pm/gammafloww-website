@@ -1,0 +1,48 @@
+---
+title: "Risk & Liquidation Engines: Keeping a Derivatives Venue Solvent"
+description: "On a leveraged venue, the risk engine is what stands between a volatile market and insolvency. Here's how liquidation, insurance funds, and auto-deleveraging work — sourced to exchange docs."
+cluster: "Operator Playbook"
+keyword: "crypto liquidation engine"
+date: "2026-06-28"
+author: "GammaFloww Team"
+---
+
+Offering leverage means offering the possibility of losses larger than a trader's margin. The **risk engine** is the set of systems that make sure those losses never fall on the exchange — or on other traders. On a derivatives venue, it's as important as the matching engine, and far less forgiving of mistakes.
+
+## The three lines of defense
+
+A solvent leveraged venue relies on a layered system:
+
+### 1. Maintenance margin & liquidation
+
+Every position has a **maintenance margin** — the minimum equity required to keep it open. When the mark price moves enough that equity falls below it, the position is **liquidated**: force-closed to stop further loss. The liquidation price is a function of entry, leverage, and the maintenance-margin rate ([Bybit: liquidation](https://www.bybit.com/en/help-center/article/Liquidation-Price-Calculation-under-Isolated-Mode-Unified-Trading-Account), [Bybit: maintenance margin](https://www.bybit.com/en/help-center/article/Maintenance-Margin-USDT-Contract)). We break the math down in [How Liquidation Price Is Calculated](/blog/how-liquidation-price-is-calculated).
+
+### 2. The insurance fund
+
+Sometimes a position can't be closed at a price better than its bankruptcy price — the market gapped. The **insurance fund** absorbs that shortfall. It's a reserve pool funded by the venue plus the excess margin from liquidations that *were* closed better than bankruptcy price ([Bybit: ADL & insurance fund](https://www.bybit.com/en/help-center/article/Auto-Deleveraging-ADL)). In normal conditions it quietly covers the gaps.
+
+### 3. Auto-deleveraging (ADL)
+
+In extreme conditions, if the insurance fund can't cover the losses, the last resort is **auto-deleveraging**: the engine nets a liquidated position against an opposing, profitable position and closes part of it at the bankruptcy price. Traders are ranked for ADL by leveraged return — the most aggressive, highest-leverage winners are tapped first ([Bybit: ADL](https://www.bybit.com/en/help-center/article/Auto-Deleveraging-ADL)).
+
+<Callout title="Why the ordering matters">
+Liquidation → insurance fund → ADL is a deliberate cascade. Each layer only engages when the previous one is exhausted. A well-tuned engine rarely reaches ADL, because it liquidates early and the insurance fund is sized correctly.
+</Callout>
+
+## See liquidation in action
+
+The threshold a position can survive shrinks fast with leverage — the reason the risk engine has to act quickly and precisely:
+
+<LiquidationCalculator />
+
+## Why operators don't build this themselves
+
+A risk engine has to monitor mark prices in real time, calculate thresholds continuously, liquidate cleanly without cascading, and stay solvent through the worst volatility on record. Getting it *almost* right isn't good enough — an under-provisioned risk engine is how venues accumulate bad debt and fail. It's one of the strongest arguments for launching on [proven infrastructure](/blog/white-label-vs-building-crypto-exchange) rather than building from scratch.
+
+## The takeaway
+
+The risk engine keeps a leveraged venue solvent through a cascade: liquidation, then insurance fund, then auto-deleveraging. It's safety-critical systems work — the part of an exchange where "move fast and break things" is the wrong philosophy.
+
+<SourceList id="risk-and-liquidation-engines" />
+
+*Mechanisms and parameters vary by exchange; figures reflect the cited documentation.*

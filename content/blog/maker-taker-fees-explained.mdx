@@ -1,0 +1,50 @@
+---
+title: "Maker-Taker Fees Explained (and How to Design a Fee Schedule)"
+description: "The maker-taker model is how exchanges price liquidity — and the main revenue lever you control as an operator. Here's how it works, with real fee levels sourced, plus a revenue estimator."
+cluster: "Operator Playbook"
+keyword: "maker taker fees"
+date: "2026-07-01"
+author: "GammaFloww Team"
+---
+
+The maker-taker model is the single most important pricing decision an exchange makes. It's how you reward liquidity, how you compete on cost, and — because trading fees are the core revenue line — how you actually make money. If you're launching a venue, designing this schedule is not an afterthought.
+
+## Makers vs. takers
+
+Every trade has two sides, and the fee model treats them differently:
+
+- **Makers** place resting limit orders that *add* liquidity to the book. They're charged less — sometimes zero, sometimes a rebate — because they make the market deeper for everyone else.
+- **Takers** place market orders that *remove* liquidity by hitting resting orders. They pay more, because they consume the depth makers provide.
+
+This asymmetry is deliberate: it pays traders to post liquidity, which tightens spreads and improves the experience for everyone. (Where that liquidity actually comes from on day one is its own challenge — see [How a New Exchange Gets Liquidity](/blog/crypto-exchange-liquidity-cold-start).)
+
+## What real fee levels look like
+
+Fees vary by venue, product, and volume tier. Binance is a useful reference point:
+
+<BarChart id="binance-fee-comparison" />
+
+Two patterns stand out: **derivatives fees are lower per-trade than spot** (they compete on razor-thin margins because volume is enormous), and both fall further at higher VIP tiers ([Binance spot](https://www.binance.com/en/fee/schedule) and [futures](https://www.binance.com/en/fee/futureFee) schedules, as of 2026). Remember that on derivatives the fee applies to **leveraged notional**, so a low headline rate still generates substantial revenue.
+
+## How the fee schedule drives revenue
+
+Small percentages, big volumes. Use the estimator to see how a fee schedule translates into revenue at different scales:
+
+<RevenueEstimator />
+
+## Designing your own schedule
+
+A few principles for operators:
+
+- **Reward makers.** Low or negative maker fees attract the market makers who give you depth. It's an investment in liquidity, not lost revenue.
+- **Use volume tiers.** Progressive discounts keep your highest-volume traders (and market makers) loyal.
+- **Match the market.** Your fees are benchmarked against whoever your traders would otherwise use. The [ranking bar is set by competitors](/blog/how-to-choose-white-label-exchange-provider), not by theory.
+- **Mind the notional.** On leveraged products, model revenue on notional, not margin.
+
+<Callout title="Takeaway">
+Maker-taker fees are how you price liquidity and where most of your revenue comes from. Reward makers to build depth, tier your discounts, and benchmark against the venues your traders already use. In a white-label model, you own this schedule entirely.
+</Callout>
+
+<SourceList id="maker-taker-fees-explained" />
+
+*Fee levels reflect the cited schedules as of 2026 and change by tier and over time.*
