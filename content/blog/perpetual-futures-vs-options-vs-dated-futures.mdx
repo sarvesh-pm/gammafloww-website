@@ -1,0 +1,52 @@
+---
+title: "Perpetual Futures vs. Options vs. Dated Futures: What to Launch First"
+description: "The three main crypto derivatives products compared — perpetuals, options, and dated futures — how each works, who trades them, and which to launch first as a new venue."
+cluster: "Launch & Buy"
+keyword: "perpetual futures vs options"
+date: "2026-06-16"
+author: "GammaFloww Team"
+---
+
+"Derivatives" isn't one product — it's three main ones, each with a different risk profile, audience, and operational complexity. If you're launching a venue, knowing which to offer (and in what order) is a strategic decision. Here's the comparison.
+
+## The three products
+
+| | Perpetual futures | Dated futures | Options |
+|---|---|---|---|
+| **Expiry** | None (funding tethers to spot) | Fixed date | Fixed date |
+| **Payoff** | Linear (price × size) | Linear | Non-linear (asymmetric) |
+| **Key mechanic** | [Funding rate](/blog/funding-rates-explained) | Convergence at expiry | Premium, strike, Greeks |
+| **Complexity to run** | Moderate | Moderate | High |
+| **Audience** | The mass market | Hedgers, basis traders | Sophisticated traders |
+
+## Perpetual futures — the default
+
+Perpetuals dominate crypto derivatives volume, and for good reason: no expiry to roll, leverage, easy two-way exposure, and a price that tracks spot via the [funding rate](/blog/funding-rates-explained). They're what most traders actually use ([Kraken](https://www.kraken.com/learn/trading/perpetual-futures-contracts)). See [What Are Perpetual Futures?](/blog/what-are-perpetual-futures).
+
+Because they're leveraged, the risk mechanics are central — a small adverse move can liquidate a position:
+
+<LiquidationCalculator />
+
+## Dated futures — for hedgers and basis trades
+
+Traditional futures expire on a set date and converge to spot as they do. They appeal to hedgers locking in a price and to basis traders arbitraging the gap between futures and spot. Operationally similar to perps, minus funding but plus expiry/settlement handling.
+
+## Options — powerful but demanding
+
+Options give the buyer the *right* (not obligation) to buy or sell at a strike price, for a premium. Their non-linear payoff enables sophisticated strategies (hedging, income, volatility trades) — but they're the most complex to run: pricing, the "Greeks," and margining are materially harder, and the trader base is smaller and more advanced.
+
+<Callout title="What to launch first">
+For almost every new venue: **perpetuals first.** They're where the volume and demand are, the mechanics are well understood, and they anchor a derivatives business. Add dated futures and options later, once you have traders, liquidity, and operational maturity — not on day one.
+</Callout>
+
+## The operational angle
+
+Each product leans on the same core systems — [matching engine](/blog/inside-a-crypto-matching-engine), [risk & liquidation](/blog/risk-and-liquidation-engines), [liquidity](/blog/crypto-exchange-liquidity-cold-start) — but options add real complexity on top. A white-label engine that already supports the products you want to grow into saves you a painful re-platforming later; ask about it when you [choose a provider](/blog/how-to-choose-white-label-exchange-provider).
+
+## The takeaway
+
+Perpetuals are the mass-market anchor and the right first product; dated futures serve hedgers; options unlock sophisticated strategies but demand the most operationally. Sequence them — perps first, complexity later.
+
+<SourceList id="perpetual-futures-vs-options-vs-dated-futures" />
+
+*Product mechanics are standard across venues; specific parameters vary. Not trading advice.*

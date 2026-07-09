@@ -177,4 +177,16 @@ export const sourceSets: Record<string, Source[]> = {
     { label: "White-label crypto exchange costs: complete breakdown", href: "https://b2broker.com/news/white-label-crypto-exchange-cost/", publisher: "B2Broker" },
     { label: "White-label crypto exchange cost: what to expect in 2026", href: "https://btsesolutions.com/articles/white-label-crypto-exchange-cost", publisher: "BTSE Solutions" },
   ],
+  "how-to-choose-white-label-exchange-provider": [
+    { label: "Top white-label crypto exchange providers of 2026", href: "https://www.financemagnates.com/cryptocurrency/top-white-label-crypto-exchange-providers-of-2026/", publisher: "Finance Magnates" },
+    { label: "White-label crypto exchange costs: complete breakdown", href: "https://b2broker.com/news/white-label-crypto-exchange-cost/", publisher: "B2Broker" },
+  ],
+  "perpetual-futures-vs-options-vs-dated-futures": [
+    { label: "What are perpetual futures contracts? A complete guide", href: "https://www.kraken.com/learn/trading/perpetual-futures-contracts", publisher: "Kraken" },
+    { label: "Understanding funding rates in perpetual futures", href: "https://www.coinbase.com/learn/perpetual-futures/understanding-funding-rates-in-perpetual-futures", publisher: "Coinbase" },
+  ],
+  "crypto-exchange-launch-timeline": [
+    { label: "White-label vs. building from scratch: 2026 cost comparison", href: "https://codono.com/blog/white-label-crypto-exchange-vs-custom-build", publisher: "Codono" },
+    { label: "How much does a white-label crypto exchange cost in 2026?", href: "https://tinytrader.com/how-much-does-a-white-label-crypto-exchange-cost-in-2026/", publisher: "TinyTrader" },
+  ],
 };
