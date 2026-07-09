@@ -66,12 +66,12 @@ export function StackDiagram() {
   const reduce = useReducedMotion();
 
   return (
-    <div className="relative rounded-3xl glass p-6 shadow-glow">
-      <div className="mb-5 flex items-center justify-between">
-        <span className="text-xs font-medium uppercase tracking-wider text-faint">
+    <div className="relative rounded-3xl glass p-6 shadow-glow sm:p-8">
+      <div className="mb-6 flex items-center justify-between pl-6">
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted">
           Where the work lives
         </span>
-        <span className="font-mono text-[10px] text-faint">hover a layer →</span>
+        <span className="font-mono text-[11px] text-faint">hover a layer →</span>
       </div>
 
       <div className="relative flex flex-col gap-3 pl-6">
@@ -97,10 +97,10 @@ export function StackDiagram() {
               onFocus={() => setActive(i)}
               onClick={() => setActive(i)}
               aria-expanded={isActive}
-              className={`group relative overflow-hidden rounded-2xl border px-5 py-4 text-left transition-all duration-300 ${
+              className={`group relative overflow-hidden rounded-2xl border px-5 py-[18px] text-left transition-all duration-300 ${
                 isActive
-                  ? "border-brand/40 bg-surface shadow-soft"
-                  : "border-border bg-bg-soft/50 opacity-70 hover:opacity-100"
+                  ? "border-brand/45 bg-surface shadow-soft"
+                  : "border-border bg-bg-soft/60 hover:border-brand/30 hover:bg-surface/70"
               }`}
             >
               {/* left accent bar */}
@@ -110,7 +110,7 @@ export function StackDiagram() {
                 }`}
               />
               <div className="flex items-center justify-between gap-3">
-                <span className="text-sm font-semibold text-ink">{layer.label}</span>
+                <span className="text-[15px] font-semibold text-ink">{layer.label}</span>
                 <span className={`shrink-0 font-mono text-xs ${accentText[layer.accent]}`}>
                   {layer.note}
                 </span>
@@ -125,9 +125,9 @@ export function StackDiagram() {
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     className="overflow-hidden"
                   >
-                    <div className="mt-3 flex items-center gap-2">
+                    <div className="mt-4 flex items-center gap-2">
                       <span
-                        className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
+                        className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${
                           layer.owner === "Yours"
                             ? "bg-brand/15 text-brand"
                             : "bg-cyan/15 text-cyan"
@@ -136,10 +136,10 @@ export function StackDiagram() {
                         {layer.owner === "Yours" ? "You own this" : "We run this"}
                       </span>
                     </div>
-                    <ul className="mt-3 grid gap-2">
+                    <ul className="mt-4 grid gap-2.5 pb-1">
                       {layer.details.map((d) => (
-                        <li key={d} className="flex items-start gap-2 text-xs text-muted">
-                          <span className={`mt-1.5 h-1 w-1 flex-none rounded-full ${accentBar[layer.accent]}`} />
+                        <li key={d} className="flex items-start gap-2.5 text-sm leading-relaxed text-muted">
+                          <span className={`mt-[7px] h-1.5 w-1.5 flex-none rounded-full ${accentBar[layer.accent]}`} />
                           {d}
                         </li>
                       ))}
