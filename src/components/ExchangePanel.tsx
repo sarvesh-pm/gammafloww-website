@@ -8,15 +8,14 @@ import {
   type Candle,
   type TimeframeKey,
 } from "@/lib/chart";
+import { CoinIcon } from "./CoinIcon";
 
 const W = 320;
 const H = 176;
 const N = 32;
 const STEP = W / N;
 
-// Maps the 1H/1D/1W toggle to Binance kline intervals.
 const INTERVAL: Record<TimeframeKey, string> = { "1H": "1h", "1D": "1d", "1W": "1w" };
-const POLL_MS = 20000;
 
 function useReducedMotion() {
   const [reduce, setReduce] = useState(false);
@@ -33,70 +32,139 @@ function useReducedMotion() {
 export function ExchangePanel() {
   const [tf, setTf] = useState<TimeframeKey>("1D");
   const config = useMemo(() => TIMEFRAMES.find((t) => t.key === tf)!, [tf]);
-  // Seeded initial data — SSR-safe and used as the fallback if the live feed fails.
   const [candles, setCandles] = useState<Candle[]>(() =>
     buildCandles(20260709, N, config.base, config.vol),
   );
-  // null = still resolving, true = live feed, false = fallback (DEMO)
   const [isLive, setIsLive] = useState<boolean | null>(null);
-  // Live price + 24h change for the header (matches the ticker convention).
   const [stats, setStats] = useState<{ price: number; changePct: number } | null>(null);
   const [hover, setHover] = useState<number | null>(null);
   const reduce = useReducedMotion();
   const svgRef = useRef<SVGSVGElement>(null);
   const tickCount = useRef(0);
 
-  // Fetch real BTC/USDT candles from Binance; poll to keep them fresh.
+  // Live data: initial REST history, then a Binance WebSocket for tick-by-tick
+  // updates (price + last candle). Falls back to REST polling if the socket
+  // can't connect, and to a DEMO simulation if the feed is unavailable entirely.
   useEffect(() => {
     let cancelled = false;
+    let ws: WebSocket | null = null;
+    let pollId: number | null = null;
+    let klineStart: number | null = null;
+    const interval = INTERVAL[tf];
+    const base = "https://api.binance.com/api/v3";
 
-    async function load() {
+    async function loadKlines() {
+      const res = await fetch(`${base}/klines?symbol=BTCUSDT&interval=${interval}&limit=${N}`, { cache: "no-store" });
+      if (!res.ok) throw new Error(`klines ${res.status}`);
+      const raw: unknown = await res.json();
+      if (!Array.isArray(raw) || raw.length === 0) throw new Error("bad klines");
+      if (cancelled) return;
+      setCandles((raw as string[][]).map((k) => ({ o: +k[1], h: +k[2], l: +k[3], c: +k[4] })));
+      setIsLive(true);
+    }
+    async function loadStats() {
       try {
-        const res = await fetch(
-          `https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=${INTERVAL[tf]}&limit=${N}`,
-          { cache: "no-store" },
-        );
-        if (!res.ok) throw new Error(`status ${res.status}`);
-        const raw: unknown = await res.json();
-        if (!Array.isArray(raw) || raw.length === 0) throw new Error("bad payload");
-        const mapped: Candle[] = (raw as string[][]).map((k) => ({
-          o: +k[1],
-          h: +k[2],
-          l: +k[3],
-          c: +k[4],
-        }));
-        if (cancelled) return;
-        setCandles(mapped);
-        setIsLive(true);
-        // Best-effort 24h price/change for the header.
-        try {
-          const t = await fetch("https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT", { cache: "no-store" });
-          if (t.ok) {
-            const j = await t.json();
-            if (!cancelled) setStats({ price: +j.lastPrice, changePct: +j.priceChangePercent });
-          }
-        } catch {
-          /* header falls back to candle-derived values */
+        const t = await fetch(`${base}/ticker/24hr?symbol=BTCUSDT`, { cache: "no-store" });
+        if (t.ok) {
+          const j = await t.json();
+          if (!cancelled) setStats({ price: +j.lastPrice, changePct: +j.priceChangePercent });
         }
       } catch {
-        if (!cancelled) setIsLive(false); // fall back to the seeded/simulated data
+        /* header falls back to candle-derived values */
       }
     }
 
-    load();
-    const poll = window.setInterval(() => {
-      if (!document.hidden) load();
-    }, POLL_MS);
+    const startPoll = () => {
+      if (pollId == null) {
+        pollId = window.setInterval(() => {
+          if (!document.hidden) {
+            loadKlines().catch(() => {});
+            loadStats();
+          }
+        }, 20000);
+      }
+    };
+    const stopPoll = () => {
+      if (pollId != null) {
+        window.clearInterval(pollId);
+        pollId = null;
+      }
+    };
+
+    const connectWs = () => {
+      try {
+        ws = new WebSocket(`wss://stream.binance.com:9443/stream?streams=btcusdt@ticker/btcusdt@kline_${interval}`);
+        ws.onmessage = (ev) => {
+          try {
+            const { data } = JSON.parse(ev.data);
+            if (!data) return;
+            if (data.e === "24hrTicker") {
+              setStats({ price: +data.c, changePct: +data.P });
+            } else if (data.e === "kline") {
+              const k = data.k;
+              const kt: number = k.t;
+              const candle: Candle = { o: +k.o, h: +k.h, l: +k.l, c: +k.c };
+              setCandles((prev) => {
+                const next = prev.slice();
+                if (klineStart !== null && kt > klineStart) {
+                  next.push(candle);
+                  if (next.length > N) next.shift();
+                } else {
+                  next[next.length - 1] = candle;
+                }
+                return next;
+              });
+              klineStart = kt;
+            }
+            stopPoll(); // streaming confirmed — no need to poll
+          } catch {
+            /* ignore malformed frame */
+          }
+        };
+        ws.onerror = () => {
+          try {
+            ws?.close();
+          } catch {
+            /* noop */
+          }
+        };
+        ws.onclose = () => {
+          if (!cancelled) startPoll();
+        };
+      } catch {
+        startPoll();
+      }
+    };
+
+    (async () => {
+      try {
+        await loadKlines();
+        loadStats();
+        connectWs();
+      } catch {
+        if (!cancelled) setIsLive(false); // DEMO fallback
+      }
+    })();
+
     return () => {
       cancelled = true;
-      window.clearInterval(poll);
+      stopPoll();
+      if (ws) {
+        ws.onclose = null;
+        ws.onmessage = null;
+        ws.onerror = null;
+        try {
+          ws.close();
+        } catch {
+          /* noop */
+        }
+      }
     };
   }, [tf]);
 
-  // Fallback animation only: if the live feed is unavailable, keep the demo chart moving.
+  // DEMO fallback animation (only when the live feed is unavailable).
   useEffect(() => {
     if (isLive !== false || reduce) return;
-    // reset to seeded data for this timeframe, then random-walk it
     setCandles(buildCandles(20260709, N, config.base, config.vol));
     tickCount.current = 0;
     const id = window.setInterval(() => {
@@ -122,7 +190,6 @@ export function ExchangePanel() {
 
   const last = candles[candles.length - 1];
   const first = candles[0];
-  // Header shows live price + 24h change when available; otherwise derives from the window.
   const price = stats?.price ?? last.c;
   const changePct = stats?.changePct ?? ((last.c - first.o) / first.o) * 100;
   const up = changePct >= 0;
@@ -154,9 +221,7 @@ export function ExchangePanel() {
         {/* Top bar */}
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand/15 text-sm font-bold text-brand">
-              ₿
-            </div>
+            <CoinIcon symbol="BTC" className="h-9 w-9" />
             <div>
               <div className="flex items-center gap-2 text-sm font-semibold">
                 BTC/USDT

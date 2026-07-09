@@ -1,42 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { CoinIcon } from "./CoinIcon";
 
 type Pair = { s: string; p: string; c: number };
 
-// Binance symbols → display labels. Fallback values shown only if the feed fails.
 const SYMBOLS = [
-  "BTCUSDT",
-  "ETHUSDT",
-  "SOLUSDT",
-  "BNBUSDT",
-  "XRPUSDT",
-  "DOGEUSDT",
-  "AVAXUSDT",
-  "LINKUSDT",
-  "ADAUSDT",
-  "LTCUSDT",
+  "BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT", "XRPUSDT",
+  "DOGEUSDT", "AVAXUSDT", "LINKUSDT", "ADAUSDT", "LTCUSDT",
 ];
 
-const FALLBACK: Pair[] = [
-  { s: "BTC/USDT", p: "—", c: 0 },
-  { s: "ETH/USDT", p: "—", c: 0 },
-  { s: "SOL/USDT", p: "—", c: 0 },
-  { s: "BNB/USDT", p: "—", c: 0 },
-  { s: "XRP/USDT", p: "—", c: 0 },
-  { s: "DOGE/USDT", p: "—", c: 0 },
-  { s: "AVAX/USDT", p: "—", c: 0 },
-  { s: "LINK/USDT", p: "—", c: 0 },
-  { s: "ADA/USDT", p: "—", c: 0 },
-  { s: "LTC/USDT", p: "—", c: 0 },
-];
+const FALLBACK: Pair[] = SYMBOLS.map((s) => ({ s: label(s), p: "—", c: 0 }));
 
 function fmtPrice(n: number) {
   if (n >= 100) return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   if (n >= 1) return n.toFixed(2);
   return n.toPrecision(4);
 }
-
 function label(symbol: string) {
   return symbol.replace("USDT", "/USDT");
 }
@@ -48,6 +28,7 @@ function Row({ pairs }: { pairs: Pair[] }) {
         const up = pair.c >= 0;
         return (
           <div key={pair.s} className="flex items-center gap-2 px-6 py-3">
+            <CoinIcon symbol={pair.s.split("/")[0]} className="h-4 w-4" />
             <span className="text-sm font-medium text-ink">{pair.s}</span>
             <span className="font-mono text-sm text-muted tabular-nums">{pair.p}</span>
             <span className={`font-mono text-xs tabular-nums ${up ? "text-up" : "text-down"}`}>
@@ -65,32 +46,64 @@ export function Ticker() {
 
   useEffect(() => {
     let cancelled = false;
-    async function load() {
+    let ws: WebSocket | null = null;
+    let pollId: number | null = null;
+
+    async function loadRest() {
       try {
         const url = `https://api.binance.com/api/v3/ticker/24hr?symbols=${encodeURIComponent(JSON.stringify(SYMBOLS))}`;
         const res = await fetch(url, { cache: "no-store" });
-        if (!res.ok) throw new Error(`status ${res.status}`);
+        if (!res.ok) throw new Error();
         const data: { symbol: string; lastPrice: string; priceChangePercent: string }[] = await res.json();
         if (cancelled || !Array.isArray(data)) return;
-        const bySymbol = new Map(data.map((d) => [d.symbol, d]));
-        const next = SYMBOLS.map((sym) => {
-          const d = bySymbol.get(sym);
-          return d
-            ? { s: label(sym), p: fmtPrice(+d.lastPrice), c: +d.priceChangePercent }
-            : { s: label(sym), p: "—", c: 0 };
-        });
-        setPairs(next);
+        const bySym = new Map(data.map((d) => [d.symbol, d]));
+        setPairs(SYMBOLS.map((sym) => {
+          const d = bySym.get(sym);
+          return d ? { s: label(sym), p: fmtPrice(+d.lastPrice), c: +d.priceChangePercent } : { s: label(sym), p: "—", c: 0 };
+        }));
       } catch {
-        /* keep fallback */
+        /* keep current */
       }
     }
-    load();
-    const poll = window.setInterval(() => {
-      if (!document.hidden) load();
-    }, 30000);
+    const startPoll = () => { if (pollId == null) pollId = window.setInterval(() => { if (!document.hidden) loadRest(); }, 30000); };
+    const stopPoll = () => { if (pollId != null) { window.clearInterval(pollId); pollId = null; } };
+
+    const connectWs = () => {
+      try {
+        const streams = SYMBOLS.map((s) => s.toLowerCase() + "@ticker").join("/");
+        ws = new WebSocket(`wss://stream.binance.com:9443/stream?streams=${streams}`);
+        ws.onmessage = (ev) => {
+          try {
+            const { data } = JSON.parse(ev.data);
+            if (!data || !data.s) return;
+            const s = label(data.s);
+            setPairs((prev) => prev.map((p) => (p.s === s ? { s, p: fmtPrice(+data.c), c: +data.P } : p)));
+            stopPoll(); // streaming confirmed
+          } catch {
+            /* ignore */
+          }
+        };
+        ws.onerror = () => {
+          try { ws?.close(); } catch { /* noop */ }
+        };
+        ws.onclose = () => { if (!cancelled) startPoll(); };
+      } catch {
+        startPoll();
+      }
+    };
+
+    loadRest(); // immediate baseline
+    connectWs(); // live stream
+
     return () => {
       cancelled = true;
-      window.clearInterval(poll);
+      stopPoll();
+      if (ws) {
+        ws.onclose = null;
+        ws.onmessage = null;
+        ws.onerror = null;
+        try { ws.close(); } catch { /* noop */ }
+      }
     };
   }, []);
 
