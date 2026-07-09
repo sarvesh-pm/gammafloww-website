@@ -85,7 +85,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="relative z-10 mx-3 rounded-2xl glass p-4 md:hidden">
+        <div className="relative z-10 mx-3 rounded-2xl border border-border bg-surface p-4 shadow-glow md:hidden">
           <nav className="flex flex-col">
             {nav.map((item) => (
               <a
