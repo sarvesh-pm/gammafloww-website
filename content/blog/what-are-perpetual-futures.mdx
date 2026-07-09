@@ -1,0 +1,45 @@
+---
+title: "What Are Perpetual Futures? A Plain-English Guide"
+description: "Perpetual futures are the most-traded product in crypto. Here's how they work — no expiry, funding rates, leverage — explained simply, with the mechanics sourced."
+cluster: "Trader Education"
+keyword: "what is a perpetual futures contract"
+date: "2026-07-02"
+author: "GammaFloww Team"
+---
+
+Perpetual futures — "perps" — are the single most-traded product in crypto. They let traders bet on the price of an asset, long or short, with leverage, and without ever having to hold the asset itself. If you're building or evaluating a derivatives venue, understanding perps is table stakes.
+
+## A futures contract that never expires
+
+A traditional futures contract has an expiry date. As it approaches expiry, its price naturally converges with the spot price of the underlying asset. A **perpetual** future removes the expiry entirely — you can hold the position indefinitely ([Kraken: perpetual futures contracts](https://www.kraken.com/learn/trading/perpetual-futures-contracts)).
+
+That creates a problem: without expiry, what stops the contract price from drifting far away from spot? The answer is the **funding rate** — a small periodic payment exchanged directly between longs and shorts that nudges the perp price back toward spot ([Coinbase: funding rates](https://www.coinbase.com/learn/perpetual-futures/understanding-funding-rates-in-perpetual-futures)). We cover that mechanism in depth in [Funding Rates Explained](/blog/funding-rates-explained).
+
+## Long, short, and leverage
+
+Two things make perps powerful:
+
+- **You can go short as easily as long.** Profit from falling prices, not just rising ones.
+- **Leverage.** You post a fraction of the position's value as *margin*, and the venue lets you control a larger *notional*. At 20x, $1,000 of margin controls $20,000 of exposure.
+
+Leverage magnifies gains **and** losses — and if the market moves far enough against you, your position is **liquidated**. Try it below: raise the leverage and watch how little the price has to move against you.
+
+<LiquidationCalculator />
+
+The higher the leverage, the closer your liquidation price sits to your entry. That's the core trade-off, and it's why risk controls matter so much — see [How Leverage Really Works](/blog/crypto-leverage-explained) and [How Liquidation Price Is Calculated](/blog/how-liquidation-price-is-calculated).
+
+<Callout title="Why perps dominate">
+Perpetuals combine leverage, two-way exposure, and no expiry to roll — which is why derivatives now make up the large majority of centralized-exchange volume. For an operator, a perps product isn't optional; it's the main event. (See our breakdown in [How Crypto Exchanges Make Money](/blog/how-crypto-exchanges-make-money).)
+</Callout>
+
+## Margin: isolated vs. cross
+
+When you open a leveraged position, you choose how your collateral is committed. **Isolated margin** ring-fences a fixed amount per position; **cross margin** shares your whole balance across positions. The choice changes how and when you get liquidated — covered in [Isolated vs. Cross Margin](/blog/isolated-vs-cross-margin).
+
+## The takeaway
+
+A perpetual future is a no-expiry, leveraged contract that tracks spot through funding payments. It's the product most crypto traders actually use — and the reason a modern exchange is really a *derivatives* exchange first.
+
+<SourceList id="what-are-perpetual-futures" />
+
+*Mechanics described here are standard across major venues; specific parameters (funding intervals, margin tiers) vary by exchange.*

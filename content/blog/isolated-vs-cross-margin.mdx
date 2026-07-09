@@ -1,0 +1,51 @@
+---
+title: "Isolated vs. Cross Margin: Which Should Your Exchange Offer?"
+description: "Isolated and cross margin change how — and when — a leveraged position gets liquidated. Here's the difference, with the liquidation behavior sourced, and why a venue should offer both."
+cluster: "Trader Education"
+keyword: "isolated vs cross margin"
+date: "2026-07-04"
+author: "GammaFloww Team"
+---
+
+When a trader opens a leveraged position, they choose how their collateral backs it: **isolated** or **cross** margin. The choice changes the risk profile completely — and any serious derivatives venue offers both.
+
+## The core difference
+
+- **Isolated margin** ring-fences a fixed amount of collateral to a single position. If it's liquidated, the most the trader can lose is that isolated margin — nothing else in the account is touched.
+- **Cross margin** shares the account's entire balance across all open positions as shared collateral. That can prevent a premature liquidation (other funds cushion the position), but a bad move can consume the whole balance.
+
+[MetaMask's guide](https://metamask.io/news/cross-vs-isolated-margin-perps) frames it well: isolated gives a predictable, per-trade liquidation price, while cross makes liquidation a portfolio-level event.
+
+## How it changes liquidation
+
+This is the practical consequence traders feel:
+
+- **Isolated:** the liquidation price is fixed and knowable the moment you open the position — it depends only on entry, leverage, and the maintenance margin rate ([Bybit: isolated liquidation](https://www.bybit.com/en/help-center/article/Liquidation-Price-Calculation-under-Isolated-Mode-Unified-Trading-Account)).
+- **Cross:** the liquidation price *moves* as your other positions and balance change, because available margin fluctuates.
+
+Below, the calculator shows the **isolated** case — a fixed liquidation price for a single position:
+
+<LiquidationCalculator />
+
+For the full formula and a worked example, see [How Liquidation Price Is Calculated](/blog/how-liquidation-price-is-calculated).
+
+## When each is used
+
+| | Isolated | Cross |
+|---|---|---|
+| **Risk scope** | One position | Whole account |
+| **Liquidation price** | Fixed, predictable | Floats with balance |
+| **Best for** | Sizing a defined bet; high leverage on one idea | Hedged/multi-position books; capital efficiency |
+| **Worst case** | Lose the isolated margin | Lose the account balance |
+
+## Why an operator should offer both
+
+Different traders want different risk models — retail users often prefer the guardrails of isolated margin, while sophisticated desks want cross-margin capital efficiency. Supporting both, with a reliable [risk and liquidation engine](/blog/how-crypto-exchanges-make-money) behind them, is part of what makes a venue competitive.
+
+<Callout title="Takeaway">
+Isolated margin caps risk per position with a fixed liquidation price; cross margin shares collateral for efficiency but risks the whole balance. Offer both, and make the mechanics transparent to users.
+</Callout>
+
+<SourceList id="isolated-vs-cross-margin" />
+
+*Exact margin and liquidation behavior varies by exchange and account type; figures reflect the cited documentation.*

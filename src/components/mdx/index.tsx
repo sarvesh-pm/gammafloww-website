@@ -3,6 +3,8 @@ import { Callout } from "./Callout";
 import { SourceList } from "./SourceList";
 import { BarChart } from "./BarChart";
 import { RevenueEstimator } from "./RevenueEstimator";
+import { LiquidationCalculator } from "./LiquidationCalculator";
+import { FundingCalculator } from "./FundingCalculator";
 
 type A = ComponentPropsWithoutRef<"a">;
 
@@ -61,4 +63,6 @@ export const mdxComponents = {
   SourceList,
   BarChart,
   RevenueEstimator,
+  LiquidationCalculator,
+  FundingCalculator,
 };

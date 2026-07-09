@@ -1,0 +1,51 @@
+---
+title: "Funding Rates Explained: Why Perps Track Spot"
+description: "The funding rate is the mechanism that keeps a perpetual future tethered to spot. Here's who pays whom, how often, and what it costs — with the details sourced."
+cluster: "Trader Education"
+keyword: "funding rate explained"
+date: "2026-07-03"
+author: "GammaFloww Team"
+---
+
+If perpetual futures never expire, what keeps their price from drifting away from spot forever? The **funding rate**. It's one of the most misunderstood mechanics in crypto derivatives — including a myth about who actually collects it.
+
+## What the funding rate is
+
+The funding rate is a small, periodic payment **exchanged directly between traders** holding long and short positions. Critically, it is *not* a fee charged by the exchange — the venue is just the conduit ([Coinbase: understanding funding rates](https://www.coinbase.com/learn/perpetual-futures/understanding-funding-rates-in-perpetual-futures)).
+
+<Callout title="The myth to kill">
+"The exchange earns the funding rate." It doesn't. Funding flows between longs and shorts. Venues earn from trading fees and liquidations — see [How Crypto Exchanges Make Money](/blog/how-crypto-exchanges-make-money).
+</Callout>
+
+## Who pays whom
+
+Funding direction follows market demand:
+
+- **Positive funding rate** → the perp is trading *above* spot (more demand to be long). **Longs pay shorts.**
+- **Negative funding rate** → the perp is trading *below* spot (more demand to be short). **Shorts pay longs.**
+
+This creates a gentle economic incentive to take the less-crowded side, pulling the perp price back toward spot.
+
+## How often it's paid
+
+Funding is exchanged on a fixed schedule. On Binance, funding "usually takes place every eight hours," though some contracts settle every 4 hours — and intervals can shorten during high volatility ([Binance: introduction to funding rates](https://www.binance.com/en/support/faq/detail/360033525031)). Eight hours (three times a day) is the most common convention, but it varies by venue and contract.
+
+## What it actually costs
+
+Funding is charged on your **notional** position size, not your margin — so leverage amplifies it. Drag the inputs to see how it adds up over time:
+
+<FundingCalculator />
+
+For a leveraged position held across many intervals, funding can quietly become a meaningful cost (or income, if you're on the receiving side). Traders watch it closely; so should anyone modeling the economics of a venue.
+
+## Why it matters for an exchange operator
+
+Funding isn't revenue, but it *is* a core feature traders expect — and getting it right (accurate index pricing, reliable settlement) is part of what makes a venue trustworthy. It also interacts with liquidation: funding payments draw down margin, which can bring a position closer to its [liquidation price](/blog/how-liquidation-price-is-calculated).
+
+## The takeaway
+
+The funding rate is the tether that keeps a no-expiry contract honest to spot. Longs and shorts pay each other, typically every 8 hours, on notional — and the exchange simply runs the mechanism.
+
+<SourceList id="funding-rates-explained" />
+
+*Funding intervals and formulas vary by exchange; figures reflect the cited documentation.*

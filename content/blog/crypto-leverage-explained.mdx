@@ -1,0 +1,54 @@
+---
+title: "Leverage Explained: What 125x Really Means for Risk"
+description: "Leverage lets a trader control a large position with a small margin — but it shrinks the distance to liquidation fast. Here's what 125x actually means, with an interactive calculator."
+cluster: "Trader Education"
+keyword: "crypto leverage explained"
+date: "2026-07-06"
+author: "GammaFloww Team"
+---
+
+Leverage is the headline feature of crypto derivatives — "up to 125x" is a common banner. But the number is widely misunderstood. Leverage doesn't just multiply your gains; it shrinks the room you have to be wrong.
+
+## Notional vs. margin
+
+Leverage is simply the ratio between the position you control (**notional**) and the collateral you post (**margin**):
+
+`Notional = Margin × Leverage`
+
+Post $1,000 at 25x, and you control $25,000 of exposure. A 1% move on $25,000 is $250 — a 25% swing on your $1,000 margin. That asymmetry is the whole point, and the whole danger.
+
+## Higher leverage = closer liquidation
+
+Here's the part the "125x" banner doesn't advertise: the more leverage you use, the smaller the price move needed to liquidate you. As a rough rule, the adverse move to liquidation is about **1 / leverage**:
+
+| Leverage | Approx. move to liquidation |
+|---|---|
+| 5x | ~20% |
+| 10x | ~10% |
+| 25x | ~4% |
+| 50x | ~2% |
+| 125x | ~0.8% |
+
+At 125x, a **sub-1% move** against you ends the position. (The maintenance margin rate makes it slightly tighter still.) See the exact mechanics in [How Liquidation Price Is Calculated](/blog/how-liquidation-price-is-calculated).
+
+Move the leverage slider and watch the liquidation price close in on your entry:
+
+<LiquidationCalculator />
+
+## Why exchanges offer it anyway
+
+High leverage attracts volume — and volume is [how exchanges make money](/blog/how-crypto-exchanges-make-money). But it also concentrates risk, which is why a venue needs robust margin tiers, maintenance-margin requirements, and a fast liquidation engine. Responsible venues pair high maximum leverage with tiered limits that reduce the max as position size grows ([Bybit: liquidation & margin](https://www.bybit.com/en/help-center/article/Liquidation-Price-Calculation-under-Isolated-Mode-Unified-Trading-Account)).
+
+<Callout title="Takeaway">
+Leverage multiplies exposure by shrinking your margin buffer. 125x sounds powerful, but it means liquidation on a &lt;1% move. For an operator, offering high leverage safely is a risk-engineering problem, not a marketing one.
+</Callout>
+
+## Related reading
+
+- [What Are Perpetual Futures?](/blog/what-are-perpetual-futures)
+- [Funding Rates Explained](/blog/funding-rates-explained)
+- [Isolated vs. Cross Margin](/blog/isolated-vs-cross-margin)
+
+<SourceList id="crypto-leverage-explained" />
+
+*Leverage caps, margin tiers, and maintenance-margin rates vary by exchange and jurisdiction; figures are illustrative and reflect the cited documentation.*

@@ -1,0 +1,49 @@
+---
+title: "How Liquidation Price Is Calculated (With Worked Examples)"
+description: "The liquidation price of a leveraged position isn't a mystery — it's a formula. Here's the isolated-margin calculation with a worked example and an interactive calculator, sourced to exchange docs."
+cluster: "Trader Education"
+keyword: "how is liquidation price calculated"
+date: "2026-07-05"
+author: "GammaFloww Team"
+---
+
+Liquidation is the moment a leveraged position is force-closed because its margin can no longer cover losses. The **liquidation price** is exactly where that happens — and for isolated margin, it's fully knowable in advance. Here's the math.
+
+## The simplified formula (isolated margin)
+
+For an isolated-margin position, a useful simplified estimate is:
+
+- **Long:** `Liq ≈ Entry × (1 − 1/Leverage + MMR)`
+- **Short:** `Liq ≈ Entry × (1 + 1/Leverage − MMR)`
+
+where **MMR** is the **maintenance margin rate** — the minimum margin the venue requires to keep the position open. Exchanges publish full formulas that also fold in fees; Bybit's, for example, accounts for the estimated fee to close the position and a maintenance-margin deduction ([Bybit: isolated liquidation](https://www.bybit.com/en/help-center/article/Liquidation-Price-Calculation-under-Isolated-Mode-Unified-Trading-Account), [Bybit: maintenance margin](https://www.bybit.com/en/help-center/article/Maintenance-Margin-USDT-Contract)).
+
+<Callout title="Note">
+This is a simplified estimate for intuition. It excludes trading fees and funding, which a live venue includes. Always rely on the exchange's own liquidation price for real trades.
+</Callout>
+
+## A worked example
+
+Say you go **long** BTC at an entry of **$67,500** with **10x** leverage and a maintenance margin rate of **0.5%**:
+
+`Liq ≈ 67,500 × (1 − 1/10 + 0.005) = 67,500 × 0.905 = $61,087.50`
+
+So a drop of about **9.5%** wipes out the position. Note the pattern: at 10x, roughly a 10% adverse move liquidates you; at 20x, ~5%; at 50x, ~2%. The maintenance margin rate shaves that threshold slightly closer.
+
+## Try it
+
+Change the leverage and maintenance margin rate and watch the liquidation price — and the "distance to liquidation" — move:
+
+<LiquidationCalculator />
+
+## Cross margin behaves differently
+
+Everything above is for **isolated** margin, where the liquidation price is fixed. Under **cross** margin, the liquidation price floats because it depends on your whole account balance and other open positions — see [Isolated vs. Cross Margin](/blog/isolated-vs-cross-margin).
+
+## Why this matters for an exchange
+
+The liquidation engine is one of the most safety-critical systems a venue runs: it must calculate these thresholds accurately, monitor mark prices in real time, and close positions cleanly so the platform never takes on bad debt. It's a core reason operators lean on proven infrastructure rather than building risk systems from scratch. (More on the business side in [How Crypto Exchanges Make Money](/blog/how-crypto-exchanges-make-money).)
+
+<SourceList id="how-liquidation-price-is-calculated" />
+
+*Formulas and maintenance-margin tiers vary by exchange and contract type; figures reflect the cited documentation.*
