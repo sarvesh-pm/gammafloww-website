@@ -81,13 +81,17 @@ export function Footer() {
         <div className="mt-12 border-t border-border pt-6">
           <p className="text-[11px] leading-relaxed text-faint">
             <span className="font-semibold text-muted">Disclaimer:</span> GammaFloww provides
-            white-label technology and infrastructure to businesses. Nothing on this website —
-            including blog articles, interactive calculators, and figures — constitutes financial,
-            investment, legal, tax, or trading advice, or an offer or solicitation to trade. Trading
-            crypto derivatives involves a high risk of loss and is not suitable for everyone.
-            Interactive tools produce illustrative estimates only; data points are sourced as noted
-            and may change. Availability of products and services depends on your jurisdiction and
-            applicable licensing. Always do your own research and consult qualified professionals.
+            white-label technology and infrastructure to businesses. It is not a retail exchange and
+            does not offer trading, investment, or financial services to the public. This website —
+            including blog articles, interactive tools, and figures — is for general informational
+            purposes for businesses evaluating infrastructure, and does not constitute financial,
+            investment, legal, tax, or trading advice, or an offer or solicitation. Operating an
+            exchange and offering crypto derivatives carry significant risk and regulatory
+            obligations; obtaining the necessary licences and meeting compliance requirements are the
+            responsibility of the operator. Interactive tools produce illustrative estimates only;
+            data is sourced as noted and may change. Availability of products and services depends on
+            jurisdiction and applicable licensing. Consult qualified legal and financial
+            professionals before making decisions.
           </p>
           <div className="mt-5 flex flex-col items-center justify-between gap-3 text-xs text-faint sm:flex-row">
             <span>© {new Date().getFullYear()} GammaFloww. All rights reserved.</span>
