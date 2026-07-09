@@ -4,11 +4,9 @@ export const site = {
   tagline: "White-label derivatives infrastructure for Web3.",
 };
 
-// Update these handles to the real accounts.
 export const socials = [
   { label: "X (Twitter)", href: "https://x.com/gammafloww", icon: "x" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/gammafloww", icon: "linkedin" },
-  { label: "Telegram", href: "https://t.me/gammafloww", icon: "telegram" },
+  { label: "YouTube", href: "https://www.youtube.com/@GammaFloww", icon: "youtube" },
 ] as const;
 
 export const nav = [

@@ -118,8 +118,17 @@ export function TelegramIcon(p: IconProps) {
   );
 }
 
+export function YoutubeIcon(p: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...p}>
+      <path d="M23.5 6.2a3 3 0 0 0-2.11-2.12C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.39.53A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.11 2.12c1.89.53 9.39.53 9.39.53s7.5 0 9.39-.53A3 3 0 0 0 23.5 17.8 31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.55 15.57V8.43L15.82 12l-6.27 3.57z" />
+    </svg>
+  );
+}
+
 export const socialIconMap = {
   x: XIcon,
+  youtube: YoutubeIcon,
   linkedin: LinkedInIcon,
   telegram: TelegramIcon,
 } as const;
