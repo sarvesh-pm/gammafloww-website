@@ -6,7 +6,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { site } from "@/lib/content";
-import { ArrowRightIcon } from "./Icons";
+import { ArrowRightIcon, CheckIcon } from "./Icons";
 import { ExchangePanel } from "./ExchangePanel";
 import { FlowField } from "./FlowField";
 import { CursorGlow } from "./CursorGlow";
@@ -113,11 +113,17 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.3, ease }}
-            className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-faint"
+            className="mt-10 flex flex-wrap items-center gap-2.5"
           >
-            <span>✓ Live in 4–8 weeks</span>
-            <span>✓ Up to 125x leverage</span>
-            <span>✓ 300+ trading pairs</span>
+            {["Live in 4–8 weeks", "Up to 125x leverage", "300+ trading pairs"].map((item) => (
+              <span
+                key={item}
+                className="inline-flex items-center gap-1.5 rounded-full border border-brand/25 bg-brand/[0.07] px-3.5 py-1.5 text-sm font-medium text-ink"
+              >
+                <CheckIcon className="h-3.5 w-3.5 flex-none text-brand" />
+                {item}
+              </span>
+            ))}
           </motion.div>
         </div>
 
