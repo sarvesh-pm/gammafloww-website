@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -54,6 +54,13 @@ export const metadata: Metadata = {
     description:
       "Launch a fully-featured futures & options exchange in weeks. You own the brand, we run the engine.",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f6f8fc" },
+    { media: "(prefers-color-scheme: dark)", color: "#05070b" },
+  ],
 };
 
 // Runs before paint to set the theme class and avoid a flash of the wrong theme.
