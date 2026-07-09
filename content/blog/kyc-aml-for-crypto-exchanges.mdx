@@ -1,0 +1,54 @@
+---
+title: "KYC/AML for Crypto Exchanges: Building the Compliance Stack"
+description: "Every regulated exchange needs a KYC/AML program — identity verification, sanctions screening, transaction monitoring, and the FATF Travel Rule. Here's the stack, sourced to FATF."
+cluster: "Regulation & Compliance"
+keyword: "crypto exchange KYC AML"
+date: "2026-06-20"
+author: "GammaFloww Team"
+---
+
+Whatever jurisdiction you license in, one requirement is universal: a working **KYC/AML program**. It's not a checkbox — it's an operational system that touches onboarding, every transaction, and your banking relationships. Get it wrong and you lose your licence (and your bank). Here's what the stack looks like.
+
+## The four pillars
+
+### 1. KYC — Know Your Customer
+
+Verify who your users are at onboarding: identity documents, proof of address, and liveness/biometric checks, with **enhanced due diligence (EDD)** for higher-risk customers. Risk-rate each customer so monitoring can be proportionate.
+
+### 2. Sanctions & PEP screening
+
+Screen customers (and often counterparties) against sanctions lists (OFAC, UN, EU) and politically-exposed-person lists — at onboarding and continuously, since lists change.
+
+### 3. Transaction monitoring
+
+Monitor activity for suspicious patterns — structuring, rapid in-out flows, links to illicit addresses — and file **Suspicious Activity Reports (SARs)** with the relevant financial-intelligence unit when thresholds are met. On-chain analytics tie wallet activity to risk scores.
+
+### 4. The FATF Travel Rule
+
+This is the crypto-specific one. FATF's **Recommendation 16** — the "Travel Rule" — requires that for virtual-asset transfers at or above the **USD/EUR 1,000** threshold, the originating VASP collects and transmits identifying information about both sender and recipient to the receiving VASP ([FATF](https://www.fatf-gafi.org/)). FATF updated Recommendation 16 at its June 2025 plenary, with changes phasing in as jurisdictions adopt them ([FATF: Travel Rule best practices](https://www.fatf-gafi.org/content/dam/fatf-gafi/recommendations/Best-Practices-Travel-Rule-Supervision.pdf)).
+
+<Callout title="Why the Travel Rule is hard">
+Unlike a bank wire, a crypto transfer doesn't natively carry sender/recipient identity. The Travel Rule forces VASPs to exchange that data out-of-band, which is why interoperable Travel Rule messaging is now a core piece of exchange compliance tooling.
+</Callout>
+
+## How it fits together
+
+| Layer | What it does | When it runs |
+|---|---|---|
+| KYC / identity | Verify who the user is | Onboarding + periodic refresh |
+| Sanctions / PEP | Screen against watchlists | Onboarding + continuous |
+| Transaction monitoring | Detect suspicious activity | Every transaction |
+| Travel Rule | Share originator/beneficiary data | Transfers ≥ ~$1,000 |
+| Reporting | File SARs / regulatory reports | On trigger |
+
+## What this means for an operator
+
+Compliance is an ongoing operating cost and a licence condition — not a one-time setup. Most exchanges assemble it from specialist vendors (identity verification, chain analytics, Travel Rule networks) wired into the platform. It also intersects with your licence: the [jurisdiction you choose](/blog/crypto-derivatives-licensing-global-guide) sets the specific thresholds, reporting bodies, and record-keeping rules.
+
+## The takeaway
+
+A crypto exchange's compliance stack is four layers — KYC, sanctions screening, transaction monitoring, and the FATF Travel Rule — running continuously, not once. Budget for it as core infrastructure, because regulators and banks treat it as the price of admission.
+
+<SourceList id="kyc-aml-for-crypto-exchanges" />
+
+*General information, not legal or compliance advice. AML obligations vary by jurisdiction and change over time — confirm current rules with your regulator, FATF guidance, and qualified counsel. As of 2026.*

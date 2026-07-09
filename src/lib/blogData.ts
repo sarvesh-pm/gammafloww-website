@@ -41,6 +41,30 @@ export const charts: Record<string, ChartData> = {
     sourceHref: "https://www.binance.com/en/fee/futureFee",
     asOf: "2026",
   },
+  "mica-capital-tiers": {
+    title: "MiCA CASP minimum capital by class (Annex IV)",
+    data: [
+      { label: "Class 1 (advice, execution)", value: 50, display: "€50k", tone: "cyan" },
+      { label: "Class 2 (exchange, custody)", value: 125, display: "€125k", tone: "brand" },
+      { label: "Class 3 (trading platform)", value: 150, display: "€150k", tone: "brand" },
+    ],
+    source: "ESMA — MiCA minimum capital requirements",
+    sourceHref:
+      "https://www.esma.europa.eu/publications-and-data/interactive-single-rulebook/mica/minimum-capital-requirements-crypto-asset",
+    asOf: "2026",
+  },
+  "vara-capital-by-category": {
+    title: "VARA minimum paid-up capital by licence category (indicative, AED)",
+    data: [
+      { label: "Advisory", value: 0.5, display: "0.5M", tone: "cyan" },
+      { label: "Broker-dealer", value: 1.5, display: "1.5M", tone: "brand" },
+      { label: "Custody", value: 1.5, display: "1.5M", tone: "brand" },
+      { label: "Exchange", value: 5, display: "5M", tone: "brand" },
+    ],
+    source: "VARA Company Rulebook (verify current figures with VARA)",
+    sourceHref: "https://www.vara.ae/en/licenses-and-register/licence-applications/",
+    asOf: "2026",
+  },
 };
 
 export const sourceSets: Record<string, Source[]> = {
@@ -106,5 +130,24 @@ export const sourceSets: Record<string, Source[]> = {
   "go-to-market-new-crypto-exchange": [
     { label: "Exchange Review, March 2026 (derivatives = 76.5% of CEX volume)", href: "https://data.coindesk.com/reports/exchange-review-march-2026", publisher: "CCData" },
     { label: "2025 Annual Crypto Report", href: "https://www.coingecko.com/research/publications/2025-annual-crypto-report", publisher: "CoinGecko" },
+  ],
+  "crypto-derivatives-licensing-global-guide": [
+    { label: "MiCA — minimum capital requirements for CASPs", href: "https://www.esma.europa.eu/publications-and-data/interactive-single-rulebook/mica/minimum-capital-requirements-crypto-asset", publisher: "ESMA (EU)" },
+    { label: "VASP licence applications & categories", href: "https://www.vara.ae/en/licenses-and-register/licence-applications/", publisher: "VARA (Dubai)" },
+    { label: "Guidelines on licensing for Digital Token Service Providers", href: "https://www.mas.gov.sg/regulation/guidelines/guidelines-on-licensing-for-dtsps", publisher: "MAS (Singapore)" },
+    { label: "Virtual asset trading platform operators", href: "https://www.sfc.hk/en/Rules-and-standards/Virtual-assets/Virtual-asset-trading-platforms-operators", publisher: "SFC (Hong Kong)" },
+    { label: "Designated Contract Markets (DCMs)", href: "https://www.cftc.gov/IndustryOversight/TradingOrganizations/DCMs/index.htm", publisher: "CFTC (US)" },
+  ],
+  "mica-crypto-derivatives-casp-license": [
+    { label: "MiCA — minimum capital requirements for CASPs (Annex IV)", href: "https://www.esma.europa.eu/publications-and-data/interactive-single-rulebook/mica/minimum-capital-requirements-crypto-asset", publisher: "ESMA" },
+    { label: "Markets in Crypto-Assets (MiCA) — interactive rulebook", href: "https://www.esma.europa.eu/publications-and-data/interactive-single-rulebook/mica", publisher: "ESMA" },
+  ],
+  "uae-vara-crypto-derivatives-license": [
+    { label: "Licence applications & categories", href: "https://www.vara.ae/en/licenses-and-register/licence-applications/", publisher: "VARA" },
+    { label: "Licensed activities (FAQ)", href: "https://www.vara.ae/en/faq/", publisher: "VARA" },
+  ],
+  "kyc-aml-for-crypto-exchanges": [
+    { label: "Best practices on Travel Rule supervision (June 2025)", href: "https://www.fatf-gafi.org/content/dam/fatf-gafi/recommendations/Best-Practices-Travel-Rule-Supervision.pdf", publisher: "FATF" },
+    { label: "Financial Action Task Force (Recommendation 16 / Travel Rule)", href: "https://www.fatf-gafi.org/", publisher: "FATF" },
   ],
 };
