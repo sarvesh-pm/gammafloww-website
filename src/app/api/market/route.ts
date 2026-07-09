@@ -7,9 +7,9 @@ import { NextResponse } from "next/server";
 
 const SYMBOLS = ["BTC", "ETH", "SOL", "BNB", "XRP", "DOGE", "AVAX", "LINK", "ADA", "LTC"];
 
-// Cache the upstream response so CMC is hit at most ~once/minute regardless of
-// traffic (respects the free-tier credit budget).
-export const revalidate = 60;
+// Run per-request so the secret env var is read at runtime (not baked in at
+// build). The upstream CMC call is still cached 60s below to respect credits.
+export const dynamic = "force-dynamic";
 
 type Quote = { price: number; change24h: number };
 
