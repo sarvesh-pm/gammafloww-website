@@ -14,6 +14,10 @@ const H = 176;
 const N = 32;
 const STEP = W / N;
 
+// Maps the 1H/1D/1W toggle to Binance kline intervals.
+const INTERVAL: Record<TimeframeKey, string> = { "1H": "1h", "1D": "1d", "1W": "1w" };
+const POLL_MS = 20000;
+
 function useReducedMotion() {
   const [reduce, setReduce] = useState(false);
   useEffect(() => {
@@ -29,33 +33,79 @@ function useReducedMotion() {
 export function ExchangePanel() {
   const [tf, setTf] = useState<TimeframeKey>("1D");
   const config = useMemo(() => TIMEFRAMES.find((t) => t.key === tf)!, [tf]);
+  // Seeded initial data — SSR-safe and used as the fallback if the live feed fails.
   const [candles, setCandles] = useState<Candle[]>(() =>
     buildCandles(20260709, N, config.base, config.vol),
   );
+  // null = still resolving, true = live feed, false = fallback (DEMO)
+  const [isLive, setIsLive] = useState<boolean | null>(null);
+  // Live price + 24h change for the header (matches the ticker convention).
+  const [stats, setStats] = useState<{ price: number; changePct: number } | null>(null);
   const [hover, setHover] = useState<number | null>(null);
   const reduce = useReducedMotion();
   const svgRef = useRef<SVGSVGElement>(null);
   const tickCount = useRef(0);
 
-  // Regenerate when the timeframe changes.
+  // Fetch real BTC/USDT candles from Binance; poll to keep them fresh.
   useEffect(() => {
+    let cancelled = false;
+
+    async function load() {
+      try {
+        const res = await fetch(
+          `https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=${INTERVAL[tf]}&limit=${N}`,
+          { cache: "no-store" },
+        );
+        if (!res.ok) throw new Error(`status ${res.status}`);
+        const raw: unknown = await res.json();
+        if (!Array.isArray(raw) || raw.length === 0) throw new Error("bad payload");
+        const mapped: Candle[] = (raw as string[][]).map((k) => ({
+          o: +k[1],
+          h: +k[2],
+          l: +k[3],
+          c: +k[4],
+        }));
+        if (cancelled) return;
+        setCandles(mapped);
+        setIsLive(true);
+        // Best-effort 24h price/change for the header.
+        try {
+          const t = await fetch("https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT", { cache: "no-store" });
+          if (t.ok) {
+            const j = await t.json();
+            if (!cancelled) setStats({ price: +j.lastPrice, changePct: +j.priceChangePercent });
+          }
+        } catch {
+          /* header falls back to candle-derived values */
+        }
+      } catch {
+        if (!cancelled) setIsLive(false); // fall back to the seeded/simulated data
+      }
+    }
+
+    load();
+    const poll = window.setInterval(() => {
+      if (!document.hidden) load();
+    }, POLL_MS);
+    return () => {
+      cancelled = true;
+      window.clearInterval(poll);
+    };
+  }, [tf]);
+
+  // Fallback animation only: if the live feed is unavailable, keep the demo chart moving.
+  useEffect(() => {
+    if (isLive !== false || reduce) return;
+    // reset to seeded data for this timeframe, then random-walk it
     setCandles(buildCandles(20260709, N, config.base, config.vol));
     tickCount.current = 0;
-  }, [config]);
-
-  // Live ticks (paused for reduced-motion or when tab is hidden).
-  useEffect(() => {
-    if (reduce) return;
-    let id: number;
-    const run = () => {
-      if (!document.hidden) {
-        tickCount.current += 1;
-        setCandles((prev) => tickCandles(prev, config.vol * 0.5, tickCount.current % config.rollEvery === 0));
-      }
-    };
-    id = window.setInterval(run, 1300);
+    const id = window.setInterval(() => {
+      if (document.hidden) return;
+      tickCount.current += 1;
+      setCandles((prev) => tickCandles(prev, config.vol * 0.5, tickCount.current % config.rollEvery === 0));
+    }, 1300);
     return () => window.clearInterval(id);
-  }, [config, reduce]);
+  }, [isLive, config, reduce]);
 
   const { min, max } = useMemo(() => {
     let mn = Infinity;
@@ -68,23 +118,22 @@ export function ExchangePanel() {
     return { min: mn - pad, max: mx + pad };
   }, [candles]);
 
-  const yFor = useCallback(
-    (price: number) => H - ((price - min) / (max - min)) * H,
-    [min, max],
-  );
+  const yFor = useCallback((price: number) => H - ((price - min) / (max - min)) * H, [min, max]);
 
   const last = candles[candles.length - 1];
   const first = candles[0];
-  const price = last.c;
-  const changePct = ((price - first.o) / first.o) * 100;
+  // Header shows live price + 24h change when available; otherwise derives from the window.
+  const price = stats?.price ?? last.c;
+  const changePct = stats?.changePct ?? ((last.c - first.o) / first.o) * 100;
   const up = changePct >= 0;
 
-  const linePath = useMemo(() => {
-    return candles
-      .map((c, i) => `${i === 0 ? "M" : "L"}${(i * STEP + STEP / 2).toFixed(1)} ${yFor(c.c).toFixed(1)}`)
-      .join(" ");
-  }, [candles, yFor]);
-
+  const linePath = useMemo(
+    () =>
+      candles
+        .map((c, i) => `${i === 0 ? "M" : "L"}${(i * STEP + STEP / 2).toFixed(1)} ${yFor(c.c).toFixed(1)}`)
+        .join(" "),
+    [candles, yFor],
+  );
   const areaPath = `${linePath} L${W} ${H} L${STEP / 2} ${H} Z`;
 
   const onMove = (e: React.PointerEvent<SVGSVGElement>) => {
@@ -111,9 +160,7 @@ export function ExchangePanel() {
             <div>
               <div className="flex items-center gap-2 text-sm font-semibold">
                 BTC/USDT
-                <span className="rounded bg-surface-2 px-1.5 py-0.5 text-[10px] font-medium text-faint">
-                  PERP
-                </span>
+                <span className="rounded bg-surface-2 px-1.5 py-0.5 text-[10px] font-medium text-faint">PERP</span>
               </div>
               <div className="font-mono text-xs text-faint">Perpetual · 125x</div>
             </div>
@@ -129,7 +176,7 @@ export function ExchangePanel() {
           </div>
         </div>
 
-        {/* Timeframe toggle */}
+        {/* Timeframe toggle + status badge */}
         <div className="flex items-center gap-1 px-4 pt-3">
           {TIMEFRAMES.map((t) => (
             <button
@@ -138,21 +185,24 @@ export function ExchangePanel() {
               onClick={() => setTf(t.key)}
               aria-pressed={tf === t.key}
               className={`rounded-md px-2.5 py-1 font-mono text-xs transition-colors ${
-                tf === t.key
-                  ? "bg-brand/15 text-brand"
-                  : "text-faint hover:text-ink"
+                tf === t.key ? "bg-brand/15 text-brand" : "text-faint hover:text-ink"
               }`}
             >
               {t.key}
             </button>
           ))}
-          {!reduce && (
-            <span className="ml-auto flex items-center gap-1.5 font-mono text-[10px] text-faint">
+          {isLive === true && (
+            <span className="ml-auto flex items-center gap-1.5 font-mono text-[10px] text-faint" title="Live BTC/USDT from Binance">
               <span className="relative flex h-1.5 w-1.5">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-up opacity-75" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-up" />
               </span>
               LIVE
+            </span>
+          )}
+          {isLive === false && (
+            <span className="ml-auto font-mono text-[10px] text-faint" title="Live feed unavailable — showing an illustrative demo">
+              DEMO
             </span>
           )}
         </div>
@@ -203,16 +253,8 @@ export function ExchangePanel() {
             })}
 
             <path d={areaPath} fill="url(#area)" />
-            <path
-              d={linePath}
-              fill="none"
-              stroke="var(--up)"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+            <path d={linePath} fill="none" stroke="var(--up)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
 
-            {/* Crosshair */}
             {hoverCandle && (
               <g>
                 <line x1={hoverX} x2={hoverX} y1="0" y2={H} stroke="var(--muted)" strokeWidth="0.75" strokeDasharray="3 3" opacity="0.6" />
@@ -222,7 +264,6 @@ export function ExchangePanel() {
             )}
           </svg>
 
-          {/* Tooltip */}
           {hoverCandle && (
             <div
               className="pointer-events-none absolute top-2 z-10 -translate-x-1/2 rounded-lg border border-border bg-surface px-2.5 py-1.5 shadow-soft"

@@ -1,17 +1,47 @@
-const pairs = [
-  { s: "BTC/USDT", p: "67,412.80", c: 2.41 },
-  { s: "ETH/USDT", p: "3,542.10", c: 1.18 },
-  { s: "SOL/USDT", p: "184.27", c: 5.02 },
-  { s: "BNB/USDT", p: "612.44", c: -0.73 },
-  { s: "XRP/USDT", p: "0.6231", c: 3.14 },
-  { s: "DOGE/USDT", p: "0.1642", c: -1.28 },
-  { s: "AVAX/USDT", p: "42.88", c: 4.37 },
-  { s: "LINK/USDT", p: "18.05", c: 0.94 },
-  { s: "ARB/USDT", p: "1.204", c: -2.11 },
-  { s: "TON/USDT", p: "7.42", c: 1.66 },
+"use client";
+
+import { useEffect, useState } from "react";
+
+type Pair = { s: string; p: string; c: number };
+
+// Binance symbols → display labels. Fallback values shown only if the feed fails.
+const SYMBOLS = [
+  "BTCUSDT",
+  "ETHUSDT",
+  "SOLUSDT",
+  "BNBUSDT",
+  "XRPUSDT",
+  "DOGEUSDT",
+  "AVAXUSDT",
+  "LINKUSDT",
+  "ADAUSDT",
+  "LTCUSDT",
 ];
 
-function Row() {
+const FALLBACK: Pair[] = [
+  { s: "BTC/USDT", p: "—", c: 0 },
+  { s: "ETH/USDT", p: "—", c: 0 },
+  { s: "SOL/USDT", p: "—", c: 0 },
+  { s: "BNB/USDT", p: "—", c: 0 },
+  { s: "XRP/USDT", p: "—", c: 0 },
+  { s: "DOGE/USDT", p: "—", c: 0 },
+  { s: "AVAX/USDT", p: "—", c: 0 },
+  { s: "LINK/USDT", p: "—", c: 0 },
+  { s: "ADA/USDT", p: "—", c: 0 },
+  { s: "LTC/USDT", p: "—", c: 0 },
+];
+
+function fmtPrice(n: number) {
+  if (n >= 100) return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  if (n >= 1) return n.toFixed(2);
+  return n.toPrecision(4);
+}
+
+function label(symbol: string) {
+  return symbol.replace("USDT", "/USDT");
+}
+
+function Row({ pairs }: { pairs: Pair[] }) {
   return (
     <div className="flex shrink-0 items-center">
       {pairs.map((pair) => {
@@ -31,16 +61,45 @@ function Row() {
 }
 
 export function Ticker() {
+  const [pairs, setPairs] = useState<Pair[]>(FALLBACK);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function load() {
+      try {
+        const url = `https://api.binance.com/api/v3/ticker/24hr?symbols=${encodeURIComponent(JSON.stringify(SYMBOLS))}`;
+        const res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) throw new Error(`status ${res.status}`);
+        const data: { symbol: string; lastPrice: string; priceChangePercent: string }[] = await res.json();
+        if (cancelled || !Array.isArray(data)) return;
+        const bySymbol = new Map(data.map((d) => [d.symbol, d]));
+        const next = SYMBOLS.map((sym) => {
+          const d = bySymbol.get(sym);
+          return d
+            ? { s: label(sym), p: fmtPrice(+d.lastPrice), c: +d.priceChangePercent }
+            : { s: label(sym), p: "—", c: 0 };
+        });
+        setPairs(next);
+      } catch {
+        /* keep fallback */
+      }
+    }
+    load();
+    const poll = window.setInterval(() => {
+      if (!document.hidden) load();
+    }, 30000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(poll);
+    };
+  }, []);
+
   return (
     <div className="relative overflow-hidden border-y border-border bg-surface/50">
-      <div
-        className="flex w-max animate-marquee hover:[animation-play-state:paused]"
-        aria-hidden="true"
-      >
-        <Row />
-        <Row />
+      <div className="flex w-max animate-marquee hover:[animation-play-state:paused]" aria-hidden="true">
+        <Row pairs={pairs} />
+        <Row pairs={pairs} />
       </div>
-      {/* edge fades */}
       <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-bg to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-bg to-transparent" />
     </div>
