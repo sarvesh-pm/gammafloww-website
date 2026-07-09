@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useReducedMotion } from "motion/react";
 import {
   buildCandles,
   tickCandles,
@@ -16,18 +17,6 @@ const N = 32;
 const STEP = W / N;
 
 const INTERVAL: Record<TimeframeKey, string> = { "1H": "1h", "1D": "1d", "1W": "1w" };
-
-function useReducedMotion() {
-  const [reduce, setReduce] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduce(mq.matches);
-    const on = () => setReduce(mq.matches);
-    mq.addEventListener("change", on);
-    return () => mq.removeEventListener("change", on);
-  }, []);
-  return reduce;
-}
 
 export function ExchangePanel() {
   const [tf, setTf] = useState<TimeframeKey>("1D");

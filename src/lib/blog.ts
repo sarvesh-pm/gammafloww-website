@@ -61,10 +61,3 @@ export function getPostSource(slug: string): { meta: PostMeta; source: string } 
     return null;
   }
 }
-
-export const CLUSTERS = [
-  "Launch & Buy",
-  "Operator Playbook",
-  "Regulation & Compliance",
-  "Trader Education",
-] as const;
