@@ -65,6 +65,16 @@ export const charts: Record<string, ChartData> = {
     sourceHref: "https://www.vara.ae/en/licenses-and-register/licence-applications/",
     asOf: "2026",
   },
+  "time-to-launch": {
+    title: "Time to launch: white-label vs. building from scratch",
+    data: [
+      { label: "White-label", value: 6, display: "4–8 wks", tone: "brand" },
+      { label: "Build from scratch", value: 65, display: "12–18 mo", tone: "muted" },
+    ],
+    source: "Industry build-vs-buy analyses (indicative)",
+    sourceHref: "https://codono.com/blog/white-label-crypto-exchange-vs-custom-build",
+    asOf: "2026",
+  },
 };
 
 export const sourceSets: Record<string, Source[]> = {
@@ -149,5 +159,22 @@ export const sourceSets: Record<string, Source[]> = {
   "kyc-aml-for-crypto-exchanges": [
     { label: "Best practices on Travel Rule supervision (June 2025)", href: "https://www.fatf-gafi.org/content/dam/fatf-gafi/recommendations/Best-Practices-Travel-Rule-Supervision.pdf", publisher: "FATF" },
     { label: "Financial Action Task Force (Recommendation 16 / Travel Rule)", href: "https://www.fatf-gafi.org/", publisher: "FATF" },
+  ],
+  "white-label-crypto-derivatives-exchange-guide": [
+    { label: "White-label crypto exchange costs: complete breakdown", href: "https://b2broker.com/news/white-label-crypto-exchange-cost/", publisher: "B2Broker" },
+    { label: "White-label vs. building from scratch: cost comparison", href: "https://codono.com/blog/white-label-crypto-exchange-vs-custom-build", publisher: "Codono" },
+    { label: "Exchange Review, March 2026 (derivatives = 76.5% of volume)", href: "https://data.coindesk.com/reports/exchange-review-march-2026", publisher: "CCData" },
+  ],
+  "how-to-launch-a-crypto-derivatives-exchange": [
+    { label: "Crypto derivatives exchange development: essential steps", href: "https://b2broker.com/news/crypto-derivatives-exchange-development/", publisher: "B2Broker" },
+    { label: "White-label crypto exchange costs: complete breakdown", href: "https://b2broker.com/news/white-label-crypto-exchange-cost/", publisher: "B2Broker" },
+  ],
+  "white-label-vs-building-crypto-exchange": [
+    { label: "Build vs. buy: develop or white-label a crypto exchange?", href: "https://www.finextra.com/blogposting/31281/build-vs-buy-should-startups-develop-or-white-label-a-crypto-exchange", publisher: "Finextra" },
+    { label: "White-label vs. building from scratch: 2026 cost comparison", href: "https://codono.com/blog/white-label-crypto-exchange-vs-custom-build", publisher: "Codono" },
+  ],
+  "cost-to-launch-crypto-derivatives-exchange": [
+    { label: "White-label crypto exchange costs: complete breakdown", href: "https://b2broker.com/news/white-label-crypto-exchange-cost/", publisher: "B2Broker" },
+    { label: "White-label crypto exchange cost: what to expect in 2026", href: "https://btsesolutions.com/articles/white-label-crypto-exchange-cost", publisher: "BTSE Solutions" },
   ],
 };
