@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { nav, site, socials } from "@/lib/content";
+import { HashLink } from "./HashLink";
 import { Logo } from "./Logo";
 import { socialIconMap } from "./Icons";
 
@@ -14,12 +15,12 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-14">
         <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-sm">
-            <Link href="/#top" className="flex items-center gap-2.5">
+            <HashLink href="/#top" className="flex items-center gap-2.5">
               <Logo className="h-7 w-7" />
               <span className="text-[17px] font-semibold tracking-tight">
                 Gamma<span className="text-brand">Floww</span>
               </span>
-            </Link>
+            </HashLink>
             <p className="mt-4 text-sm leading-relaxed text-muted">{site.tagline}</p>
             <a
               href={site.demoUrl}
@@ -57,9 +58,9 @@ export function Footer() {
               <ul className="mt-4 space-y-3">
                 {nav.map((item) => (
                   <li key={item.label}>
-                    <Link href={item.href} className="text-sm text-muted transition-colors hover:text-ink">
+                    <HashLink href={item.href} className="text-sm text-muted transition-colors hover:text-ink">
                       {item.label}
-                    </Link>
+                    </HashLink>
                   </li>
                 ))}
               </ul>

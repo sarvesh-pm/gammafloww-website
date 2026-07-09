@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { nav, site } from "@/lib/content";
+import { HashLink } from "./HashLink";
 import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -35,22 +35,22 @@ export function Navbar() {
             : "my-4 border border-transparent py-3"
         }`}
       >
-        <Link href="/#top" className="flex items-center gap-2.5" aria-label={site.name}>
+        <HashLink href="/#top" className="flex items-center gap-2.5" aria-label={site.name}>
           <Logo className="h-7 w-7" />
           <span className="text-[17px] font-semibold tracking-tight">
             Gamma<span className="text-brand">Floww</span>
           </span>
-        </Link>
+        </HashLink>
 
         <nav className="hidden items-center gap-8 md:flex">
           {nav.map((item) => (
-            <Link
+            <HashLink
               key={item.label}
               href={item.href}
               className="text-sm text-muted transition-colors hover:text-ink"
             >
               {item.label}
-            </Link>
+            </HashLink>
           ))}
         </nav>
 
@@ -89,14 +89,14 @@ export function Navbar() {
         <div className="relative z-10 mx-3 rounded-2xl border border-border bg-surface p-4 shadow-glow md:hidden">
           <nav className="flex flex-col">
             {nav.map((item) => (
-              <Link
+              <HashLink
                 key={item.label}
                 href={item.href}
                 onClick={() => setOpen(false)}
                 className="border-b border-border/60 py-3 text-sm text-muted last:border-0 hover:text-ink"
               >
                 {item.label}
-              </Link>
+              </HashLink>
             ))}
             <a
               href={site.demoUrl}
