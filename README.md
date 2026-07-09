@@ -57,6 +57,14 @@ src/
 
 All colors flow through semantic tokens in `src/app/globals.css` (`--brand`, `--cyan`, `--up`, `--down`, gradient stops, etc.), defined per theme (`:root` = light, `.dark` = dark). P&L colors (`--up` green / `--down` red) are independent of the brand color, so the brand palette can be reskinned without touching market-data semantics.
 
+## Environment variables
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `CMC_API_KEY` | Optional | CoinMarketCap API key for the **fallback** price feed. Live market data comes from Binance (client-side); if Binance is unavailable (e.g. geo-blocked), the app falls back to CoinMarketCap via a server route (`/api/market`) that keeps this key server-side. If unset, the fallback is simply dormant. |
+
+Set it locally in `.env.local` and in your Vercel project settings (never commit real keys).
+
 ## Deployment
 
 Deployed on [Vercel](https://vercel.com) — every push to `main` triggers an automatic build and deploy.

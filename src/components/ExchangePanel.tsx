@@ -63,11 +63,23 @@ export function ExchangePanel() {
       setIsLive(true);
     }
     async function loadStats() {
+      // Primary: Binance 24h ticker
       try {
         const t = await fetch(`${base}/ticker/24hr?symbol=BTCUSDT`, { cache: "no-store" });
         if (t.ok) {
           const j = await t.json();
           if (!cancelled) setStats({ price: +j.lastPrice, changePct: +j.priceChangePercent });
+          return;
+        }
+      } catch {
+        /* fall through to CoinMarketCap */
+      }
+      // Secondary: CoinMarketCap via our server proxy
+      try {
+        const r = await fetch("/api/market", { cache: "no-store" });
+        const j = await r.json();
+        if (!cancelled && j.available && j.data?.BTC) {
+          setStats({ price: j.data.BTC.price, changePct: j.data.BTC.change24h });
         }
       } catch {
         /* header falls back to candle-derived values */
@@ -142,7 +154,13 @@ export function ExchangePanel() {
         loadStats();
         connectWs();
       } catch {
-        if (!cancelled) setIsLive(false); // DEMO fallback
+        // Binance candles unavailable → DEMO chart, but still try for a real
+        // header price (CMC) and keep polling in case Binance recovers.
+        if (!cancelled) {
+          setIsLive(false);
+          loadStats();
+          startPoll();
+        }
       }
     })();
 

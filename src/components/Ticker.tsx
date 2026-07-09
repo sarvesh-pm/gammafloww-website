@@ -49,7 +49,8 @@ export function Ticker() {
     let ws: WebSocket | null = null;
     let pollId: number | null = null;
 
-    async function loadRest() {
+    async function loadPrices() {
+      // Primary: Binance REST
       try {
         const url = `https://api.binance.com/api/v3/ticker/24hr?symbols=${encodeURIComponent(JSON.stringify(SYMBOLS))}`;
         const res = await fetch(url, { cache: "no-store" });
@@ -61,11 +62,24 @@ export function Ticker() {
           const d = bySym.get(sym);
           return d ? { s: label(sym), p: fmtPrice(+d.lastPrice), c: +d.priceChangePercent } : { s: label(sym), p: "—", c: 0 };
         }));
+        return;
+      } catch {
+        /* fall through to CoinMarketCap */
+      }
+      // Secondary: CoinMarketCap via our server proxy
+      try {
+        const res = await fetch("/api/market", { cache: "no-store" });
+        const j = await res.json();
+        if (cancelled || !j.available || !j.data) return;
+        setPairs(SYMBOLS.map((sym) => {
+          const q = j.data[sym.replace("USDT", "")];
+          return q ? { s: label(sym), p: fmtPrice(q.price), c: q.change24h } : { s: label(sym), p: "—", c: 0 };
+        }));
       } catch {
         /* keep current */
       }
     }
-    const startPoll = () => { if (pollId == null) pollId = window.setInterval(() => { if (!document.hidden) loadRest(); }, 30000); };
+    const startPoll = () => { if (pollId == null) pollId = window.setInterval(() => { if (!document.hidden) loadPrices(); }, 30000); };
     const stopPoll = () => { if (pollId != null) { window.clearInterval(pollId); pollId = null; } };
 
     const connectWs = () => {
@@ -92,7 +106,7 @@ export function Ticker() {
       }
     };
 
-    loadRest(); // immediate baseline
+    loadPrices(); // immediate baseline (Binance, else CoinMarketCap)
     connectWs(); // live stream
 
     return () => {
