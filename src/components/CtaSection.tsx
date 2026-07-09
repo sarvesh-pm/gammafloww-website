@@ -32,12 +32,6 @@ export function CtaSection() {
                     <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                   </a>
                 </Magnetic>
-                <a
-                  href="#features"
-                  className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold text-ink transition-colors hover:bg-surface"
-                >
-                  Review the platform
-                </a>
               </div>
             </div>
           </div>
