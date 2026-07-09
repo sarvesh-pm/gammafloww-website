@@ -107,12 +107,6 @@ export function Hero() {
                 <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </a>
             </Magnetic>
-            <a
-              href="#features"
-              className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-surface"
-            >
-              Explore the platform
-            </a>
           </motion.div>
 
           <motion.div
