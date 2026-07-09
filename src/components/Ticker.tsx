@@ -1,16 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { usePriceFeed } from "@/lib/usePriceFeed";
 import { CoinIcon } from "./CoinIcon";
-
-type Pair = { s: string; p: string; c: number };
 
 const SYMBOLS = [
   "BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT", "XRPUSDT",
   "DOGEUSDT", "AVAXUSDT", "LINKUSDT", "ADAUSDT", "LTCUSDT",
 ];
 
-const FALLBACK: Pair[] = SYMBOLS.map((s) => ({ s: label(s), p: "—", c: 0 }));
+type Pair = { s: string; p: string; c: number };
 
 function fmtPrice(n: number) {
   if (n >= 100) return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -42,84 +40,11 @@ function Row({ pairs }: { pairs: Pair[] }) {
 }
 
 export function Ticker() {
-  const [pairs, setPairs] = useState<Pair[]>(FALLBACK);
-
-  useEffect(() => {
-    let cancelled = false;
-    let ws: WebSocket | null = null;
-    let pollId: number | null = null;
-
-    async function loadPrices() {
-      // Primary: Binance REST
-      try {
-        const url = `https://api.binance.com/api/v3/ticker/24hr?symbols=${encodeURIComponent(JSON.stringify(SYMBOLS))}`;
-        const res = await fetch(url, { cache: "no-store" });
-        if (!res.ok) throw new Error();
-        const data: { symbol: string; lastPrice: string; priceChangePercent: string }[] = await res.json();
-        if (cancelled || !Array.isArray(data)) return;
-        const bySym = new Map(data.map((d) => [d.symbol, d]));
-        setPairs(SYMBOLS.map((sym) => {
-          const d = bySym.get(sym);
-          return d ? { s: label(sym), p: fmtPrice(+d.lastPrice), c: +d.priceChangePercent } : { s: label(sym), p: "—", c: 0 };
-        }));
-        return;
-      } catch {
-        /* fall through to CoinMarketCap */
-      }
-      // Secondary: CoinMarketCap via our server proxy
-      try {
-        const res = await fetch("/api/market", { cache: "no-store" });
-        const j = await res.json();
-        if (cancelled || !j.available || !j.data) return;
-        setPairs(SYMBOLS.map((sym) => {
-          const q = j.data[sym.replace("USDT", "")];
-          return q ? { s: label(sym), p: fmtPrice(q.price), c: q.change24h } : { s: label(sym), p: "—", c: 0 };
-        }));
-      } catch {
-        /* keep current */
-      }
-    }
-    const startPoll = () => { if (pollId == null) pollId = window.setInterval(() => { if (!document.hidden) loadPrices(); }, 30000); };
-    const stopPoll = () => { if (pollId != null) { window.clearInterval(pollId); pollId = null; } };
-
-    const connectWs = () => {
-      try {
-        const streams = SYMBOLS.map((s) => s.toLowerCase() + "@ticker").join("/");
-        ws = new WebSocket(`wss://stream.binance.com:9443/stream?streams=${streams}`);
-        ws.onmessage = (ev) => {
-          try {
-            const { data } = JSON.parse(ev.data);
-            if (!data || !data.s) return;
-            const s = label(data.s);
-            setPairs((prev) => prev.map((p) => (p.s === s ? { s, p: fmtPrice(+data.c), c: +data.P } : p)));
-            stopPoll(); // streaming confirmed
-          } catch {
-            /* ignore */
-          }
-        };
-        ws.onerror = () => {
-          try { ws?.close(); } catch { /* noop */ }
-        };
-        ws.onclose = () => { if (!cancelled) startPoll(); };
-      } catch {
-        startPoll();
-      }
-    };
-
-    loadPrices(); // immediate baseline (Binance, else CoinMarketCap)
-    connectWs(); // live stream
-
-    return () => {
-      cancelled = true;
-      stopPoll();
-      if (ws) {
-        ws.onclose = null;
-        ws.onmessage = null;
-        ws.onerror = null;
-        try { ws.close(); } catch { /* noop */ }
-      }
-    };
-  }, []);
+  const quotes = usePriceFeed(SYMBOLS);
+  const pairs: Pair[] = SYMBOLS.map((sym) => {
+    const q = quotes[sym];
+    return q ? { s: label(sym), p: fmtPrice(q.price), c: q.change24h } : { s: label(sym), p: "—", c: 0 };
+  });
 
   return (
     <div className="relative overflow-hidden border-y border-border bg-surface/50">

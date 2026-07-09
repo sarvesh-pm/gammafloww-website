@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { compileMDX } from "next-mdx-remote/rsc";
 import { Navbar } from "@/components/Navbar";
@@ -96,9 +97,9 @@ export default async function ArticlePage({
         <article className="mx-auto max-w-3xl px-5 pb-8">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-xs text-faint" aria-label="Breadcrumb">
-            <a href="/" className="hover:text-ink">Home</a>
+            <Link href="/" className="hover:text-ink">Home</Link>
             <span aria-hidden>/</span>
-            <a href="/blog" className="hover:text-ink">Blog</a>
+            <Link href="/blog" className="hover:text-ink">Blog</Link>
             <span aria-hidden>/</span>
             <span className="truncate text-muted">{meta.cluster}</span>
           </nav>
@@ -144,9 +145,9 @@ export default async function ArticlePage({
 
           {/* Back link */}
           <div className="mt-10">
-            <a href="/blog" className="text-sm font-medium text-brand hover:underline">
+            <Link href="/blog" className="text-sm font-medium text-brand hover:underline">
               ← All articles
-            </a>
+            </Link>
           </div>
         </article>
       </main>

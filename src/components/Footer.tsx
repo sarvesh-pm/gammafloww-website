@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { nav, site, socials } from "@/lib/content";
 import { Logo } from "./Logo";
 import { socialIconMap } from "./Icons";
@@ -13,12 +14,12 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-14">
         <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-sm">
-            <a href="/#top" className="flex items-center gap-2.5">
+            <Link href="/#top" className="flex items-center gap-2.5">
               <Logo className="h-7 w-7" />
               <span className="text-[17px] font-semibold tracking-tight">
                 Gamma<span className="text-brand">Floww</span>
               </span>
-            </a>
+            </Link>
             <p className="mt-4 text-sm leading-relaxed text-muted">{site.tagline}</p>
             <a
               href={site.demoUrl}
@@ -56,9 +57,9 @@ export function Footer() {
               <ul className="mt-4 space-y-3">
                 {nav.map((item) => (
                   <li key={item.label}>
-                    <a href={item.href} className="text-sm text-muted transition-colors hover:text-ink">
+                    <Link href={item.href} className="text-sm text-muted transition-colors hover:text-ink">
                       {item.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -68,9 +69,9 @@ export function Footer() {
               <ul className="mt-4 space-y-3">
                 {legal.map((item) => (
                   <li key={item.label}>
-                    <a href={item.href} className="text-sm text-muted transition-colors hover:text-ink">
+                    <Link href={item.href} className="text-sm text-muted transition-colors hover:text-ink">
                       {item.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

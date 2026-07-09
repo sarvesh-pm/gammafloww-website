@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { PostMeta } from "@/lib/blog";
 
 const clusterTone: Record<string, string> = {
@@ -45,7 +46,7 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
       {/* Cards */}
       <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {shown.map((p) => (
-          <a
+          <Link
             key={p.slug}
             href={`/blog/${p.slug}`}
             className="group flex h-full flex-col rounded-2xl border border-border bg-surface p-6 shadow-soft transition-all duration-200 hover:-translate-y-1 hover:border-brand/40 hover:shadow-glow"
@@ -62,7 +63,7 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
               <span aria-hidden>·</span>
               <span>{p.readingTime}</span>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
 

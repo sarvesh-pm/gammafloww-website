@@ -113,7 +113,8 @@ export function FlowField({ className }: { className?: string }) {
     const io = new IntersectionObserver(
       ([entry]) => {
         inView = entry.isIntersecting;
-        inView ? start() : stop();
+        if (inView) start();
+        else stop();
       },
       { threshold: 0 },
     );

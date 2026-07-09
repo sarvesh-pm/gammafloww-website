@@ -23,6 +23,8 @@ export function Counter({ to, prefix = "", suffix = "", duration = 1500, classNa
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) {
+      // Reduced motion: skip the count-up, show the final value immediately.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setValue(to);
       return;
     }

@@ -8,8 +8,13 @@ export function useTheme() {
   const [theme, setThemeState] = useState<Theme>("dark");
   const [mounted, setMounted] = useState(false);
 
+  // Read the theme the no-flash script already applied. Deferred to a mount
+  // effect (not a lazy initializer) so the server and client first render agree
+  // — reading document.documentElement during render would cause a hydration
+  // mismatch. The setState-in-effect below is intentional for that reason.
   useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setThemeState(isDark ? "dark" : "light");
     setMounted(true);
   }, []);
