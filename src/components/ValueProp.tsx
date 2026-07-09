@@ -1,11 +1,6 @@
 import { Reveal } from "./ui/Reveal";
 import { SectionHeading } from "./ui/SectionHeading";
-
-const layers = [
-  { label: "Your brand & front end", tone: "brand", note: "You design it" },
-  { label: "GammaFloww API layer", tone: "cyan", note: "Plug & play" },
-  { label: "Matching · Liquidity · Risk", tone: "muted", note: "We operate it" },
-];
+import { StackDiagram } from "./StackDiagram";
 
 export function ValueProp() {
   return (
@@ -42,40 +37,7 @@ export function ValueProp() {
         </div>
 
         <Reveal delay={0.15}>
-          <div className="relative rounded-3xl glass p-6 shadow-glow">
-            <div className="mb-5 text-xs font-medium uppercase tracking-wider text-faint">
-              Where the work lives
-            </div>
-            <div className="flex flex-col gap-3">
-              {layers.map((layer, i) => (
-                <div
-                  key={layer.label}
-                  className={`flex items-center justify-between rounded-2xl border border-border px-5 py-5 ${
-                    i === 1 ? "bg-surface" : "bg-bg-soft/60"
-                  }`}
-                  style={{ marginInline: `${i * 14}px` }}
-                >
-                  <span className="text-sm font-medium text-ink">{layer.label}</span>
-                  <span
-                    className={`font-mono text-xs ${
-                      layer.tone === "brand"
-                        ? "text-brand"
-                        : layer.tone === "cyan"
-                          ? "text-cyan"
-                          : "text-faint"
-                    }`}
-                  >
-                    {layer.note}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <div className="mt-5 flex items-center justify-center gap-2 text-xs text-faint">
-              <span className="h-px w-8 bg-border" />
-              One clean handoff, zero infra headaches
-              <span className="h-px w-8 bg-border" />
-            </div>
-          </div>
+          <StackDiagram />
         </Reveal>
       </div>
     </section>
