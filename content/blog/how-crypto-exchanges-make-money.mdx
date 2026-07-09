@@ -1,0 +1,73 @@
+---
+title: "How Crypto Exchanges Make Money: Revenue Models Explained"
+description: "A clear, sourced breakdown of how crypto exchanges earn — trading fees, derivatives, liquidations, listings and more — and what each stream means for a white-label operator."
+cluster: "Operator Playbook"
+keyword: "how do crypto exchanges make money"
+date: "2026-07-09"
+author: "GammaFloww Team"
+---
+
+Crypto exchanges are, at their core, fee machines: they match buyers and sellers and take a small cut of the flow. That simple model has built some of the most profitable businesses in the industry. But the mix of *where* the money comes from has shifted decisively toward derivatives — a fact that matters enormously if you're deciding what kind of venue to launch.
+
+This guide breaks down every major revenue stream, with the numbers sourced and dated, and translates what each one means for an operator running a white-label exchange.
+
+## Derivatives now dominate exchange volume
+
+The single most important trend: derivatives (perpetual futures, futures and options) account for the large majority of trading on centralized exchanges — far more than spot.
+
+<BarChart id="derivatives-vs-spot" />
+
+To put that in absolute terms: the top 10 perpetual-futures exchanges alone recorded roughly **$21.2 trillion** in volume in Q4 2025, according to [CoinGecko's 2025 Annual Crypto Report](https://www.coingecko.com/research/publications/2025-annual-crypto-report). Derivatives are where the volume — and therefore most of the fee revenue — now lives.
+
+<Callout title="Why this matters for operators">
+If you're launching a new venue, a derivatives-first product isn't a niche play — it's where the majority of trading activity already is. Spot alone leaves most of the market on the table.
+</Callout>
+
+## 1. Trading fees (maker–taker) — the core engine
+
+The primary revenue stream for almost every exchange is the **maker–taker fee** charged on each trade:
+
+- **Makers** add liquidity by placing limit orders that rest on the book. They're charged less — sometimes nothing, sometimes a rebate — because they make the market deeper.
+- **Takers** remove liquidity by hitting existing orders with market orders. They pay the higher fee.
+
+Fee levels vary by venue and by the trader's volume tier. As a reference point, Binance's standard spot fee is **0.10%** for both maker and taker, with lower rates on derivatives and at higher VIP tiers ([Binance fee schedule](https://www.binance.com/en/fee/schedule), as of 2026). Those fractions of a percent look tiny — until you multiply them by billions in daily volume.
+
+Trading fees are, by a wide margin, the dominant income line for most exchanges; the other streams below are meaningful but secondary.
+
+### Try the math yourself
+
+Drag the inputs to see how daily volume and fee rate translate into revenue. Even a modest venue generates serious numbers at scale:
+
+<RevenueEstimator />
+
+## 2. Derivatives-specific revenue
+
+Beyond ordinary trading fees, a derivatives venue has extra revenue mechanics — but there's a common misconception to clear up first:
+
+- **Funding payments are *not* exchange revenue.** On perpetual futures, the funding rate is exchanged *directly between long and short traders* to keep the contract tethered to spot — the exchange is only the conduit, not the recipient ([Coinbase: Understanding funding rates](https://www.coinbase.com/learn/perpetual-futures/understanding-funding-rates-in-perpetual-futures)).
+- **Liquidation fees *are* revenue.** When a leveraged position is force-closed, the venue typically charges a liquidation fee, and any margin remaining after closing often flows to an insurance fund.
+- **Fees apply to leveraged notional.** A trader posting $1,000 of margin at 50x is trading $50,000 of notional — and pays fees on the notional, not the margin. Leverage multiplies fee revenue per dollar of user capital.
+
+## 3. The secondary streams
+
+- **Listing fees** — projects sometimes pay to have a token listed. Amounts are frequently confidential and vary widely, so treat any specific figure skeptically.
+- **Withdrawal fees** — a fixed charge that usually covers on-chain network costs, sometimes with a margin.
+- **Spreads / market making** — some venues run their own market-making desks and earn the bid–ask spread.
+- **Interest & yield** — earning on idle user balances, or margin-lending interest.
+- **Premium services** — advanced API tiers, data feeds, and institutional tooling.
+
+The mix differs by venue, but the pattern is consistent: **trading fees are the foundation, and everything else is a supplement.**
+
+## What this means for a white-label operator
+
+Here's the part that's easy to miss. In a white-label model, **you own the fee relationship with your traders.** You set the fee schedule, run the promotions, and keep the trading revenue — while the matching engine, liquidity, and risk systems are operated for you.
+
+That means your economics look a lot like an exchange's: fee revenue scales with the volume you drive, and derivatives let you capture fees on leveraged notional. What you *don't* carry is the multi-year cost of building and operating the engine. (For the full picture of what that build would otherwise cost, see our upcoming cost breakdown; and for the launch path, our launch guide.)
+
+<Callout title="The takeaway">
+Exchanges make money primarily by taking a small cut of every trade — and derivatives, which dominate volume, let that cut apply to leveraged notional. A white-label operator captures that same fee revenue without building the engine underneath it.
+</Callout>
+
+<SourceList id="how-crypto-exchanges-make-money" />
+
+*Figures reflect the dates cited and will change over time — market-volume statistics in particular move month to month.*

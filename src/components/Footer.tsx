@@ -1,9 +1,10 @@
-import { nav, site } from "@/lib/content";
+import { nav, site, socials } from "@/lib/content";
 import { Logo } from "./Logo";
+import { socialIconMap } from "./Icons";
 
 const legal = [
-  { label: "Terms of Service", href: "#" },
-  { label: "Privacy Policy", href: "#" },
+  { label: "Terms of Service", href: "/#" },
+  { label: "Privacy Policy", href: "/#" },
 ];
 
 export function Footer() {
@@ -12,7 +13,7 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-14">
         <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-sm">
-            <a href="#top" className="flex items-center gap-2.5">
+            <a href="/#top" className="flex items-center gap-2.5">
               <Logo className="h-7 w-7" />
               <span className="text-[17px] font-semibold tracking-tight">
                 Gamma<span className="text-brand">Floww</span>
@@ -27,6 +28,26 @@ export function Footer() {
             >
               Schedule a Demo
             </a>
+
+            {/* Social tabs */}
+            <div className="mt-6 flex items-center gap-3">
+              {socials.map((s) => {
+                const Icon = socialIconMap[s.icon];
+                return (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    title={s.label}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted transition-colors hover:border-brand/40 hover:text-brand"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </a>
+                );
+              })}
+            </div>
           </div>
 
           <div className="flex gap-16">

@@ -4,12 +4,19 @@ export const site = {
   tagline: "White-label derivatives infrastructure for Web3.",
 };
 
+// Update these handles to the real accounts.
+export const socials = [
+  { label: "X (Twitter)", href: "https://x.com/gammafloww", icon: "x" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/gammafloww", icon: "linkedin" },
+  { label: "Telegram", href: "https://t.me/gammafloww", icon: "telegram" },
+] as const;
+
 export const nav = [
-  { label: "Product", href: "#product" },
-  { label: "Features", href: "#features" },
-  { label: "Process", href: "#process" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Blog", href: "https://gammafloww.com/blog" },
+  { label: "Product", href: "/#product" },
+  { label: "Features", href: "/#features" },
+  { label: "Process", href: "/#process" },
+  { label: "FAQ", href: "/#faq" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export const stats = [
