@@ -19,11 +19,11 @@ const siteUrl = "https://gammafloww.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "GammaFloww — Launch an Enterprise-Grade Crypto Derivatives Exchange",
+    default: "White-Label Crypto Derivatives Exchange — Launch in Weeks | GammaFloww",
     template: "%s · GammaFloww",
   },
   description:
-    "White-label derivatives infrastructure to launch your own crypto futures & options exchange in weeks — 125x leverage, 300+ pairs, deep liquidity. You own the brand, we run the engine.",
+    "White-label infrastructure to launch your own crypto futures & options exchange in weeks. You own the brand, we run the engine — 125x leverage, 300+ pairs.",
   keywords: [
     "white-label crypto exchange",
     "derivatives exchange infrastructure",

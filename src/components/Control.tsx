@@ -8,7 +8,7 @@ export function Control() {
     <section className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-5">
         <SectionHeading
-          eyebrow="Division of labor"
+          eyebrow="What you own vs. we run"
           title={
             <>
               You keep control of what matters.{" "}

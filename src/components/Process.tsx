@@ -51,7 +51,7 @@ export function Process() {
     >
       <div className="mx-auto max-w-6xl px-5">
         <SectionHeading
-          eyebrow="How we launch you"
+          eyebrow="How to launch"
           title={
             <>
               From first call to live venue in <span className="text-gradient">4–8 weeks</span>

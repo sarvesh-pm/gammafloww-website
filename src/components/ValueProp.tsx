@@ -9,7 +9,7 @@ export function ValueProp() {
         <div>
           <SectionHeading
             align="left"
-            eyebrow="The GammaFloww edge"
+            eyebrow="Why white-label"
             title={
               <>
                 Build your edge on infrastructure that took{" "}

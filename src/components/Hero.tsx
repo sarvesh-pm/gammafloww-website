@@ -75,7 +75,7 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.05, ease }}
             className="mt-6 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.4rem]"
           >
-            Launch an enterprise-grade{" "}
+            Launch your own white-label{" "}
             <span className="text-gradient">crypto derivatives exchange</span>
           </motion.h1>
 

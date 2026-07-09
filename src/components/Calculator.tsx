@@ -30,7 +30,7 @@ export function Calculator() {
       <div className="pointer-events-none absolute left-1/2 top-1/4 h-[360px] w-[620px] -translate-x-1/2 rounded-full bg-brand/5 blur-[130px]" />
       <div className="relative mx-auto max-w-6xl px-5">
         <SectionHeading
-          eyebrow="The engine, live"
+          eyebrow="Live position math"
           title={
             <>
               The math your traders will feel on{" "}
