@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { faqs, site } from "@/lib/content";
 import { PlusIcon } from "./Icons";
 import { SectionHeading } from "./ui/SectionHeading";
@@ -41,19 +41,16 @@ export function Faq() {
                     }`}
                   />
                 </button>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <p className="px-5 pb-5 text-sm leading-relaxed text-muted">{item.a}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/* Always render the answer so crawlers/AI engines see it; collapse visually. */}
+                <motion.div
+                  initial={false}
+                  animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  className="overflow-hidden"
+                  aria-hidden={!isOpen}
+                >
+                  <p className="px-5 pb-5 text-sm leading-relaxed text-muted">{item.a}</p>
+                </motion.div>
               </div>
             );
           })}

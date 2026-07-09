@@ -94,19 +94,38 @@ export function FlowField({ className }: { className?: string }) {
       raf = requestAnimationFrame(draw);
     };
 
+    let inView = true;
+    const active = () => inView && !document.hidden;
+    const start = () => {
+      if (!raf && active()) raf = requestAnimationFrame(draw);
+    };
+    const stop = () => {
+      cancelAnimationFrame(raf);
+      raf = 0;
+    };
+
     const onResize = () => resize();
     window.addEventListener("resize", onResize);
-    const onVisibility = () => {
-      if (document.hidden) cancelAnimationFrame(raf);
-      else raf = requestAnimationFrame(draw);
-    };
+    const onVisibility = () => (document.hidden ? stop() : start());
     document.addEventListener("visibilitychange", onVisibility);
-    raf = requestAnimationFrame(draw);
+
+    // Pause the loop entirely when the hero (canvas) is scrolled out of view.
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting;
+        inView ? start() : stop();
+      },
+      { threshold: 0 },
+    );
+    io.observe(canvas);
+
+    start();
 
     return () => {
-      cancelAnimationFrame(raf);
+      stop();
       window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", onVisibility);
+      io.disconnect();
       observer.disconnect();
     };
   }, []);

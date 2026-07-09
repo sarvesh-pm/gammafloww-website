@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s · GammaFloww",
   },
   description:
-    "GammaFloww is the white-label derivatives infrastructure that lets you launch a fully-featured futures & options exchange in weeks. Up to 125x leverage, 300+ pairs, deep liquidity — you own the brand, we run the engine.",
+    "White-label derivatives infrastructure to launch your own crypto futures & options exchange in weeks — 125x leverage, 300+ pairs, deep liquidity. You own the brand, we run the engine.",
   keywords: [
     "white-label crypto exchange",
     "derivatives exchange infrastructure",
@@ -32,6 +32,14 @@ export const metadata: Metadata = {
     "exchange as a service",
     "Web3 infrastructure",
   ],
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
   openGraph: {
     type: "website",
     url: siteUrl,

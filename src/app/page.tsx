@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/Navbar";
+import { StructuredData } from "@/components/StructuredData";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { Hero } from "@/components/Hero";
 import { Ticker } from "@/components/Ticker";
@@ -15,6 +16,7 @@ import { Footer } from "@/components/Footer";
 export default function Home() {
   return (
     <>
+      <StructuredData />
       <ScrollProgress />
       <Navbar />
       <main>
