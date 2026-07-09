@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GammaFloww
 
-## Getting Started
+Marketing site for **GammaFloww** — white-label derivatives infrastructure that lets partners launch a fully-featured crypto futures & options exchange in weeks. You own the brand and front end; GammaFloww runs the matching engine, liquidity, and risk.
 
-First, run the development server:
+🔗 **Live:** https://gammafloww-website.vercel.app
+
+## Tech stack
+
+- **[Next.js 16](https://nextjs.org)** (App Router) + **React 19**
+- **[Tailwind CSS v4](https://tailwindcss.com)** — theming via semantic CSS-variable tokens
+- **[Motion](https://motion.dev)** (Framer Motion) + **[GSAP](https://gsap.com)** (ScrollTrigger) for animation
+- **IBM Plex Sans / IBM Plex Mono** (via `next/font`)
+- TypeScript, ESLint
+
+## Features
+
+- **Light & dark themes** with an animated toggle, no-flash inline script, and OS-preference detection (dark is the brand default)
+- **Interactive live chart** — hover crosshair + tooltip, 1H/1D/1W timeframe toggle, simulated real-time ticks
+- **Live leverage / position calculator** — margin, leverage, and Long/Short recompute position size, notional, and liquidation price instantly
+- **Motion graphics** — ambient flow-field canvas, scroll-driven parallax, a draw-on-scroll process timeline, magnetic buttons, tilt cards, and a cursor spotlight
+- **Interactive stack diagram** explaining the client-vs-GammaFloww ownership split
+- Animated stat counters and a scrolling market ticker
+- Accessibility: visible focus states, `prefers-reduced-motion` respected throughout, semantic markup
+
+## Getting started
+
+> **Note:** this machine uses Node via [`nvm`](https://github.com/nvm-sh/nvm) (Node 24 LTS). Ensure `node`/`npm` are on your `PATH` (e.g. `nvm use --lts`) before running the commands below.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # start the dev server at http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command | Description |
+|---|---|
+| `npm run dev` | Start the local dev server |
+| `npm run build` | Production build |
+| `npm run start` | Serve the production build |
+| `npm run lint` | Run ESLint |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project structure
 
-## Learn More
+```
+src/
+├── app/
+│   ├── globals.css      # design tokens (light/dark) + Tailwind theme
+│   ├── layout.tsx       # fonts, metadata, no-flash theme script
+│   └── page.tsx         # section composition
+├── components/          # Hero, ExchangePanel (chart), Calculator, StackDiagram, …
+│   └── ui/              # Reveal, Counter, SectionHeading, Interactive (magnetic/tilt)
+└── lib/                 # content data, chart logic, theme hook
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Theming
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+All colors flow through semantic tokens in `src/app/globals.css` (`--brand`, `--cyan`, `--up`, `--down`, gradient stops, etc.), defined per theme (`:root` = light, `.dark` = dark). P&L colors (`--up` green / `--down` red) are independent of the brand color, so the brand palette can be reskinned without touching market-data semantics.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deployed on [Vercel](https://vercel.com) — every push to `main` triggers an automatic build and deploy.
