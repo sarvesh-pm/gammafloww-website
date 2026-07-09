@@ -78,9 +78,21 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-border pt-6 text-xs text-faint sm:flex-row">
-          <span>© {new Date().getFullYear()} GammaFloww. All rights reserved.</span>
-          <span>Built for the next generation of Web3 exchanges.</span>
+        <div className="mt-12 border-t border-border pt-6">
+          <p className="text-[11px] leading-relaxed text-faint">
+            <span className="font-semibold text-muted">Disclaimer:</span> GammaFloww provides
+            white-label technology and infrastructure to businesses. Nothing on this website —
+            including blog articles, interactive calculators, and figures — constitutes financial,
+            investment, legal, tax, or trading advice, or an offer or solicitation to trade. Trading
+            crypto derivatives involves a high risk of loss and is not suitable for everyone.
+            Interactive tools produce illustrative estimates only; data points are sourced as noted
+            and may change. Availability of products and services depends on your jurisdiction and
+            applicable licensing. Always do your own research and consult qualified professionals.
+          </p>
+          <div className="mt-5 flex flex-col items-center justify-between gap-3 text-xs text-faint sm:flex-row">
+            <span>© {new Date().getFullYear()} GammaFloww. All rights reserved.</span>
+            <span>Built for the next generation of Web3 exchanges.</span>
+          </div>
         </div>
       </div>
     </footer>
