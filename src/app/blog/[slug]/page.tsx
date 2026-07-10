@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { compileMDX } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ScrollProgress } from "@/components/ScrollProgress";
@@ -60,7 +61,10 @@ export default async function ArticlePage({
   const { content } = await compileMDX({
     source,
     components: mdxComponents,
-    options: { parseFrontmatter: true },
+    options: {
+      parseFrontmatter: true,
+      mdxOptions: { remarkPlugins: [remarkGfm] },
+    },
   });
 
   const jsonLd = {
