@@ -14,7 +14,7 @@
 
   --ink: #0b1220;
   --muted: #47566b;
-  --faint: #6b7a90;
+  --faint: #5b6a80;      /* darkened to clear WCAG AA 4.5:1 on light surfaces */
 
   --brand: #4f46e5;      /* indigo — accessible as text + button bg on light */
   --brand-ink: #ffffff;  /* text/icon on a brand-filled surface */
@@ -48,7 +48,7 @@
 
   --ink: #f4f7fb;
   --muted: #9aa6b8;
-  --faint: #6b7686;
+  --faint: #7a8698;      /* lightened to clear WCAG AA 4.5:1 on dark surfaces */
 
   --brand: #6d8bff;      /* bright indigo/periwinkle for dark */
   --brand-ink: #05070b;
@@ -157,6 +157,24 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Hero entrance — CSS-driven so above-the-fold content paints at first
+   render instead of waiting for the JS bundle to hydrate. gf-rise-y animates
+   transform only (opacity stays 1), so it is safe on the LCP headline. */
+@keyframes gf-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes gf-rise-y {
+  from { transform: translateY(18px); }
+  to   { transform: translateY(0); }
+}
+.gf-rise   { animation: gf-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.gf-rise-y { animation: gf-rise-y 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.gf-rise-1 { animation-delay: 0.06s; }
+.gf-rise-2 { animation-delay: 0.13s; }
+.gf-rise-3 { animation-delay: 0.20s; }
+.gf-rise-4 { animation-delay: 0.30s; }
 
 /* ------------------------------------------------------------------ */
 /*  Reusable utilities                                                 */
