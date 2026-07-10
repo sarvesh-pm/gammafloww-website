@@ -1,27 +1,52 @@
-import Link from "next/link";
 import { nav, site, socials } from "@/lib/content";
 import { HashLink } from "./HashLink";
 import { Logo } from "./Logo";
 import { socialIconMap } from "./Icons";
 
-const legal = [
-  { label: "Terms of Service", href: "/#" },
-  { label: "Privacy Policy", href: "/#" },
+const href = (label: string) => nav.find((n) => n.label === label)?.href ?? "/#";
+
+const columns = [
+  {
+    title: "Product",
+    span: "lg:col-span-3",
+    links: [
+      { label: "Product", href: href("Product") },
+      { label: "Features", href: href("Features") },
+      { label: "Process", href: href("Process") },
+    ],
+  },
+  {
+    title: "Resources",
+    span: "lg:col-span-2",
+    links: [
+      { label: "Blog", href: href("Blog") },
+      { label: "FAQ", href: href("FAQ") },
+    ],
+  },
+  {
+    title: "Legal",
+    span: "lg:col-span-2",
+    links: [
+      { label: "Terms of Service", href: "/#" },
+      { label: "Privacy Policy", href: "/#" },
+    ],
+  },
 ];
 
 export function Footer() {
   return (
     <footer className="border-t border-border bg-bg-soft">
       <div className="mx-auto max-w-6xl px-5 py-14">
-        <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
-          <div className="max-w-sm">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4 lg:grid-cols-12">
+          {/* Brand block */}
+          <div className="col-span-2 sm:col-span-4 lg:col-span-5 lg:pr-8">
             <HashLink href="/#top" className="flex items-center gap-2.5">
               <Logo className="h-7 w-7" />
               <span className="text-[17px] font-semibold tracking-tight">
                 Gamma<span className="text-brand">Floww</span>
               </span>
             </HashLink>
-            <p className="mt-4 text-sm leading-relaxed text-muted">{site.tagline}</p>
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">{site.tagline}</p>
             <a
               href={site.demoUrl}
               target="_blank"
@@ -52,11 +77,12 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="flex gap-16">
-            <div>
-              <div className="text-xs font-medium uppercase tracking-wider text-faint">Product</div>
+          {/* Link columns */}
+          {columns.map((col) => (
+            <div key={col.title} className={col.span}>
+              <div className="text-xs font-medium uppercase tracking-wider text-faint">{col.title}</div>
               <ul className="mt-4 space-y-3">
-                {nav.map((item) => (
+                {col.links.map((item) => (
                   <li key={item.label}>
                     <HashLink href={item.href} className="text-sm text-muted transition-colors hover:text-ink">
                       {item.label}
@@ -65,19 +91,7 @@ export function Footer() {
                 ))}
               </ul>
             </div>
-            <div>
-              <div className="text-xs font-medium uppercase tracking-wider text-faint">Legal</div>
-              <ul className="mt-4 space-y-3">
-                {legal.map((item) => (
-                  <li key={item.label}>
-                    <Link href={item.href} className="text-sm text-muted transition-colors hover:text-ink">
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          ))}
         </div>
 
         <div className="mt-12 border-t border-border pt-6">
