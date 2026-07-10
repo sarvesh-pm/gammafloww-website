@@ -28,15 +28,54 @@ export function Process() {
             },
           );
         });
-        // Staggered step reveal.
-        gsap.from(".gf-step", {
-          opacity: 0,
-          y: 28,
-          duration: 0.5,
-          stagger: 0.09,
-          ease: "power2.out",
-          scrollTrigger: { trigger: ".gf-grid", start: "top 82%" },
+
+        // Sequential 01 -> 06 reveal: each card rises, its number badge pops
+        // in with a brief indigo ring pulse, and its connector line grows.
+        const STEP = 0.14; // per-step cadence
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: ".gf-grid", start: "top 80%" },
         });
+        tl.from(".gf-step", {
+          opacity: 0,
+          y: 30,
+          duration: 0.5,
+          stagger: STEP,
+          ease: "power2.out",
+        })
+          .from(
+            ".gf-badge",
+            {
+              scale: 0.3,
+              opacity: 0,
+              duration: 0.45,
+              stagger: STEP,
+              ease: "back.out(1.9)",
+            },
+            0.05,
+          )
+          .fromTo(
+            ".gf-badge",
+            { boxShadow: "0 0 0 0 rgba(109,139,255,0.55)" },
+            {
+              boxShadow: "0 0 0 12px rgba(109,139,255,0)",
+              duration: 0.7,
+              stagger: STEP,
+              ease: "power2.out",
+              immediateRender: false,
+            },
+            0.12,
+          )
+          .from(
+            ".gf-step-line",
+            {
+              scaleX: 0,
+              transformOrigin: "left center",
+              duration: 0.5,
+              stagger: STEP,
+              ease: "power2.out",
+            },
+            0.12,
+          );
       });
       return () => mm.revert();
     },
@@ -66,10 +105,10 @@ export function Process() {
           {process.map((step) => (
             <div key={step.step} className="gf-step relative">
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 flex-none items-center justify-center rounded-2xl border border-border bg-surface font-mono text-sm font-semibold text-brand">
+                <div className="gf-badge flex h-12 w-12 flex-none items-center justify-center rounded-2xl border border-border bg-surface font-mono text-sm font-semibold text-brand">
                   {step.step}
                 </div>
-                <div className="h-px flex-1 bg-border/60" />
+                <div className="gf-step-line h-px flex-1 bg-border/60" />
               </div>
               <h3 className="mt-5 text-lg font-semibold tracking-tight">{step.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{step.description}</p>
