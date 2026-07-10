@@ -33,7 +33,13 @@ export function Process() {
         // in with a brief indigo ring pulse, and its connector line grows.
         const STEP = 0.14; // per-step cadence
         const tl = gsap.timeline({
-          scrollTrigger: { trigger: ".gf-grid", start: "top 80%" },
+          scrollTrigger: {
+            trigger: ".gf-grid",
+            start: "top 80%",
+            // Replay the cascade every time the section re-enters view (from
+            // either direction); reset when it leaves so the next entry is fresh.
+            toggleActions: "restart reset restart reset",
+          },
         });
         tl.from(".gf-step", {
           opacity: 0,
