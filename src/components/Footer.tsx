@@ -7,7 +7,7 @@ const href = (label: string) => nav.find((n) => n.label === label)?.href ?? "/#"
 
 const columns = [
   {
-    title: "Product",
+    title: "Platform",
     span: "lg:col-span-3",
     links: [
       { label: "Product", href: href("Product") },
