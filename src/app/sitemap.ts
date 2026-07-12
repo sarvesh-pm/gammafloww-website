@@ -6,7 +6,7 @@ const siteUrl = "https://gammafloww.com";
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts().map((p) => ({
     url: `${siteUrl}/blog/${p.slug}`,
-    lastModified: new Date(p.date),
+    lastModified: new Date(p.updated),
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));

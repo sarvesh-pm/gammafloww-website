@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { usePriceFeed } from "@/lib/usePriceFeed";
 import { CoinIcon } from "./CoinIcon";
 
@@ -40,14 +41,29 @@ function Row({ pairs }: { pairs: Pair[] }) {
 }
 
 export function Ticker() {
-  const quotes = usePriceFeed(SYMBOLS);
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  // Only open the ticker's WebSocket while it's near the viewport, so it doesn't
+  // add a socket + REST call to the initial load and idles when scrolled away.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), {
+      rootMargin: "200px",
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const quotes = usePriceFeed(SYMBOLS, { enabled: visible });
   const pairs: Pair[] = SYMBOLS.map((sym) => {
     const q = quotes[sym];
     return q ? { s: label(sym), p: fmtPrice(q.price), c: q.change24h } : { s: label(sym), p: "—", c: 0 };
   });
 
   return (
-    <div className="relative overflow-hidden border-y border-border bg-surface/50">
+    <div ref={ref} className="relative overflow-hidden border-y border-border bg-surface/50">
       <div className="flex w-max animate-marquee hover:[animation-play-state:paused]" aria-hidden="true">
         <Row pairs={pairs} />
         <Row pairs={pairs} />

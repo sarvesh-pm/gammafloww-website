@@ -26,6 +26,7 @@ export async function generateMetadata({
   const post = getPostSource(slug);
   if (!post) return {};
   const { meta } = post;
+  const ogImage = { url: `/blog/${slug}/opengraph-image`, width: 1200, height: 630, alt: meta.title };
   return {
     title: meta.title,
     description: meta.description,
@@ -36,7 +37,15 @@ export async function generateMetadata({
       title: meta.title,
       description: meta.description,
       publishedTime: meta.date,
+      modifiedTime: meta.updated,
       authors: [meta.author],
+      images: [ogImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: meta.title,
+      description: meta.description,
+      images: [ogImage.url],
     },
   };
 }
@@ -82,8 +91,9 @@ export default async function ArticlePage({
         "@type": "BlogPosting",
         headline: meta.title,
         description: meta.description,
+        image: [`${siteUrl}/blog/${slug}/opengraph-image`],
         datePublished: meta.date,
-        dateModified: meta.date,
+        dateModified: meta.updated,
         author: { "@type": "Organization", name: meta.author, url: siteUrl },
         publisher: { "@type": "Organization", name: "GammaFloww", url: siteUrl },
         mainEntityOfPage: `${siteUrl}/blog/${slug}`,
@@ -97,7 +107,7 @@ export default async function ArticlePage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <ScrollProgress />
       <Navbar />
-      <main className="pt-32 sm:pt-40">
+      <main id="main" className="pt-32 sm:pt-40">
         <article className="mx-auto max-w-3xl px-5 pb-8">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-xs text-faint" aria-label="Breadcrumb">

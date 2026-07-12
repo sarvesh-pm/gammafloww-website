@@ -7,26 +7,40 @@ import { NextResponse } from "next/server";
 
 const SYMBOLS = ["BTC", "ETH", "SOL", "BNB", "XRP", "DOGE", "AVAX", "LINK", "ADA", "LTC"];
 
-// Run per-request so the secret env var is read at runtime (not baked in at
-// build). The upstream CMC call is still cached 60s below to respect credits.
+// Run per-request so the secret env var is read at runtime, and never risk this
+// route being prerendered at build with the key absent (which would cache a
+// permanent "no-key" response). Upstream CMC credit protection is handled by the
+// module-level TTL cache below, since force-dynamic disables Next's fetch cache.
 export const dynamic = "force-dynamic";
 
 type Quote = { price: number; change24h: number };
+type MarketResult =
+  | { available: true; data: Record<string, Quote> }
+  | { available: false; reason: string };
+
+// Cache the last successful upstream result for 60s across requests on this
+// server instance, so bursts of visitors don't each spend a CMC credit.
+const TTL_MS = 60_000;
+let cache: { at: number; result: Extract<MarketResult, { available: true }> } | null = null;
 
 export async function GET() {
   const key = process.env.CMC_API_KEY;
   if (!key) {
-    return NextResponse.json({ available: false, reason: "no-key" });
+    return NextResponse.json({ available: false, reason: "no-key" } satisfies MarketResult);
+  }
+
+  if (cache && Date.now() - cache.at < TTL_MS) {
+    return NextResponse.json(cache.result);
   }
 
   try {
     const url = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${SYMBOLS.join(",")}&convert=USD`;
     const res = await fetch(url, {
       headers: { "X-CMC_PRO_API_KEY": key, Accept: "application/json" },
-      next: { revalidate: 60 },
+      cache: "no-store",
     });
     if (!res.ok) {
-      return NextResponse.json({ available: false, reason: `upstream-${res.status}` });
+      return NextResponse.json({ available: false, reason: `upstream-${res.status}` } satisfies MarketResult);
     }
     const json = await res.json();
     const out: Record<string, Quote> = {};
@@ -38,8 +52,10 @@ export async function GET() {
         out[sym] = { price: q.price, change24h: q.percent_change_24h ?? 0 };
       }
     }
-    return NextResponse.json({ available: true, data: out });
+    const result = { available: true as const, data: out };
+    cache = { at: Date.now(), result };
+    return NextResponse.json(result);
   } catch {
-    return NextResponse.json({ available: false, reason: "error" });
+    return NextResponse.json({ available: false, reason: "error" } satisfies MarketResult);
   }
 }

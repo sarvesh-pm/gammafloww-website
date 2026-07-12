@@ -30,13 +30,13 @@ export function RevenueEstimator() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <div className="flex flex-col gap-6">
           <Field label="Daily trading volume" value={`${fmtUsd(dailyVolume)}`}>
-            <input type="range" min={1} max={2000} step={1} value={volM} onChange={(e) => setVolM(+e.target.value)} className="gf-range" aria-label="Daily trading volume in millions" />
+            <input type="range" min={1} max={2000} step={1} value={volM} onChange={(e) => setVolM(+e.target.value)} className="gf-range" aria-label="Daily trading volume in millions" aria-valuetext={fmtUsd(dailyVolume)} />
           </Field>
           <Field label="Taker fee" value={`${takerBps} bps (${(takerBps / 100).toFixed(2)}%)`}>
-            <input type="range" min={1} max={60} step={1} value={takerBps} onChange={(e) => setTakerBps(+e.target.value)} className="gf-range" aria-label="Taker fee in basis points" />
+            <input type="range" min={1} max={60} step={1} value={takerBps} onChange={(e) => setTakerBps(+e.target.value)} className="gf-range" aria-label="Taker fee in basis points" aria-valuetext={`${takerBps} bps, ${(takerBps / 100).toFixed(2)} percent`} />
           </Field>
           <Field label="Volume paying taker fee" value={`${takerShare}%`}>
-            <input type="range" min={20} max={90} step={1} value={takerShare} onChange={(e) => setTakerShare(+e.target.value)} className="gf-range" aria-label="Share of volume paying taker fee" />
+            <input type="range" min={20} max={90} step={1} value={takerShare} onChange={(e) => setTakerShare(+e.target.value)} className="gf-range" aria-label="Share of volume paying taker fee" aria-valuetext={`${takerShare} percent`} />
           </Field>
         </div>
 

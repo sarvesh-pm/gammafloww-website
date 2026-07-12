@@ -20,14 +20,36 @@ export const metadata: Metadata = {
   },
 };
 
+const siteUrl = "https://gammafloww.com";
+
 export default function BlogIndex() {
   const posts = getAllPosts();
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${siteUrl}/blog`,
+    name: "The GammaFloww Blog",
+    description:
+      "Playbooks, data, and guides on launching and operating a crypto derivatives exchange.",
+    url: `${siteUrl}/blog`,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: posts.map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: `${siteUrl}/blog/${p.slug}`,
+        name: p.title,
+      })),
+    },
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <ScrollProgress />
       <Navbar />
-      <main className="pt-32 sm:pt-40">
+      <main id="main" className="pt-32 sm:pt-40">
         <section className="relative overflow-hidden pb-8">
           <div className="pointer-events-none absolute left-1/2 top-[-20%] h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-brand/10 blur-[130px]" />
           <div className="relative mx-auto max-w-6xl px-5">

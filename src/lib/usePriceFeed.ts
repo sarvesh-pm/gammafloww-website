@@ -8,12 +8,20 @@ export type Quote = { price: number; change24h: number };
  * Live price + 24h change for one or more Binance symbols.
  * Fallback chain: Binance WebSocket → Binance REST → CoinMarketCap (/api/market).
  * Returns a map keyed by full symbol (e.g. "BTCUSDT"); empty until data arrives.
+ *
+ * Pass `{ enabled: false }` to hold off connecting (e.g. while off-screen) — the
+ * socket/poll only open once enabled, and tear down again when it flips off.
  */
-export function usePriceFeed(symbols: string[]): Record<string, Quote> {
+export function usePriceFeed(
+  symbols: string[],
+  opts?: { enabled?: boolean },
+): Record<string, Quote> {
   const key = symbols.join(",");
+  const enabled = opts?.enabled ?? true;
   const [quotes, setQuotes] = useState<Record<string, Quote>>({});
 
   useEffect(() => {
+    if (!enabled) return;
     const syms = key.split(",").filter(Boolean);
     if (syms.length === 0) return;
 
@@ -99,7 +107,7 @@ export function usePriceFeed(symbols: string[]): Record<string, Quote> {
         try { ws.close(); } catch { /* noop */ }
       }
     };
-  }, [key]);
+  }, [key, enabled]);
 
   return quotes;
 }

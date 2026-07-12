@@ -46,13 +46,13 @@ export function FundingCalculator() {
             ))}
           </div>
           <Row label="Position size (notional)" value={fmtUsd(notional)}>
-            <input type="range" min={1} max={1000} step={1} value={notionalK} onChange={(e) => setNotionalK(+e.target.value)} className="gf-range" aria-label="Notional in thousands" />
+            <input type="range" min={1} max={1000} step={1} value={notionalK} onChange={(e) => setNotionalK(+e.target.value)} className="gf-range" aria-label="Notional in thousands" aria-valuetext={fmtUsd(notional)} />
           </Row>
           <Row label="Funding rate / interval" value={`${rateBps} bps (${(rateBps / 100).toFixed(2)}%)`}>
-            <input type="range" min={1} max={30} step={1} value={rateBps} onChange={(e) => setRateBps(+e.target.value)} className="gf-range" aria-label="Funding rate bps" />
+            <input type="range" min={1} max={30} step={1} value={rateBps} onChange={(e) => setRateBps(+e.target.value)} className="gf-range" aria-label="Funding rate bps" aria-valuetext={`${rateBps} bps, ${(rateBps / 100).toFixed(2)} percent`} />
           </Row>
           <Row label="Intervals held (8h each)" value={`${intervals} (${(intervals * 8)}h)`}>
-            <input type="range" min={1} max={30} step={1} value={intervals} onChange={(e) => setIntervals(+e.target.value)} className="gf-range" aria-label="Number of funding intervals" />
+            <input type="range" min={1} max={30} step={1} value={intervals} onChange={(e) => setIntervals(+e.target.value)} className="gf-range" aria-label="Number of funding intervals" aria-valuetext={`${intervals} intervals, ${intervals * 8} hours`} />
           </Row>
         </div>
 

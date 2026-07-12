@@ -120,9 +120,19 @@ export function FlowField({ className }: { className?: string }) {
     );
     io.observe(canvas);
 
-    start();
+    // Defer the first frame until the browser is idle so the particle loop never
+    // competes with the hero LCP paint. It still pauses out-of-view / hidden.
+    const win = window as typeof window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    const idleId = win.requestIdleCallback
+      ? win.requestIdleCallback(() => start(), { timeout: 1500 })
+      : window.setTimeout(start, 250);
 
     return () => {
+      if (win.cancelIdleCallback) win.cancelIdleCallback(idleId);
+      else window.clearTimeout(idleId);
       stop();
       window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", onVisibility);

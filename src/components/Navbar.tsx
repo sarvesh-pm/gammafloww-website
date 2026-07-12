@@ -68,6 +68,7 @@ export function Navbar() {
             type="button"
             aria-label="Toggle menu"
             aria-expanded={open}
+            aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
             className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-ink md:hidden"
           >
@@ -86,7 +87,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="relative z-10 mx-3 rounded-2xl border border-border bg-surface p-4 shadow-glow md:hidden">
+        <div id="mobile-menu" className="relative z-10 mx-3 rounded-2xl border border-border bg-surface p-4 shadow-glow md:hidden">
           <nav className="flex flex-col">
             {nav.map((item) => (
               <HashLink

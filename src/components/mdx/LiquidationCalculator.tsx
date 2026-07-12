@@ -63,6 +63,7 @@ export function LiquidationCalculator() {
               onChange={(e) => setEntry(+e.target.value)}
               className="gf-range"
               aria-label="Entry price"
+              aria-valuetext={`$${fmt(entry)}`}
             />
           </label>
 
@@ -71,7 +72,7 @@ export function LiquidationCalculator() {
               Leverage
               <span className="font-mono font-semibold text-brand">{leverage}x</span>
             </div>
-            <input type="range" min={1} max={125} step={1} value={leverage} onChange={(e) => setLeverage(+e.target.value)} className="gf-range" aria-label="Leverage" />
+            <input type="range" min={1} max={125} step={1} value={leverage} onChange={(e) => setLeverage(+e.target.value)} className="gf-range" aria-label="Leverage" aria-valuetext={`${leverage}x`} />
           </div>
 
           <div>
@@ -79,7 +80,7 @@ export function LiquidationCalculator() {
               Maintenance margin rate
               <span className="font-mono font-semibold text-ink">{mmr.toFixed(1)}%</span>
             </div>
-            <input type="range" min={0.1} max={2} step={0.1} value={mmr} onChange={(e) => setMmr(+e.target.value)} className="gf-range" aria-label="Maintenance margin rate" />
+            <input type="range" min={0.1} max={2} step={0.1} value={mmr} onChange={(e) => setMmr(+e.target.value)} className="gf-range" aria-label="Maintenance margin rate" aria-valuetext={`${mmr.toFixed(1)} percent`} />
           </div>
         </div>
 

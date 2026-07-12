@@ -33,6 +33,8 @@ export function Faq() {
                   onClick={() => setOpen(isOpen ? null : i)}
                   className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left"
                   aria-expanded={isOpen}
+                  aria-controls={`faq-panel-${i}`}
+                  id={`faq-trigger-${i}`}
                 >
                   <span className="text-[15px] font-medium text-ink">{item.q}</span>
                   <PlusIcon
@@ -43,6 +45,9 @@ export function Faq() {
                 </button>
                 {/* Always render the answer so crawlers/AI engines see it; collapse visually. */}
                 <motion.div
+                  id={`faq-panel-${i}`}
+                  role="region"
+                  aria-labelledby={`faq-trigger-${i}`}
                   initial={false}
                   animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
                   transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}

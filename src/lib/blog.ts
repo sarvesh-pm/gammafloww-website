@@ -11,6 +11,8 @@ export type PostMeta = {
   cluster: string;
   keyword: string;
   date: string;
+  /** Last content refresh; falls back to `date` when no `updated` frontmatter. */
+  updated: string;
   author: string;
   readingTime: string;
 };
@@ -26,15 +28,21 @@ function readingTimeOf(content: string): string {
 
 function toMeta(slug: string, raw: string): PostMeta {
   const { data, content } = matter(raw);
-  const fm = data as Record<string, string>;
+  const fm = data as Record<string, unknown>;
+  // gray-matter can return non-strings for unquoted YAML (e.g. a bare `date:`
+  // becomes a Date), so coerce each field rather than assuming `string`.
+  const str = (v: unknown, fallback: string) =>
+    typeof v === "string" && v.length > 0 ? v : v != null ? String(v) : fallback;
+  const date = str(fm.date, "2026-07-09");
   return {
     slug,
-    title: fm.title ?? slug,
-    description: fm.description ?? "",
-    cluster: fm.cluster ?? "General",
-    keyword: fm.keyword ?? "",
-    date: fm.date ?? "2026-07-09",
-    author: fm.author ?? "GammaFloww Team",
+    title: str(fm.title, slug),
+    description: str(fm.description, ""),
+    cluster: str(fm.cluster, "General"),
+    keyword: str(fm.keyword, ""),
+    date,
+    updated: str(fm.updated, date),
+    author: str(fm.author, "GammaFloww Team"),
     readingTime: readingTimeOf(content),
   };
 }

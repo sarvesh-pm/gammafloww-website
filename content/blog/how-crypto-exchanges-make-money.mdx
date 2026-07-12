@@ -25,7 +25,7 @@ If you're launching a new venue, a derivatives-first product isn't a niche play 
 
 ## 1. Trading fees (maker–taker) — the core engine
 
-The primary revenue stream for almost every exchange is the **maker–taker fee** charged on each trade:
+The primary revenue stream for almost every exchange is the [**maker–taker fee**](/blog/maker-taker-fees-explained) charged on each trade:
 
 - **Makers** add liquidity by placing limit orders that rest on the book. They're charged less — sometimes nothing, sometimes a rebate — because they make the market deeper.
 - **Takers** remove liquidity by hitting existing orders with market orders. They pay the higher fee.
@@ -44,8 +44,8 @@ Drag the inputs to see how daily volume and fee rate translate into revenue. Eve
 
 Beyond ordinary trading fees, a derivatives venue has extra revenue mechanics — but there's a common misconception to clear up first:
 
-- **Funding payments are *not* exchange revenue.** On perpetual futures, the funding rate is exchanged *directly between long and short traders* to keep the contract tethered to spot — the exchange is only the conduit, not the recipient ([Coinbase: Understanding funding rates](https://www.coinbase.com/learn/perpetual-futures/understanding-funding-rates-in-perpetual-futures)).
-- **Liquidation fees *are* revenue.** When a leveraged position is force-closed, the venue typically charges a liquidation fee, and any margin remaining after closing often flows to an insurance fund.
+- **Funding payments are *not* exchange revenue.** On perpetual futures, the [funding rate](/blog/funding-rates-explained) is exchanged *directly between long and short traders* to keep the contract tethered to spot — the exchange is only the conduit, not the recipient ([Coinbase: Understanding funding rates](https://www.coinbase.com/learn/perpetual-futures/understanding-funding-rates-in-perpetual-futures)).
+- **Liquidation fees *are* revenue.** When a leveraged position is [force-closed](/blog/risk-and-liquidation-engines), the venue typically charges a liquidation fee, and any margin remaining after closing often flows to an insurance fund.
 - **Fees apply to leveraged notional.** A trader posting $1,000 of margin at 50x is trading $50,000 of notional — and pays fees on the notional, not the margin. Leverage multiplies fee revenue per dollar of user capital.
 
 ## 3. The secondary streams
@@ -62,7 +62,7 @@ The mix differs by venue, but the pattern is consistent: **trading fees are the 
 
 Here's the part that's easy to miss. In a white-label model, **you own the fee relationship with your traders.** You set the fee schedule, run the promotions, and keep the trading revenue — while the matching engine, liquidity, and risk systems are operated for you.
 
-That means your economics look a lot like an exchange's: fee revenue scales with the volume you drive, and derivatives let you capture fees on leveraged notional. What you *don't* carry is the multi-year cost of building and operating the engine. (For the full picture of what that build would otherwise cost, see our upcoming cost breakdown; and for the launch path, our launch guide.)
+That means your economics look a lot like an exchange's: fee revenue scales with the volume you drive, and derivatives let you capture fees on leveraged notional. What you *don't* carry is the multi-year cost of building and operating the engine. (For the full picture of what that build would otherwise cost, see our [cost breakdown](/blog/cost-to-launch-crypto-derivatives-exchange); and for the launch path, our [launch guide](/blog/how-to-launch-a-crypto-derivatives-exchange).)
 
 <Callout title="The takeaway">
 Exchanges make money primarily by taking a small cut of every trade — and derivatives, which dominate volume, let that cut apply to leveraged notional. A white-label operator captures that same fee revenue without building the engine underneath it.

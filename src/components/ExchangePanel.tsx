@@ -100,20 +100,35 @@ export function ExchangePanel() {
       }
     };
 
-    (async () => {
-      try {
-        await loadKlines();
-        connectWs();
-      } catch {
-        if (!cancelled) {
-          setIsLive(false); // DEMO chart; header price still comes from usePriceFeed
-          startPoll();
+    const startFeed = () => {
+      if (cancelled) return;
+      (async () => {
+        try {
+          await loadKlines();
+          connectWs();
+        } catch {
+          if (!cancelled) {
+            setIsLive(false); // DEMO chart; header price still comes from usePriceFeed
+            startPoll();
+          }
         }
-      }
-    })();
+      })();
+    };
+
+    // Defer the network/WebSocket work until the browser is idle so it doesn't
+    // contend with LCP during the initial load. Seeded demo candles show first.
+    const w = window as typeof window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    const idleId = w.requestIdleCallback
+      ? w.requestIdleCallback(startFeed, { timeout: 2000 })
+      : window.setTimeout(startFeed, 300);
 
     return () => {
       cancelled = true;
+      if (w.cancelIdleCallback) w.cancelIdleCallback(idleId);
+      else window.clearTimeout(idleId);
       stopPoll();
       if (ws) {
         ws.onclose = null;
@@ -170,7 +185,10 @@ export function ExchangePanel() {
   const onMove = (e: React.PointerEvent<SVGSVGElement>) => {
     const rect = svgRef.current!.getBoundingClientRect();
     const frac = (e.clientX - rect.left) / rect.width;
-    const idx = Math.max(0, Math.min(N - 1, Math.round(frac * (N - 1))));
+    // Clamp to the actual candle count, not the constant N — Binance can return
+    // fewer bars, which would otherwise index past the array end.
+    const maxIdx = candles.length - 1;
+    const idx = Math.max(0, Math.min(maxIdx, Math.round(frac * maxIdx)));
     setHover(idx);
   };
 
@@ -245,6 +263,8 @@ export function ExchangePanel() {
             preserveAspectRatio="none"
             onPointerMove={onMove}
             onPointerLeave={() => setHover(null)}
+            role="img"
+            aria-label={`BTC/USDT ${tf} price chart — $${fmt(price)}, ${up ? "up" : "down"} ${Math.abs(changePct).toFixed(2)}% over 24 hours`}
           >
             <defs>
               <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
@@ -306,16 +326,16 @@ export function ExchangePanel() {
           )}
         </div>
 
-        {/* Order row */}
+        {/* Order row — illustrative bid/ask tiles, not interactive controls */}
         <div className="grid grid-cols-2 gap-3 p-5 pt-3">
-          <button type="button" className="rounded-xl border border-up/30 bg-up/10 py-3 text-center transition-colors hover:bg-up/20">
+          <div className="rounded-xl border border-up/30 bg-up/10 py-3 text-center">
             <div className="text-xs text-faint">Long</div>
             <div className="font-mono text-sm font-semibold text-up tabular-nums">{fmt(price - 1.5)}</div>
-          </button>
-          <button type="button" className="rounded-xl border border-down/30 bg-down/10 py-3 text-center transition-colors hover:bg-down/20">
+          </div>
+          <div className="rounded-xl border border-down/30 bg-down/10 py-3 text-center">
             <div className="text-xs text-faint">Short</div>
             <div className="font-mono text-sm font-semibold text-down tabular-nums">{fmt(price + 1.5)}</div>
-          </button>
+          </div>
         </div>
       </div>
 
