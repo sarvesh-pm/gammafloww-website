@@ -1,7 +1,7 @@
-import { site } from "@/lib/content";
 import { ArrowRightIcon } from "./Icons";
 import { Reveal } from "./ui/Reveal";
 import { Magnetic } from "./ui/Interactive";
+import { DemoButton } from "./demo/DemoButton";
 
 export function CtaSection() {
   return (
@@ -22,15 +22,10 @@ export function CtaSection() {
               </p>
               <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
                 <Magnetic className="inline-block">
-                  <a
-                    href={site.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.03]"
-                  >
+                  <DemoButton className="group inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.03]">
                     Schedule a Demo
                     <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                  </a>
+                  </DemoButton>
                 </Magnetic>
               </div>
             </div>

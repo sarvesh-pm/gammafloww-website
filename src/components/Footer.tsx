@@ -2,6 +2,7 @@ import { nav, site, socials } from "@/lib/content";
 import { HashLink } from "./HashLink";
 import { Logo } from "./Logo";
 import { socialIconMap } from "./Icons";
+import { DemoButton } from "./demo/DemoButton";
 
 const href = (label: string) => nav.find((n) => n.label === label)?.href ?? "/#";
 
@@ -47,14 +48,9 @@ export function Footer() {
               </span>
             </HashLink>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">{site.tagline}</p>
-            <a
-              href={site.demoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.03]"
-            >
+            <DemoButton className="mt-5 inline-flex rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.03]">
               Schedule a Demo
-            </a>
+            </DemoButton>
 
             {/* Social tabs */}
             <div className="mt-6 flex items-center gap-3">
