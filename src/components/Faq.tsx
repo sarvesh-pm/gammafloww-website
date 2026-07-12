@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
-import { faqs, site } from "@/lib/content";
+import { faqs } from "@/lib/content";
 import { PlusIcon } from "./Icons";
 import { SectionHeading } from "./ui/SectionHeading";
+import { DemoButton } from "./demo/DemoButton";
 
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
@@ -63,14 +64,9 @@ export function Faq() {
 
         <div className="mt-10 text-center text-sm text-muted">
           Still curious?{" "}
-          <a
-            href={site.demoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold text-brand hover:underline"
-          >
+          <DemoButton className="font-semibold text-brand hover:underline">
             Book a 30-minute demo →
-          </a>
+          </DemoButton>
         </div>
       </div>
     </section>

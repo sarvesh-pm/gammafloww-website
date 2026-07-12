@@ -5,6 +5,7 @@ import { nav, site } from "@/lib/content";
 import { HashLink } from "./HashLink";
 import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
+import { DemoButton } from "./demo/DemoButton";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -56,14 +57,9 @@ export function Navbar() {
 
         <div className="flex items-center gap-2.5">
           <ThemeToggle />
-          <a
-            href={site.demoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden rounded-full bg-brand px-4 py-2 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.03] md:inline-flex"
-          >
+          <DemoButton className="hidden rounded-full bg-brand px-4 py-2 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.03] md:inline-flex">
             Schedule a Demo
-          </a>
+          </DemoButton>
           <button
             type="button"
             aria-label="Toggle menu"
@@ -99,14 +95,12 @@ export function Navbar() {
                 {item.label}
               </HashLink>
             ))}
-            <a
-              href={site.demoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <DemoButton
+              onClick={() => setOpen(false)}
               className="mt-4 rounded-full bg-brand px-4 py-2.5 text-center text-sm font-semibold text-brand-ink"
             >
               Schedule a Demo
-            </a>
+            </DemoButton>
           </nav>
         </div>
       )}

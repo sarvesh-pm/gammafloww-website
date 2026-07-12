@@ -4,8 +4,8 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { site } from "@/lib/content";
 import { ArrowRightIcon, CheckIcon } from "./Icons";
+import { DemoButton } from "./demo/DemoButton";
 import { ExchangePanel } from "./ExchangePanel";
 import { FlowField } from "./FlowField";
 import { CursorGlow } from "./CursorGlow";
@@ -76,15 +76,10 @@ export function Hero() {
 
           <div className="gf-rise gf-rise-3 mt-9 flex flex-wrap items-center gap-3">
             <Magnetic className="inline-block">
-              <a
-                href={site.demoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.03]"
-              >
+              <DemoButton className="group inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.03]">
                 Schedule a Demo
                 <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
+              </DemoButton>
             </Magnetic>
           </div>
 
