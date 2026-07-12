@@ -16,13 +16,17 @@ const TIMEFRAMES = [
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type Status = "idle" | "submitting" | "error";
+type Step = "form" | "booking";
 
-// Send the qualified lead on to the existing Calendly booking, name+email
-// prefilled so they don't retype.
-function bookingUrl(name: string, email: string) {
+// Calendly booking embedded inside the modal (step 2), name+email prefilled so
+// the visitor picks a time without leaving the form.
+function bookingEmbedUrl(name: string, email: string) {
   const u = new URL(site.demoUrl);
   u.searchParams.set("name", name);
   u.searchParams.set("email", email);
+  u.searchParams.set("embed_domain", typeof window !== "undefined" ? window.location.host : "");
+  u.searchParams.set("embed_type", "Inline");
+  u.searchParams.set("hide_gdpr_banner", "1");
   return u.toString();
 }
 
@@ -32,8 +36,11 @@ export function DemoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
   const firstFieldRef = useRef<HTMLInputElement>(null);
   const returnFocusRef = useRef<Element | null>(null);
   const [status, setStatus] = useState<Status>("idle");
+  const [step, setStep] = useState<Step>("form");
+  const [lead, setLead] = useState<{ name: string; email: string } | null>(null);
 
-  // Lock scroll, remember + restore focus, close on Escape, and trap Tab.
+  // Lock scroll, remember + restore focus, Escape to close, and trap Tab within
+  // the dialog. State resets on each open via the remount key in the provider.
   useEffect(() => {
     if (!isOpen) return;
     returnFocusRef.current = document.activeElement;
@@ -48,7 +55,7 @@ export function DemoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
       }
       if (e.key !== "Tab") return;
       const focusables = dialogRef.current?.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])',
       );
       if (!focusables || focusables.length === 0) return;
       const first = focusables[0];
@@ -87,8 +94,10 @@ export function DemoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
         body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error("submit failed");
-      // Success — hand off to Calendly with the details prefilled.
-      window.location.href = bookingUrl(name, email);
+      // Success — reveal the booking calendar in-place (step 2).
+      setLead({ name, email });
+      setStep("booking");
+      setStatus("idle");
     } catch {
       setStatus("error");
     }
@@ -103,6 +112,8 @@ export function DemoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
         exit: { opacity: 0, y: 16, scale: 0.98 },
         transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] as const },
       };
+
+  const isBooking = step === "booking" && lead;
 
   return (
     <AnimatePresence>
@@ -120,7 +131,9 @@ export function DemoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
             aria-modal="true"
             aria-labelledby="demo-title"
             aria-describedby="demo-desc"
-            className="relative my-auto w-full max-w-lg rounded-3xl border border-border bg-surface p-6 shadow-glow sm:p-8"
+            className={`relative my-auto w-full rounded-3xl border border-border bg-surface p-6 shadow-glow sm:p-8 ${
+              isBooking ? "max-w-3xl" : "max-w-lg"
+            }`}
             {...panel}
           >
             <button
@@ -134,78 +147,105 @@ export function DemoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
               </svg>
             </button>
 
-            <span className="text-xs font-semibold uppercase tracking-wider text-brand">Schedule a demo</span>
-            <h2 id="demo-title" className="mt-2 text-2xl font-semibold tracking-tight">
-              Tell us about your venue
-            </h2>
-            <p id="demo-desc" className="mt-2 text-sm leading-relaxed text-muted">
-              A few quick details so we come prepared. You&apos;ll pick a time on the next step.
-            </p>
-
-            <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-4" noValidate>
-              {/* Honeypot — hidden from users, catches bots */}
-              <input
-                type="text"
-                name="company_site"
-                tabIndex={-1}
-                autoComplete="off"
-                aria-hidden="true"
-                className="hidden"
-              />
-
-              <Field label="Full name" htmlFor="demo-name">
-                <input ref={firstFieldRef} id="demo-name" name="name" required autoComplete="name" className="gf-input" />
-              </Field>
-              <Field label="Work email" htmlFor="demo-email">
-                <input id="demo-email" name="email" type="email" required autoComplete="email" className="gf-input" />
-              </Field>
-              <Field label="Company" htmlFor="demo-company">
-                <input id="demo-company" name="company" required autoComplete="organization" className="gf-input" />
-              </Field>
-
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <Field label="Region" htmlFor="demo-region">
-                  <select id="demo-region" name="region" defaultValue="" className="gf-input">
-                    <option value="" disabled>Select…</option>
-                    {REGIONS.map((r) => (
-                      <option key={r} value={r}>{r}</option>
-                    ))}
-                  </select>
-                </Field>
-                <Field label="Launch timeframe" htmlFor="demo-timeframe">
-                  <select id="demo-timeframe" name="timeframe" defaultValue="" className="gf-input">
-                    <option value="" disabled>Select…</option>
-                    {TIMEFRAMES.map((t) => (
-                      <option key={t} value={t}>{t}</option>
-                    ))}
-                  </select>
-                </Field>
-              </div>
-
-              <Field label="What are you looking to launch?" htmlFor="demo-message" optional>
-                <textarea id="demo-message" name="message" rows={3} className="gf-input resize-none" />
-              </Field>
-
-              {status === "error" && (
-                <p role="alert" className="text-sm text-down">
-                  Please check your name, work email, and company, then try again.
+            {isBooking ? (
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setStep("form")}
+                  className="mb-3 inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-ink"
+                >
+                  <span aria-hidden="true">←</span> Back to details
+                </button>
+                <span className="text-xs font-semibold uppercase tracking-wider text-brand">Step 2 of 2</span>
+                <h2 id="demo-title" className="mt-2 text-2xl font-semibold tracking-tight">
+                  Pick a time that works
+                </h2>
+                <p id="demo-desc" className="mt-2 text-sm leading-relaxed text-muted">
+                  Thanks, {lead.name.split(" ")[0]} — choose a slot below and you&apos;re booked.
                 </p>
-              )}
+                <iframe
+                  title="Schedule your demo"
+                  src={bookingEmbedUrl(lead.name, lead.email)}
+                  className="mt-4 h-[600px] w-full rounded-xl border border-border"
+                  loading="eager"
+                />
+              </div>
+            ) : (
+              <>
+                <span className="text-xs font-semibold uppercase tracking-wider text-brand">Step 1 of 2</span>
+                <h2 id="demo-title" className="mt-2 text-2xl font-semibold tracking-tight">
+                  Tell us about your venue
+                </h2>
+                <p id="demo-desc" className="mt-2 text-sm leading-relaxed text-muted">
+                  A few quick details, then you&apos;ll pick a time — all in one step.
+                </p>
 
-              <button
-                type="submit"
-                disabled={status === "submitting"}
-                className="group mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-70"
-              >
-                {status === "submitting" ? "Submitting…" : "Continue to booking"}
-                {status !== "submitting" && (
-                  <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                )}
-              </button>
-              <p className="text-center text-[11px] text-faint">
-                We&apos;ll only use this to prepare for your demo. No spam.
-              </p>
-            </form>
+                <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-4" noValidate>
+                  {/* Honeypot — hidden from users, catches bots */}
+                  <input
+                    type="text"
+                    name="company_site"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="hidden"
+                  />
+
+                  <Field label="Full name" htmlFor="demo-name">
+                    <input ref={firstFieldRef} id="demo-name" name="name" required autoComplete="name" className="gf-input" />
+                  </Field>
+                  <Field label="Work email" htmlFor="demo-email">
+                    <input id="demo-email" name="email" type="email" required autoComplete="email" className="gf-input" />
+                  </Field>
+                  <Field label="Company" htmlFor="demo-company">
+                    <input id="demo-company" name="company" required autoComplete="organization" className="gf-input" />
+                  </Field>
+
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <Field label="Region" htmlFor="demo-region">
+                      <select id="demo-region" name="region" defaultValue="" className="gf-input">
+                        <option value="" disabled>Select…</option>
+                        {REGIONS.map((r) => (
+                          <option key={r} value={r}>{r}</option>
+                        ))}
+                      </select>
+                    </Field>
+                    <Field label="Launch timeframe" htmlFor="demo-timeframe">
+                      <select id="demo-timeframe" name="timeframe" defaultValue="" className="gf-input">
+                        <option value="" disabled>Select…</option>
+                        {TIMEFRAMES.map((t) => (
+                          <option key={t} value={t}>{t}</option>
+                        ))}
+                      </select>
+                    </Field>
+                  </div>
+
+                  <Field label="What are you looking to launch?" htmlFor="demo-message" optional>
+                    <textarea id="demo-message" name="message" rows={3} className="gf-input resize-none" />
+                  </Field>
+
+                  {status === "error" && (
+                    <p role="alert" className="text-sm text-down">
+                      Please check your name, work email, and company, then try again.
+                    </p>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={status === "submitting"}
+                    className="group mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-70"
+                  >
+                    {status === "submitting" ? "Submitting…" : "Continue to booking"}
+                    {status !== "submitting" && (
+                      <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    )}
+                  </button>
+                  <p className="text-center text-[11px] text-faint">
+                    We&apos;ll only use this to prepare for your demo. No spam.
+                  </p>
+                </form>
+              </>
+            )}
           </motion.div>
         </motion.div>
       )}

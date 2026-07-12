@@ -13,14 +13,20 @@ const Ctx = createContext<DemoModalContext | null>(null);
  */
 export function DemoModalProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
-  const open = useCallback(() => setIsOpen(true), []);
+  // Bumped on each open so the modal remounts with fresh state (clean form,
+  // back to step 1) instead of resetting state inside an effect.
+  const [openKey, setOpenKey] = useState(0);
+  const open = useCallback(() => {
+    setOpenKey((k) => k + 1);
+    setIsOpen(true);
+  }, []);
   const close = useCallback(() => setIsOpen(false), []);
   const value = useMemo(() => ({ open }), [open]);
 
   return (
     <Ctx.Provider value={value}>
       {children}
-      <DemoModal isOpen={isOpen} onClose={close} />
+      <DemoModal key={openKey} isOpen={isOpen} onClose={close} />
     </Ctx.Provider>
   );
 }
