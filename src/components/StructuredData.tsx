@@ -1,4 +1,4 @@
-import { faqs } from "@/lib/content";
+import { faqs, socials } from "@/lib/content";
 
 const siteUrl = "https://gammafloww.com";
 
@@ -13,7 +13,15 @@ export function StructuredData() {
       url: siteUrl,
       description:
         "White-label derivatives infrastructure that lets partners launch a fully-featured crypto futures & options exchange in weeks.",
-      logo: `${siteUrl}/opengraph-image`,
+      // Square brand mark (512×512) per Google logo guidelines — the wide OG
+      // banner is rejected for knowledge-panel logos.
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/icon`,
+        width: 512,
+        height: 512,
+      },
+      sameAs: socials.map((s) => s.href),
     },
     {
       "@type": "WebSite",

@@ -38,14 +38,14 @@ export function SlippageCalculator() {
               Order size
               <span className="font-mono font-semibold text-ink tabular-nums">{fmtUsd(order)}</span>
             </div>
-            <input type="range" min={1} max={2000} step={1} value={orderK} onChange={(e) => setOrderK(+e.target.value)} className="gf-range" aria-label="Order size" />
+            <input type="range" min={1} max={2000} step={1} value={orderK} onChange={(e) => setOrderK(+e.target.value)} className="gf-range" aria-label="Order size" aria-valuetext={fmtUsd(order)} />
           </div>
           <div>
             <div className="mb-2 flex items-center justify-between text-sm text-muted">
               Book depth (within ~1%)
               <span className="font-mono font-semibold text-ink tabular-nums">{fmtUsd(depth)}</span>
             </div>
-            <input type="range" min={10} max={5000} step={10} value={depthK} onChange={(e) => setDepthK(+e.target.value)} className="gf-range" aria-label="Book depth" />
+            <input type="range" min={10} max={5000} step={10} value={depthK} onChange={(e) => setDepthK(+e.target.value)} className="gf-range" aria-label="Book depth" aria-valuetext={fmtUsd(depth)} />
           </div>
         </div>
 

@@ -93,6 +93,7 @@ export function Calculator() {
                   onChange={(e) => setMargin(Number(e.target.value))}
                   className="gf-range"
                   aria-label="Margin in USDT"
+                  aria-valuetext={`${fmt(margin, 0)} USDT`}
                 />
               </div>
 
@@ -116,6 +117,7 @@ export function Calculator() {
                   onChange={(e) => setLeverage(Number(e.target.value))}
                   className="gf-range"
                   aria-label="Leverage multiplier"
+                  aria-valuetext={`${leverage}x`}
                 />
                 <div className="mt-1 flex justify-between font-mono text-[10px] text-faint">
                   <span>1x</span>

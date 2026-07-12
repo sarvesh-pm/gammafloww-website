@@ -26,8 +26,9 @@
   --grad-2: #0891b2;
   --grad-3: #7c3aed;
 
-  /* P&L semantics — independent of brand */
-  --up: #16a34a;
+  /* P&L semantics — independent of brand. --up darkened to #15803d so it clears
+     WCAG AA 4.5:1 as small text (ticker %, panel price) on light surfaces. */
+  --up: #15803d;
   --down: #e11d48;
 
   --glass-bg: rgba(255, 255, 255, 0.72);
