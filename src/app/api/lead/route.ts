@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 
-// Receives a demo-request lead from the modal form and emails it to the sales
-// inbox via Resend's REST API (no SDK dependency — same server-fetch pattern as
-// /api/market). Runs per-request so the secret key is read at runtime.
+// Receives a demo-request lead from the modal form and forwards it to a Google
+// Sheet (via an Apps Script web app) and/or an email inbox (via Resend). No SDK
+// deps — same server-fetch pattern as /api/market. Runs per-request so secrets
+// are read at runtime.
 export const dynamic = "force-dynamic";
 
 const REGIONS = new Set([
@@ -15,6 +16,70 @@ const TIMEFRAMES = new Set([
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const clip = (v: unknown, max: number) => (typeof v === "string" ? v.trim().slice(0, max) : "");
+
+type Lead = {
+  name: string;
+  email: string;
+  company: string;
+  region: string;
+  timeframe: string;
+  message: string;
+  at: string;
+};
+
+// Append the lead as a row in the Google Sheet behind LEAD_SHEET_WEBHOOK
+// (a deployed Apps Script web app). Optional shared secret guards the endpoint.
+async function toSheet(lead: Lead): Promise<boolean> {
+  const url = process.env.LEAD_SHEET_WEBHOOK;
+  if (!url) return false;
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...lead, secret: process.env.LEAD_SHEET_SECRET ?? "" }),
+      redirect: "follow",
+    });
+    return res.ok;
+  } catch (e) {
+    console.error("[lead] sheet append failed", e);
+    return false;
+  }
+}
+
+// Optional secondary: email the lead via Resend, if configured.
+async function toEmail(lead: Lead): Promise<boolean> {
+  const apiKey = process.env.RESEND_API_KEY;
+  const to = process.env.LEAD_TO_EMAIL;
+  const from = process.env.LEAD_FROM_EMAIL; // must be on a Resend-verified domain
+  if (!apiKey || !to || !from) return false;
+
+  const rows: [string, string][] = [
+    ["Name", lead.name],
+    ["Work email", lead.email],
+    ["Company", lead.company],
+    ["Region", lead.region || "—"],
+    ["Timeframe", lead.timeframe || "—"],
+    ["Message", lead.message || "—"],
+  ];
+  const esc = (s: string) => s.replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]!));
+  const html = `<h2>New demo request</h2><table cellpadding="6">${rows
+    .map(([k, v]) => `<tr><td><strong>${k}</strong></td><td>${esc(v)}</td></tr>`)
+    .join("")}</table>`;
+  const text = rows.map(([k, v]) => `${k}: ${v}`).join("\n");
+
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ from, to: [to], reply_to: lead.email, subject: `Demo request — ${lead.company}`, html, text }),
+    });
+    if (!res.ok) console.error("[lead] resend failed", res.status, await res.text().catch(() => ""));
+    return res.ok;
+  } catch (e) {
+    console.error("[lead] resend error", e);
+    return false;
+  }
+}
 
 export async function POST(req: Request) {
   let body: Record<string, unknown>;
@@ -38,55 +103,21 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
   }
 
-  const safeRegion = REGIONS.has(region) ? region : "";
-  const safeTimeframe = TIMEFRAMES.has(timeframe) ? timeframe : "";
+  const lead: Lead = {
+    name,
+    email,
+    company,
+    region: REGIONS.has(region) ? region : "",
+    timeframe: TIMEFRAMES.has(timeframe) ? timeframe : "",
+    message,
+    at: new Date().toISOString(),
+  };
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.LEAD_TO_EMAIL;
-  const from = process.env.LEAD_FROM_EMAIL; // must be on a Resend-verified domain
-
-  // Not configured yet: accept the lead so the booking flow (Calendly handoff)
-  // never breaks. delivered:false signals the email wasn't sent.
-  if (!apiKey || !to || !from) {
-    console.warn("[lead] email not configured (RESEND_API_KEY / LEAD_TO_EMAIL / LEAD_FROM_EMAIL missing)");
-    return NextResponse.json({ ok: true, delivered: false });
+  // Fire both destinations; delivered = at least one succeeded. Never block the
+  // visitor's booking on a storage hiccup.
+  const [sheet, email_] = await Promise.all([toSheet(lead), toEmail(lead)]);
+  if (!sheet && !email_) {
+    console.warn("[lead] no destination configured (LEAD_SHEET_WEBHOOK / RESEND_API_KEY)");
   }
-
-  const rows: [string, string][] = [
-    ["Name", name],
-    ["Work email", email],
-    ["Company", company],
-    ["Region", safeRegion || "—"],
-    ["Timeframe", safeTimeframe || "—"],
-    ["Message", message || "—"],
-  ];
-  const esc = (s: string) => s.replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]!));
-  const html = `<h2>New demo request</h2><table cellpadding="6">${rows
-    .map(([k, v]) => `<tr><td><strong>${k}</strong></td><td>${esc(v)}</td></tr>`)
-    .join("")}</table>`;
-  const text = rows.map(([k, v]) => `${k}: ${v}`).join("\n");
-
-  try {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from,
-        to: [to],
-        reply_to: email,
-        subject: `Demo request — ${company}`,
-        html,
-        text,
-      }),
-    });
-    if (!res.ok) {
-      console.error("[lead] resend failed", res.status, await res.text().catch(() => ""));
-      // Don't block the user's booking on an email hiccup.
-      return NextResponse.json({ ok: true, delivered: false });
-    }
-    return NextResponse.json({ ok: true, delivered: true });
-  } catch (e) {
-    console.error("[lead] resend error", e);
-    return NextResponse.json({ ok: true, delivered: false });
-  }
+  return NextResponse.json({ ok: true, delivered: sheet || email_, stored: { sheet, email: email_ } });
 }
