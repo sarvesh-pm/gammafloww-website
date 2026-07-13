@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
+import crypto from "node:crypto";
 
-// Receives a demo-request lead from the modal form and forwards it to a Google
-// Sheet (via an Apps Script web app) and/or an email inbox (via Resend). No SDK
-// deps — same server-fetch pattern as /api/market. Runs per-request so secrets
-// are read at runtime.
+// Receives a demo-request lead from the modal form and appends it to a Google
+// Sheet via the Sheets API, authenticated as a service account (no public
+// endpoint). Optional Resend email as a secondary. No SDK deps. Runs
+// per-request so secrets are read at runtime.
 export const dynamic = "force-dynamic";
 
 const REGIONS = new Set([
@@ -27,21 +28,70 @@ type Lead = {
   at: string;
 };
 
-// Append the lead as a row in the Google Sheet behind LEAD_SHEET_WEBHOOK
-// (a deployed Apps Script web app). Optional shared secret guards the endpoint.
-async function toSheet(lead: Lead): Promise<boolean> {
-  const url = process.env.LEAD_SHEET_WEBHOOK;
-  if (!url) return false;
+const b64url = (input: Buffer | string) =>
+  Buffer.from(input).toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+
+// Mint a short-lived Google OAuth access token from the service account's
+// private key (signed JWT bearer flow — no googleapis dependency).
+async function googleAccessToken(): Promise<string | null> {
+  const email = process.env.GOOGLE_SA_EMAIL;
+  const rawKey = process.env.GOOGLE_SA_PRIVATE_KEY;
+  if (!email || !rawKey) return null;
+  const key = rawKey.replace(/\\n/g, "\n"); // env vars store the key with escaped newlines
+
+  const now = Math.floor(Date.now() / 1000);
+  const claim: Record<string, unknown> = {
+    iss: email,
+    scope: "https://www.googleapis.com/auth/spreadsheets",
+    aud: "https://oauth2.googleapis.com/token",
+    iat: now,
+    exp: now + 3600,
+  };
+  // Domain-wide delegation: impersonate a pi42.com user if configured (used when
+  // the org blocks sharing files directly with the service account).
+  if (process.env.GOOGLE_SA_SUBJECT) claim.sub = process.env.GOOGLE_SA_SUBJECT;
+
+  const header = b64url(JSON.stringify({ alg: "RS256", typ: "JWT" }));
+  const payload = b64url(JSON.stringify(claim));
+  const signature = b64url(crypto.sign("RSA-SHA256", Buffer.from(`${header}.${payload}`), key));
+  const assertion = `${header}.${payload}.${signature}`;
+
+  const res = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
+      assertion,
+    }),
+  });
+  if (!res.ok) {
+    console.error("[lead] google token failed", res.status, await res.text().catch(() => ""));
+    return null;
+  }
+  const json = await res.json();
+  return typeof json.access_token === "string" ? json.access_token : null;
+}
+
+// Append the lead as a row to the pi42.com sheet via the Sheets API.
+async function toSheetsApi(lead: Lead): Promise<boolean> {
+  const sheetId = process.env.LEAD_SHEET_ID;
+  if (!sheetId) return false;
   try {
+    const token = await googleAccessToken();
+    if (!token) return false;
+    const range = encodeURIComponent("Leads!A1");
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
     const res = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...lead, secret: process.env.LEAD_SHEET_SECRET ?? "" }),
-      redirect: "follow",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        values: [[lead.at, lead.name, lead.email, lead.company, lead.region, lead.timeframe, lead.message]],
+      }),
     });
+    if (!res.ok) console.error("[lead] sheets append failed", res.status, await res.text().catch(() => ""));
     return res.ok;
   } catch (e) {
-    console.error("[lead] sheet append failed", e);
+    console.error("[lead] sheets error", e);
     return false;
   }
 }
@@ -50,28 +100,22 @@ async function toSheet(lead: Lead): Promise<boolean> {
 async function toEmail(lead: Lead): Promise<boolean> {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.LEAD_TO_EMAIL;
-  const from = process.env.LEAD_FROM_EMAIL; // must be on a Resend-verified domain
+  const from = process.env.LEAD_FROM_EMAIL;
   if (!apiKey || !to || !from) return false;
 
   const rows: [string, string][] = [
-    ["Name", lead.name],
-    ["Work email", lead.email],
-    ["Company", lead.company],
-    ["Region", lead.region || "—"],
-    ["Timeframe", lead.timeframe || "—"],
-    ["Message", lead.message || "—"],
+    ["Name", lead.name], ["Work email", lead.email], ["Company", lead.company],
+    ["Region", lead.region || "—"], ["Timeframe", lead.timeframe || "—"], ["Message", lead.message || "—"],
   ];
   const esc = (s: string) => s.replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]!));
   const html = `<h2>New demo request</h2><table cellpadding="6">${rows
     .map(([k, v]) => `<tr><td><strong>${k}</strong></td><td>${esc(v)}</td></tr>`)
     .join("")}</table>`;
-  const text = rows.map(([k, v]) => `${k}: ${v}`).join("\n");
-
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ from, to: [to], reply_to: lead.email, subject: `Demo request — ${lead.company}`, html, text }),
+      body: JSON.stringify({ from, to: [to], reply_to: lead.email, subject: `Demo request — ${lead.company}`, html, text: rows.map(([k, v]) => `${k}: ${v}`).join("\n") }),
     });
     if (!res.ok) console.error("[lead] resend failed", res.status, await res.text().catch(() => ""));
     return res.ok;
@@ -104,20 +148,18 @@ export async function POST(req: Request) {
   }
 
   const lead: Lead = {
-    name,
-    email,
-    company,
+    name, email, company,
     region: REGIONS.has(region) ? region : "",
     timeframe: TIMEFRAMES.has(timeframe) ? timeframe : "",
     message,
     at: new Date().toISOString(),
   };
 
-  // Fire both destinations; delivered = at least one succeeded. Never block the
-  // visitor's booking on a storage hiccup.
-  const [sheet, email_] = await Promise.all([toSheet(lead), toEmail(lead)]);
+  // Fire configured destinations; delivered = at least one succeeded. Never
+  // block the visitor's booking on a storage hiccup.
+  const [sheet, email_] = await Promise.all([toSheetsApi(lead), toEmail(lead)]);
   if (!sheet && !email_) {
-    console.warn("[lead] no destination configured (LEAD_SHEET_WEBHOOK / RESEND_API_KEY)");
+    console.warn("[lead] no destination configured (LEAD_SHEET_ID / RESEND_API_KEY)");
   }
   return NextResponse.json({ ok: true, delivered: sheet || email_, stored: { sheet, email: email_ } });
 }
