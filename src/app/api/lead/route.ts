@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import crypto from "node:crypto";
+import disposableList from "@/lib/disposable-domains.json";
 
 // Receives a demo-request lead from the modal form and appends it to a Google
 // Sheet via the Sheets API, authenticated as a service account (no public
@@ -25,8 +26,13 @@ const FREE_EMAIL_DOMAINS = new Set([
   "hotmail.com", "live.com", "msn.com", "icloud.com", "me.com", "aol.com",
   "proton.me", "protonmail.com", "gmx.com", "mail.com", "yandex.com", "zoho.com",
 ]);
-const isPersonalEmail = (email: string) =>
-  FREE_EMAIL_DOMAINS.has(email.split("@")[1]?.toLowerCase() ?? "");
+// Disposable/throwaway providers (mailinator, temp-mail, …) — blocked outright,
+// since a demo request from a 10-minute inbox is never a real lead. Bundled
+// server-side only so the ~126KB list never reaches the client.
+const DISPOSABLE_DOMAINS = new Set(disposableList as string[]);
+const emailDomain = (email: string) => email.split("@")[1]?.toLowerCase() ?? "";
+const isPersonalEmail = (email: string) => FREE_EMAIL_DOMAINS.has(emailDomain(email));
+const isDisposableEmail = (email: string) => DISPOSABLE_DOMAINS.has(emailDomain(email));
 
 type Lead = {
   name: string;
@@ -157,6 +163,9 @@ export async function POST(req: Request) {
 
   if (!name || !company || !EMAIL_RE.test(email)) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
+  }
+  if (isDisposableEmail(email)) {
+    return NextResponse.json({ ok: false, error: "disposable-email" }, { status: 400 });
   }
 
   const lead: Lead = {
