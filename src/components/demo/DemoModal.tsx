@@ -38,6 +38,7 @@ export function DemoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
   const [status, setStatus] = useState<Status>("idle");
   const [step, setStep] = useState<Step>("form");
   const [lead, setLead] = useState<{ name: string; email: string } | null>(null);
+  const [errorMsg, setErrorMsg] = useState("");
 
   // Lock scroll, remember + restore focus, Escape to close, and trap Tab within
   // the dialog. State resets on each open via the remount key in the provider.
@@ -82,23 +83,36 @@ export function DemoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
     const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
     const name = (data.name || "").trim();
     const email = (data.email || "").trim();
+    const GENERIC = "Please check your name, email, and company, then try again.";
     if (!name || !(data.company || "").trim() || !EMAIL_RE.test(email)) {
+      setErrorMsg(GENERIC);
       setStatus("error");
       return;
     }
     setStatus("submitting");
+    setErrorMsg("");
     try {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error("submit failed");
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        setErrorMsg(
+          err?.error === "disposable-email"
+            ? "Please use a permanent email address — temporary inboxes aren't accepted."
+            : GENERIC,
+        );
+        setStatus("error");
+        return;
+      }
       // Success — reveal the booking calendar in-place (step 2).
       setLead({ name, email });
       setStep("booking");
       setStatus("idle");
     } catch {
+      setErrorMsg("Something went wrong. Please try again.");
       setStatus("error");
     }
   }
@@ -224,9 +238,9 @@ export function DemoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                     <textarea id="demo-message" name="message" rows={3} className="gf-input resize-none" />
                   </Field>
 
-                  {status === "error" && (
+                  {status === "error" && errorMsg && (
                     <p role="alert" className="text-sm text-down">
-                      Please check your name, work email, and company, then try again.
+                      {errorMsg}
                     </p>
                   )}
 
