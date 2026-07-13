@@ -18,6 +18,16 @@ const TIMEFRAMES = new Set([
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const clip = (v: unknown, max: number) => (typeof v === "string" ? v.trim().slice(0, max) : "");
 
+// Free/personal email providers — accepted, but flagged so sales can tell a
+// business contact from a personal one at a glance.
+const FREE_EMAIL_DOMAINS = new Set([
+  "gmail.com", "googlemail.com", "yahoo.com", "yahoo.co.in", "outlook.com",
+  "hotmail.com", "live.com", "msn.com", "icloud.com", "me.com", "aol.com",
+  "proton.me", "protonmail.com", "gmx.com", "mail.com", "yandex.com", "zoho.com",
+]);
+const isPersonalEmail = (email: string) =>
+  FREE_EMAIL_DOMAINS.has(email.split("@")[1]?.toLowerCase() ?? "");
+
 type Lead = {
   name: string;
   email: string;
@@ -103,9 +113,11 @@ async function toEmail(lead: Lead): Promise<boolean> {
   const from = process.env.LEAD_FROM_EMAIL;
   if (!apiKey || !to || !from) return false;
 
+  const personal = isPersonalEmail(lead.email);
   const rows: [string, string][] = [
-    ["Name", lead.name], ["Work email", lead.email], ["Company", lead.company],
-    ["Region", lead.region || "—"], ["Timeframe", lead.timeframe || "—"], ["Message", lead.message || "—"],
+    ["Name", lead.name], ["Email", lead.email], ["Email type", personal ? "Personal" : "Business"],
+    ["Company", lead.company], ["Region", lead.region || "—"],
+    ["Timeframe", lead.timeframe || "—"], ["Message", lead.message || "—"],
   ];
   const esc = (s: string) => s.replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]!));
   const html = `<h2>New demo request</h2><table cellpadding="6">${rows
@@ -115,7 +127,7 @@ async function toEmail(lead: Lead): Promise<boolean> {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ from, to: [to], reply_to: lead.email, subject: `Demo request — ${lead.company}`, html, text: rows.map(([k, v]) => `${k}: ${v}`).join("\n") }),
+      body: JSON.stringify({ from, to: [to], reply_to: lead.email, subject: `Demo request${personal ? " · personal email" : ""} — ${lead.company}`, html, text: rows.map(([k, v]) => `${k}: ${v}`).join("\n") }),
     });
     if (!res.ok) console.error("[lead] resend failed", res.status, await res.text().catch(() => ""));
     return res.ok;
