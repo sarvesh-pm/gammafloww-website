@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 export const alt =
   "GammaFloww — White-label crypto derivatives exchange infrastructure";
@@ -6,6 +8,8 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function OpengraphImage() {
+  const logoData = await readFile(join(process.cwd(), "public/logo.png"), "base64");
+  const logoSrc = `data:image/png;base64,${logoData}`;
   return new ImageResponse(
     (
       <div
@@ -24,15 +28,8 @@ export default async function OpengraphImage() {
       >
         {/* wordmark */}
         <div style={{ display: "flex", alignItems: "center", fontSize: 40, fontWeight: 700 }}>
-          <div
-            style={{
-              width: 44,
-              height: 44,
-              borderRadius: 12,
-              marginRight: 18,
-              background: "linear-gradient(135deg, #6d8bff, #22d3ee, #8b5cf6)",
-            }}
-          />
+          {/* eslint-disable-next-line @next/next/no-img-element -- Satori requires a raw img element */}
+          <img src={logoSrc} width={49} height={56} alt="" style={{ marginRight: 18 }} />
           <span>
             Gamma<span style={{ color: "#6d8bff" }}>Floww</span>
           </span>
