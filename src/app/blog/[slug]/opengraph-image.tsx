@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { getAllSlugs, getPostSource } from "@/lib/blog";
 
 export const alt = "GammaFloww blog article";
@@ -14,6 +16,9 @@ export default async function ArticleOgImage({ params }: { params: Promise<{ slu
   const post = getPostSource(slug);
   const title = post?.meta.title ?? "GammaFloww";
   const cluster = post?.meta.cluster ?? "";
+
+  const logoData = await readFile(join(process.cwd(), "public/logo.png"), "base64");
+  const logoSrc = `data:image/png;base64,${logoData}`;
 
   return new ImageResponse(
     (
@@ -32,15 +37,8 @@ export default async function ArticleOgImage({ params }: { params: Promise<{ slu
         }}
       >
         <div style={{ display: "flex", alignItems: "center", fontSize: 34, fontWeight: 700 }}>
-          <div
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 11,
-              marginRight: 16,
-              background: "linear-gradient(135deg, #6d8bff, #22d3ee, #8b5cf6)",
-            }}
-          />
+          {/* eslint-disable-next-line @next/next/no-img-element -- Satori requires a raw img element */}
+          <img src={logoSrc} width={39} height={44} alt="" style={{ marginRight: 16 }} />
           <span>
             Gamma<span style={{ color: "#6d8bff" }}>Floww</span>
           </span>
