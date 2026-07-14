@@ -37,7 +37,7 @@ export function Navbar() {
         }`}
       >
         <HashLink href="/#top" className="flex items-center gap-2.5" aria-label={site.name}>
-          <Logo className="h-7 w-7" />
+          <Logo className="h-7 w-auto" />
           <span className="text-[17px] font-semibold tracking-tight">
             Gamma<span className="text-brand">Floww</span>
           </span>
