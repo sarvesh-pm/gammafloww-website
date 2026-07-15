@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { pngDataUri } from "@/lib/og";
 
 export const alt =
   "GammaFloww — White-label crypto derivatives exchange infrastructure";
@@ -8,8 +7,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function OpengraphImage() {
-  const logoData = await readFile(join(process.cwd(), "public/logo.png"), "base64");
-  const logoSrc = `data:image/png;base64,${logoData}`;
+  const logoSrc = await pngDataUri("logo.png");
   return new ImageResponse(
     (
       <div

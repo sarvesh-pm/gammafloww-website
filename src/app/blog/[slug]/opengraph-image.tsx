@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { pngDataUri } from "@/lib/og";
 import { getAllSlugs, getPostSource } from "@/lib/blog";
 
 export const alt = "GammaFloww blog article";
@@ -17,8 +16,7 @@ export default async function ArticleOgImage({ params }: { params: Promise<{ slu
   const title = post?.meta.title ?? "GammaFloww";
   const cluster = post?.meta.cluster ?? "";
 
-  const logoData = await readFile(join(process.cwd(), "public/logo.png"), "base64");
-  const logoSrc = `data:image/png;base64,${logoData}`;
+  const logoSrc = await pngDataUri("logo.png");
 
   return new ImageResponse(
     (
