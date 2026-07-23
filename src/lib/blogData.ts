@@ -95,9 +95,95 @@ export const charts: Record<string, ChartData> = {
     sourceHref: "https://www.datawallet.com/crypto/crypto-perpetual-futures-statistics",
     asOf: "January 2026",
   },
+  "tokenization-growth": {
+    title: "Tokenized real-world-asset market size (projected)",
+    data: [
+      { label: "2025", value: 2.08, display: "$2.08T", tone: "muted" },
+      { label: "2026", value: 3.01, display: "$3.01T", tone: "brand" },
+      { label: "2031", value: 18.74, display: "$18.74T", tone: "cyan" },
+    ],
+    source: "Blockonomi — White-Label Crypto Exchanges: Market Data and Trends 2026",
+    sourceHref: "https://blockonomi.com/the-review-of-white-label-crypto-exchanges-market-data-and-trends-2026/",
+    asOf: "2026 (projected)",
+  },
 };
 
 export const sourceSets: Record<string, Source[]> = {
+  "hong-kong-sfc-vatp-crypto-derivatives": [
+    {
+      label: "The Full List of Licensed Crypto Exchanges in Hong Kong (2026)",
+      href: "https://fintechnews.hk/licensed-crypto-exchanges-hong-kong/",
+      publisher: "Fintech Hong Kong",
+    },
+    {
+      label: "Hong Kong VASP Licensing Regime (SFO + AMLO; Type 1 & Type 7)",
+      href: "https://cryptoslate.com/crypto-laws/hong-kong-vasp-licensing-regime/",
+      publisher: "CryptoSlate",
+    },
+    {
+      label: "Hong Kong regulators target 2026 legislation for VA dealer and custodian rules",
+      href: "https://www.coindesk.com/policy/2025/12/25/hong-kong-regulators-target-2026-legislation-for-virtual-asset-dealer-and-custodian-rules",
+      publisher: "CoinDesk",
+    },
+  ],
+  "stablecoin-regulation-crypto-exchanges": [
+    {
+      label: "Stablecoin Regulation Updates 2026: GENIUS Act, MiCA Enforcement",
+      href: "https://www.kucoin.com/blog/en-stablecoin-regulation-updates-2026-genius-act-mica-enforcement-global-compliance-trends",
+      publisher: "KuCoin",
+    },
+    {
+      label: "Global Stablecoin Compliance: GENIUS Act, MiCA, Hong Kong, Singapore",
+      href: "https://sumsub.com/blog/global-stablecoin-compliance-guide/",
+      publisher: "Sumsub",
+    },
+    {
+      label: "Global stablecoin regulations 2026: What enterprises need to know",
+      href: "https://bvnk.com/blog/global-stablecoin-regulations-2026",
+      publisher: "BVNK",
+    },
+  ],
+  "crypto-travel-rule-compliance": [
+    {
+      label: "Crypto Travel Rule: 2026 VASP Compliance Guide (thresholds, coverage)",
+      href: "https://www.blockchain-council.org/cryptocurrency/crypto-travel-rule-vasp-compliance-2026/",
+      publisher: "Blockchain Council",
+    },
+    {
+      label: "Crypto Travel Rule Explained: FATF Requirements for VASPs",
+      href: "https://sumsub.com/blog/what-is-the-fatf-travel-rule/",
+      publisher: "Sumsub",
+    },
+  ],
+  "market-surveillance-wash-trading": [
+    {
+      label: "DOJ sting exposes crypto wash trading 'far more common than expected'",
+      href: "https://www.coindesk.com/business/2026/04/02/doj-sting-exposes-crypto-wash-trading-continues-to-be-far-more-common-than-expected",
+      publisher: "CoinDesk",
+    },
+    {
+      label: "How market surveillance solutions help prevent crypto price manipulation",
+      href: "https://www.kaiko.com/resources/how-market-surveillance-solutions-can-help-regulators-prevent-crypto-price-manipulation",
+      publisher: "Kaiko",
+    },
+    {
+      label: "Crypto Wash Trading: Detection Challenges and Prevention Strategies",
+      href: "https://www.nasdaq.com/articles/fintech/crypto-wash-trading-why-its-still-flying-under-the-radar-and-what-institutions-can-do-about-it",
+      publisher: "Nasdaq",
+    },
+  ],
+  "perpetuals-on-tokenized-stocks-rwa": [
+    {
+      label: "White-Label Crypto Exchanges: Market Data and Trends 2026 (tokenization market size)",
+      href: "https://blockonomi.com/the-review-of-white-label-crypto-exchanges-market-data-and-trends-2026/",
+      publisher: "Blockonomi",
+    },
+    {
+      label: "Institutional Adoption of Crypto: 2026 Trends & Analysis",
+      href: "https://b2broker.com/news/institutional-adoption-of-crypto/",
+      publisher: "B2Broker",
+    },
+  ],
   "spot-vs-derivatives-exchange-which-first": [
     {
       label: "Exchange Review, March 2026 (derivatives = 76.5% of CEX volume)",

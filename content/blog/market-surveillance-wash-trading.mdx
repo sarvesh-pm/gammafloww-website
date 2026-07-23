@@ -1,0 +1,47 @@
+---
+title: "Market Surveillance & Wash Trading: An Operator's Guide"
+description: "Wash trading fakes volume and erodes trust. How crypto market surveillance works, what manipulation patterns it detects, and why a new exchange needs it from day one."
+cluster: "Operator Playbook"
+keyword: "crypto market surveillance wash trading"
+date: "2026-07-10"
+author: "GammaFloww Team"
+---
+
+Fake volume is crypto's dirty secret, and it's a direct threat to any operator trying to build a credible venue. Market surveillance — the systems that detect manipulation and wash trading — is what separates a trustworthy exchange from a suspect one. For a new venue, it's not optional.
+
+## The wash-trading problem
+
+Wash trading — buying and selling with yourself to inflate volume — remains pervasive, especially in smaller tokens and on lightly regulated venues, because inflated volume **creates the illusion of liquidity and demand** ([Nasdaq](https://www.nasdaq.com/articles/fintech/crypto-wash-trading-why-its-still-flying-under-the-radar-and-what-institutions-can-do-about-it)). It's common enough that a 2026 DOJ sting concluded the practice is "far more common than investors think" ([CoinDesk](https://www.coindesk.com/business/2026/04/02/doj-sting-exposes-crypto-wash-trading-continues-to-be-far-more-common-than-expected)).
+
+For an operator this cuts both ways: you must avoid *doing* it (regulators are watching), and you must *detect* it among your users.
+
+## How surveillance works
+
+Modern surveillance integrates with exchange infrastructure and analyses order books, executed trades, wallet movements, and liquidity changes, with algorithms hunting for suspicious behaviour ([Icon Partners](https://www.icon.partners/post/crypto-market-surveillance)):
+
+- **Repeating timing patterns** — trades that recur too regularly to be organic
+- **Circular trading routes** — value cycling back to its origin
+- **Clusters of linked accounts** — coordinated wallets acting as one
+- **Unusual reactions to news** — activity that front-runs public information
+
+Alerts route to compliance for investigation and, where required, reporting to authorities. Enterprise platforms (e.g., Nasdaq's surveillance suite) monitor billions of events per day with derivatives-specific alerts and full order-book replay.
+
+<Callout title="MiCA made it mandatory">
+Under MiCA, market manipulation — including wash trading — is **explicitly prohibited**, and CASPs must implement surveillance and reporting mechanisms ([Kaiko](https://www.kaiko.com/resources/how-market-surveillance-solutions-can-help-regulators-prevent-crypto-price-manipulation)). In regulated markets, surveillance is a licensing requirement, not a differentiator.
+</Callout>
+
+## Why a new venue needs it on day one
+
+- **Credibility.** Sophisticated counterparties now look past headline volume to order-book depth, slippage, and counterparty diversity. Fake volume gets found out.
+- **Compliance.** Regulated regimes require surveillance and reporting; retrofitting it later is painful.
+- **Integrity.** Clean markets attract real liquidity and real market makers — the opposite of the wash-trading death spiral.
+
+Surveillance rides on the same data your [matching engine](/blog/inside-a-crypto-matching-engine) and [risk systems](/blog/risk-and-liquidation-engines) produce, and it pairs with genuine [liquidity](/blog/crypto-exchange-liquidity-cold-start) — real depth is the best defence against needing to fake it. Make surveillance capability a checklist item in [vendor due diligence](/blog/white-label-exchange-vendor-due-diligence).
+
+## The takeaway
+
+Wash trading is widespread and increasingly prosecuted; surveillance is how a credible venue detects manipulation and proves its volume is real. Build it in from launch — for regulators, for institutional trust, and for the healthy liquidity that only clean markets attract.
+
+<SourceList id="market-surveillance-wash-trading" />
+
+*General information, not legal advice. Surveillance obligations vary by jurisdiction.*

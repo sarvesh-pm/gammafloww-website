@@ -1,0 +1,55 @@
+---
+title: "The Crypto Travel Rule: A Compliance Primer for Exchanges"
+description: "FATF's Travel Rule requires exchanges to collect and transmit sender/receiver data on crypto transfers. The thresholds by jurisdiction, what data is required, and what operators must build."
+cluster: "Regulation & Compliance"
+keyword: "crypto travel rule compliance"
+date: "2026-07-10"
+author: "GammaFloww Team"
+---
+
+If your exchange moves customer crypto to or from other platforms, the Travel Rule applies to you. It's one of the most operationally demanding AML requirements — and by 2026 it's enforced almost everywhere. Here's what operators need to know.
+
+## What the Travel Rule is
+
+The crypto Travel Rule applies **FATF Recommendation 16** to virtual assets. VASPs (exchanges, custodians) must **collect, verify, transmit, and retain** identifying information about the sender and receiver of qualifying crypto transfers — often *before* the transaction settles on-chain ([Sumsub](https://sumsub.com/blog/what-is-the-fatf-travel-rule/)).
+
+Required data typically includes the originator's name and wallet address/account, a physical address or other identifier, and the beneficiary's name and wallet address/account.
+
+## The thresholds are not universal
+
+This is where operators get caught out — the threshold depends entirely on jurisdiction:
+
+| Jurisdiction | Threshold |
+|---|---|
+| **FATF default** | USD/EUR 1,000 |
+| **US (FinCEN)** | USD 3,000 |
+| **EU (TFR)** | **Zero** — all CASP-to-CASP transfers |
+| **UK** | £1,000 domestic; **zero** cross-border |
+| **Japan** | JPY 100,000 |
+
+The EU's Transfer of Funds Regulation applies a **zero threshold** — every CASP-to-CASP transfer carries obligations regardless of size ([Blockchain Council](https://www.blockchain-council.org/cryptocurrency/crypto-travel-rule-vasp-compliance-2026/)). If you serve EU customers, "small transfers are exempt" is simply false.
+
+<Callout title="It's nearly global now">
+By 2026, about **73% of assessed jurisdictions (85 of 117)** had passed Travel Rule legislation, with enforcement in 70+ including the US, UK, EU, Singapore, Hong Kong, and Japan ([Blockchain Council](https://www.blockchain-council.org/cryptocurrency/crypto-travel-rule-vasp-compliance-2026/)). Australia begins 31 July 2026; Brazil in February 2027. Treat compliance as the default, not the exception.
+</Callout>
+
+## What operators have to build
+
+- **Counterparty VASP identification** — knowing whether the other side is a VASP, and which one.
+- **Secure data transmission** — an interoperable Travel Rule protocol to exchange originator/beneficiary data with counterparties.
+- **Sanctions & wallet screening** — before the transfer moves.
+- **Record retention** — auditable storage of transmitted data.
+
+This sits on top of your core [KYC/AML program](/blog/kyc-aml-for-crypto-exchanges); the Travel Rule is the *transfer-time* layer of it.
+
+## What it means for launch planning
+
+Travel Rule capability isn't a nice-to-have you bolt on later — in most target markets it's a licensing prerequisite. Confirm during [vendor due diligence](/blog/white-label-exchange-vendor-due-diligence) that your platform and compliance vendors support the thresholds and protocols for every jurisdiction on your map.
+
+## The takeaway
+
+The Travel Rule obliges exchanges to collect and transmit sender/receiver identity on crypto transfers — with thresholds that swing from $3,000 (US) to **zero** (EU). It's enforced across most of the world now, so build interoperable Travel Rule capability into your compliance stack from day one.
+
+<SourceList id="crypto-travel-rule-compliance" />
+
+*General information, not legal advice. Thresholds and rules change and vary by jurisdiction — verify current requirements with qualified counsel.*
