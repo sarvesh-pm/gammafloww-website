@@ -1,6 +1,6 @@
 import { faqs, socials } from "@/lib/content";
 
-const siteUrl = "https://gammafloww.com";
+const siteUrl = "https://www.gammafloww.com";
 
 // Server-rendered JSON-LD. type="application/ld+json" is non-executable data,
 // emitted straight into the HTML for crawlers and AI answer engines.

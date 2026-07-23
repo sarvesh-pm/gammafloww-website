@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
 };
 
-const siteUrl = "https://gammafloww.com";
+const siteUrl = "https://www.gammafloww.com";
 
 export default function BlogIndex() {
   const posts = getAllPosts();

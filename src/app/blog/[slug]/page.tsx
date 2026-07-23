@@ -11,7 +11,7 @@ import { mdxComponents } from "@/components/mdx";
 import { getAllSlugs, getPostSource } from "@/lib/blog";
 import { DemoButton } from "@/components/demo/DemoButton";
 
-const siteUrl = "https://gammafloww.com";
+const siteUrl = "https://www.gammafloww.com";
 
 export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));

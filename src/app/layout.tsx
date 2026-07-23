@@ -15,7 +15,7 @@ const plexMono = IBM_Plex_Mono({
   weight: ["400", "500", "600"],
 });
 
-const siteUrl = "https://gammafloww.com";
+const siteUrl = "https://www.gammafloww.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
