@@ -1,0 +1,51 @@
+---
+title: "Insurance Funds & Auto-Deleveraging (ADL), Explained"
+description: "How derivatives exchanges absorb bad debt: the loss-absorption waterfall from margin to liquidation to the insurance fund to auto-deleveraging (ADL) — and why it matters to operators."
+cluster: "Operator Playbook"
+keyword: "insurance fund auto-deleveraging"
+date: "2026-07-10"
+author: "GammaFloww Team"
+---
+
+Leverage means some positions will blow through their margin faster than they can be closed. What happens to that shortfall is one of the most important — and least understood — parts of running a derivatives venue. The answer is a loss-absorption waterfall ending in the insurance fund and, as a last resort, auto-deleveraging.
+
+## The loss-absorption waterfall
+
+When a leveraged position goes bad, the exchange works down a sequence to keep the book solvent:
+
+| Step | What absorbs the loss |
+|---|---|
+| **1. Margin** | The trader's own posted margin |
+| **2. Liquidation** | The [liquidation engine](/blog/risk-and-liquidation-engines) closes the position in the market |
+| **3. Insurance fund** | Covers any shortfall when liquidation can't cover the deficit |
+| **4. ADL** | Last resort: force-close opposing positions if the fund is exhausted |
+
+Most of the time it stops at step 2. Steps 3 and 4 exist for the tail — the violent moves where a position can't be [liquidated](/blog/how-liquidation-price-is-calculated) at or above its bankruptcy price.
+
+## The insurance fund
+
+The insurance fund is a reserve pool that covers losses exceeding a liquidated position's margin. It's funded two ways: exchange contributions, and the *excess* from liquidations closed at a price **better** than bankruptcy price ([CCN](https://www.ccn.com/education/crypto/auto-deleveraging-adl-crypto-liquidate-winning-traders/), [Datawallet](https://www.datawallet.com/crypto/auto-deleveraging-explained)). In calm markets it grows; in crashes it's drawn down. A healthy, transparent fund is a real trust signal for traders.
+
+## Auto-deleveraging (ADL) — the last line
+
+When a bankrupt position can't be absorbed by the market **and** the insurance fund falls short, the exchange forcibly closes opposing positions to restore solvency. Traders are ranked in an **ADL queue** by a combination of **profitability and effective leverage** — the biggest, highest-leverage winners on the other side get cut first ([Cube](https://www.cube.exchange/what-is/auto-deleveraging-adl), [Bybit](https://www.bybit.com/en/help-center/article/Auto-Deleveraging-ADL)).
+
+<Callout title="Why traders hate it — and why it exists">
+ADL can close a *profitable* position early, through no fault of the trader. It's deeply unpopular — but it's what prevents socialized losses (clawing back gains from everyone) and keeps the venue solvent. Virtually every major venue uses it (Binance, Bybit, OKX, dYdX); Binance surfaces each trader's risk with a 5-light indicator.
+</Callout>
+
+## What operators should take from this
+
+- **Size and fund the insurance pool deliberately** — it's your buffer between normal liquidations and the ADL nightmare that erodes trader trust.
+- **Make it transparent.** Publishing insurance-fund balance and ADL mechanics signals maturity.
+- **Tune liquidation aggressiveness** so positions close *before* they go bankrupt — the best ADL rate is one traders never see.
+
+All of this rides on the [risk and liquidation engine](/blog/risk-and-liquidation-engines); the insurance fund and ADL are its safety net, not a substitute for getting liquidation right.
+
+## The takeaway
+
+The waterfall goes margin → liquidation → insurance fund → ADL. A well-funded, transparent insurance fund and a rarely-triggered ADL are hallmarks of a serious derivatives venue — and both depend on a liquidation engine that closes risk early and cleanly.
+
+<SourceList id="insurance-fund-and-auto-deleveraging" />
+
+*Mechanics are standard across venues; exact parameters and queue logic vary. Not trading advice.*

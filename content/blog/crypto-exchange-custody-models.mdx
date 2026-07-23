@@ -1,0 +1,45 @@
+---
+title: "Crypto Exchange Custody Models: Self, MPC, Hybrid & Qualified"
+description: "How exchanges hold customer assets — self-custody, third-party, MPC, and hybrid hot/cold models — plus the qualified-custodian question. A 2026 guide for operators."
+cluster: "Operator Playbook"
+keyword: "crypto exchange custody models"
+date: "2026-07-10"
+author: "GammaFloww Team"
+---
+
+Custody is where trust — and regulatory risk — concentrates. How you hold customer assets shapes your security posture, your compliance obligations, and increasingly whether institutions will touch you at all. Here are the models operators actually choose in 2026.
+
+## The models
+
+| Model | Who holds keys | Trade-off |
+|---|---|---|
+| **Self-custody** | You, fully | Max control, max operational burden & single-point risk |
+| **Third-party custodian** | External custodian | Offloads security & some liability; adds dependency |
+| **MPC** | Key split across parties (no single key) | Eliminates single point of failure; institutional default |
+| **Hybrid (MPC + cold)** | Split hot for trading, cold for the rest | The 2026 "gold standard" |
+
+**MPC (multi-party computation)** has become the industry standard for new builds — it removes the single point of failure while keeping operations fast. And **hybrid MPC with cold storage** is now widely called the institutional gold standard ([Cobo](https://www.cobo.com/post/crypto-custody-solutions-complete-guide), [ChainUp](https://www.chainup.com/blog/multi-sig-mpc-enterprise-crypto-custody-2026/)).
+
+<Callout title="The hot/cold split">
+A common resilient pattern: keep **5–10%** of assets in MPC/third-party hot custody for active trading, and **90–95%** in cold multi-sig for long-term holdings ([Cobo](https://www.cobo.com/post/enterprise-crypto-wallet-comparison)). It balances daily liquidity against concentration risk — most of the money stays offline.
+</Callout>
+
+## The qualified-custodian question
+
+If you'll serve US institutions, custody isn't just technical — it's regulatory. Under the SEC Custody Rule, investment advisers with custody of client assets must use a **qualified custodian**; for digital assets that has meant certain state-chartered trust companies and banks ([Cobo](https://www.cobo.com/post/qualified-custodian-crypto-guide)). The bar is rising: in early 2026, **BitGo obtained the first OCC national trust bank charter granted to a crypto custodian**. If institutional flow is your target, plan for a qualified-custodian relationship — it's often a gating requirement.
+
+## What operators should decide
+
+- **Match custody to your audience.** Retail-first can run MPC hybrid; institutional-first likely needs a qualified custodian in the stack.
+- **Segregate hot and cold** with clear policy, and keep the hot float small.
+- **Document key management** — recovery, quorum, and offboarding. This is core [KYC/AML and audit](/blog/kyc-aml-for-crypto-exchanges) territory and a headline item in any [vendor due diligence](/blog/white-label-exchange-vendor-due-diligence).
+
+When you [choose a provider](/blog/how-to-choose-white-label-exchange-provider), ask exactly which custody model powers the platform and whether it supports the custodians your target market expects.
+
+## The takeaway
+
+MPC is the default, hybrid MPC-plus-cold is the institutional standard, and a qualified custodian is the gate for serving US institutions. Pick the model your audience demands, keep the hot float small, and treat key management as a first-class operational discipline.
+
+<SourceList id="crypto-exchange-custody-models" />
+
+*Regulatory requirements vary by jurisdiction and evolve quickly; verify current rules with qualified counsel. Not legal advice.*

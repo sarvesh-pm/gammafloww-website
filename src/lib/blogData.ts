@@ -98,6 +98,76 @@ export const charts: Record<string, ChartData> = {
 };
 
 export const sourceSets: Record<string, Source[]> = {
+  "spot-vs-derivatives-exchange-which-first": [
+    {
+      label: "Exchange Review, March 2026 (derivatives = 76.5% of CEX volume)",
+      href: "https://data.coindesk.com/reports/exchange-review-march-2026",
+      publisher: "CCData",
+    },
+    {
+      label: "White-Label Crypto Exchanges: Market Data and Trends 2026 (spot ≈ 62.6% of demand)",
+      href: "https://blockonomi.com/the-review-of-white-label-crypto-exchanges-market-data-and-trends-2026/",
+      publisher: "Blockonomi",
+    },
+  ],
+  "white-label-exchange-vendor-due-diligence": [
+    {
+      label: "Top White Label Crypto Exchange Providers of 2026",
+      href: "https://www.financemagnates.com/cryptocurrency/top-white-label-crypto-exchange-providers-of-2026/",
+      publisher: "Finance Magnates",
+    },
+  ],
+  "insurance-fund-and-auto-deleveraging": [
+    {
+      label: "Auto-Deleveraging (ADL): How It Can Liquidate You Even When You're Winning",
+      href: "https://www.ccn.com/education/crypto/auto-deleveraging-adl-crypto-liquidate-winning-traders/",
+      publisher: "CCN",
+    },
+    {
+      label: "Auto-Deleveraging (ADL) Explained (insurance fund & ADL queue)",
+      href: "https://www.datawallet.com/crypto/auto-deleveraging-explained",
+      publisher: "Datawallet",
+    },
+    {
+      label: "Auto-Deleveraging (ADL) Mechanism",
+      href: "https://www.bybit.com/en/help-center/article/Auto-Deleveraging-ADL",
+      publisher: "Bybit",
+    },
+  ],
+  "crypto-exchange-custody-models": [
+    {
+      label: "Crypto Custody Solutions: Complete 2026 Guide (MPC, hybrid gold standard)",
+      href: "https://www.cobo.com/post/crypto-custody-solutions-complete-guide",
+      publisher: "Cobo",
+    },
+    {
+      label: "Qualified Custodian for Crypto: SEC Requirements Guide 2026",
+      href: "https://www.cobo.com/post/qualified-custodian-crypto-guide",
+      publisher: "Cobo",
+    },
+    {
+      label: "Multi-Sig and MPC in Enterprise Crypto Custody in 2026",
+      href: "https://www.chainup.com/blog/multi-sig-mpc-enterprise-crypto-custody-2026/",
+      publisher: "ChainUp",
+    },
+  ],
+  "singapore-mas-crypto-derivatives-license": [
+    {
+      label: "MAS Clarifies Regulatory Regime for Digital Token Service Providers",
+      href: "https://www.mas.gov.sg/news/media-releases/2025/mas-clarifies-regulatory-regime-for-digital-token-service-providers",
+      publisher: "Monetary Authority of Singapore",
+    },
+    {
+      label: "Blockchain & Cryptocurrency Laws 2026 — Singapore (derivatives under the SFA)",
+      href: "https://www.globallegalinsights.com/practice-areas/blockchain-cryptocurrency-laws-and-regulations/singapore/",
+      publisher: "Global Legal Insights",
+    },
+    {
+      label: "Singapore Crypto Regulations 2025: MAS DTSP License Guide",
+      href: "https://phemex.com/academy/singapore-crypto-regulations-2025-MAS-DTSP",
+      publisher: "Phemex",
+    },
+  ],
   "us-perpetual-futures-cftc-regulation": [
     {
       label: "Trading in perpetual futures hit $1 billion on Kalshi in the first week",
