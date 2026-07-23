@@ -75,9 +75,75 @@ export const charts: Record<string, ChartData> = {
     sourceHref: "https://codono.com/blog/white-label-crypto-exchange-vs-custom-build",
     asOf: "2026",
   },
+  "perps-volume-growth": {
+    title: "Monthly crypto perpetual-futures volume",
+    data: [
+      { label: "Jan 2024", value: 4.14, display: "$4.14T", tone: "muted" },
+      { label: "Jan 2026", value: 7.24, display: "$7.24T", tone: "brand" },
+    ],
+    source: "Datawallet — Crypto Perpetual Futures Statistics",
+    sourceHref: "https://www.datawallet.com/crypto/crypto-perpetual-futures-statistics",
+    asOf: "January 2026",
+  },
+  "perp-dex-growth": {
+    title: "Perp DEX share of total perpetuals volume",
+    data: [
+      { label: "Jan 2024", value: 2.0, display: "2.0%", tone: "muted" },
+      { label: "Jan 2026", value: 10.2, display: "10.2%", tone: "brand" },
+    ],
+    source: "Datawallet — Crypto Perpetual Futures Statistics",
+    sourceHref: "https://www.datawallet.com/crypto/crypto-perpetual-futures-statistics",
+    asOf: "January 2026",
+  },
 };
 
 export const sourceSets: Record<string, Source[]> = {
+  "us-perpetual-futures-cftc-regulation": [
+    {
+      label: "Trading in perpetual futures hit $1 billion on Kalshi in the first week",
+      href: "https://www.fool.com/investing/2026/07/02/trading-in-perpetual-futures-hit-1-billion-on-kals/",
+      publisher: "The Motley Fool",
+    },
+    {
+      label: "Crypto firms prepare to launch US perpetual futures before rule change",
+      href: "https://www.tradingview.com/news/invezz:b20da6fdc094b:0-crypto-firms-prepare-to-launch-us-perpetual-futures-before-rule-change/",
+      publisher: "TradingView / Invezz",
+    },
+    {
+      label: "Crypto Perpetual Futures Statistics & Trends (perps = 78% of derivatives volume)",
+      href: "https://www.datawallet.com/crypto/crypto-perpetual-futures-statistics",
+      publisher: "Datawallet",
+    },
+  ],
+  "perp-dex-vs-centralized-perpetuals": [
+    {
+      label: "Crypto Perpetual Futures Statistics (perp DEX volume & share growth)",
+      href: "https://www.datawallet.com/crypto/crypto-perpetual-futures-statistics",
+      publisher: "Datawallet",
+    },
+    {
+      label: "Decentralized Perpetual Exchanges & Crypto Growth 2026",
+      href: "https://www.nadcab.com/blog/crypto-derivatives-perpetual-dex-growth",
+      publisher: "Nadcab Labs",
+    },
+    {
+      label: "Onchain Perpetuals Top $1T Monthly Volume",
+      href: "https://finance.yahoo.com/news/onchain-perpetuals-top-1t-monthly-101628280.html",
+      publisher: "CoinDesk via Yahoo Finance",
+    },
+  ],
+  "white-label-exchange-pricing-models": [
+    {
+      label: "The Review of White-Label Crypto Exchanges: Market Data and Trends 2026",
+      href: "https://blockonomi.com/the-review-of-white-label-crypto-exchanges-market-data-and-trends-2026/",
+      publisher: "Blockonomi",
+    },
+    {
+      label: "Top White Label Crypto Exchange Providers of 2026",
+      href: "https://www.financemagnates.com/cryptocurrency/top-white-label-crypto-exchange-providers-of-2026/",
+      publisher: "Finance Magnates",
+    },
+  ],
   "how-crypto-exchanges-make-money": [
     {
       label: "Exchange Review, March 2026 (derivatives = 76.5% of CEX volume)",

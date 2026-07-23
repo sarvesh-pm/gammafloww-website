@@ -1,0 +1,51 @@
+---
+title: "Perp DEX vs. Centralized Perpetuals: Which Model to Launch"
+description: "On-chain perpetual DEXs are the fastest-growing venue type in crypto. How perp DEXs and centralized perpetuals differ on custody, liquidity, latency, and compliance — and which model fits your launch."
+cluster: "Launch & Buy"
+keyword: "perp dex vs centralized exchange"
+date: "2026-07-10"
+author: "GammaFloww Team"
+---
+
+The single biggest structural shift in crypto derivatives right now is on-chain. Perpetual DEXs — venues where [perpetual futures](/blog/what-are-perpetual-futures) trade against smart contracts rather than a centralized order book — have gone from a rounding error to a serious share of the market. If you're launching a perps venue, "CEX or DEX?" is now a real strategic question, not a foregone conclusion.
+
+## The numbers behind the shift
+
+Perp DEX volume grew roughly **8×**, from **$81.74B to $739.48B** monthly, while decentralized venues' share of total perpetuals volume rose from **2.0% to 10.2%** between January 2024 and January 2026 ([Datawallet](https://www.datawallet.com/crypto/crypto-perpetual-futures-statistics)).
+
+<BarChart id="perp-dex-growth" />
+
+By late 2025, on-chain perps were clearing **more than $1 trillion in monthly volume** ([CoinDesk via Yahoo Finance](https://finance.yahoo.com/news/onchain-perpetuals-top-1t-monthly-101628280.html)), and a single purpose-built venue reportedly accounted for around **70% of on-chain perpetual volume** ([Nadcab](https://www.nadcab.com/blog/crypto-derivatives-perpetual-dex-growth)). This is no longer a niche.
+
+## How the two models differ
+
+| | Centralized perpetuals (CEX) | Perpetual DEX |
+|---|---|---|
+| **Custody** | Exchange holds funds | Self-custody / smart contract |
+| **Matching** | Off-chain [matching engine](/blog/inside-a-crypto-matching-engine) | On-chain order book or AMM/oracle model |
+| **Latency** | Sub-millisecond achievable | Bounded by block time / L2 |
+| **Liquidity** | [Market makers, internal books](/blog/crypto-exchange-liquidity-cold-start) | On-chain LPs, vaults, external MMs |
+| **Compliance** | KYC/AML at the venue | Varies; often permissionless (a regulatory grey zone) |
+| **Cold-start** | Hard — you own the liquidity problem | Hard — plus smart-contract + oracle risk |
+
+Neither is "better." They serve different users and carry different operational and regulatory weight.
+
+<Callout title="The compliance caveat">
+Permissionless perp DEXs sidestep some venue-level KYC, but that is exactly what regulators are now scrutinising. If you plan to serve regulated markets or institutions, "decentralized" does not mean "compliance-free" — see our [KYC/AML guide](/blog/kyc-aml-for-crypto-exchanges).
+</Callout>
+
+## Which should you launch?
+
+- **Launch a CEX-style perps venue if** you want control over latency and liquidity, plan to serve regulated or institutional flow, and want the most mature operational toolset. This is still where the majority of volume lives.
+- **Lean toward a perp DEX if** self-custody is core to your brand, your users are crypto-native, and you're comfortable owning smart-contract, oracle, and [liquidation](/blog/risk-and-liquidation-engines) risk on-chain.
+- **Many operators do both** — a centralized venue for depth and institutions, an on-chain product for the crypto-native segment, sharing brand and treasury.
+
+Whichever you choose, the hard parts are the same: a fast, correct matching and [risk engine](/blog/risk-and-liquidation-engines), real liquidity, and a clean launch. That's the case for not building the plumbing yourself — see [white-label vs. building from scratch](/blog/white-label-vs-building-crypto-exchange) and [how to launch a derivatives exchange](/blog/how-to-launch-a-crypto-derivatives-exchange).
+
+## The takeaway
+
+Perp DEXs are the fastest-growing venue type in crypto and deserve a place in your thinking — but centralized perpetuals still hold the depth, latency, and compliance profile most operators need. Pick the model that matches your users and your regulatory ambitions, and make sure your infrastructure can support the one (or both) you choose.
+
+<SourceList id="perp-dex-vs-centralized-perpetuals" />
+
+*Market figures are as reported by the cited sources and change quickly. Not investment or trading advice.*

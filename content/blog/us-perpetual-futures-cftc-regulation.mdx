@@ -1,0 +1,51 @@
+---
+title: "US Perpetual Futures Are Coming: What the Shift Means for Operators"
+description: "US-regulated crypto perpetual futures are opening up. What's changing at the CFTC, why firms are racing to launch, and what a compliant US perps path means if you're building a derivatives venue."
+cluster: "Regulation & Compliance"
+keyword: "us perpetual futures regulation"
+date: "2026-07-10"
+author: "GammaFloww Team"
+---
+
+For years, perpetual futures — the product that drives most crypto derivatives volume — were effectively off-limits to US retail traders. Perps lived offshore, and US users were geofenced out. That's now changing, and it's one of the most consequential regulatory shifts for anyone building a derivatives venue.
+
+## What actually changed
+
+Perpetual futures are the dominant crypto derivatives product — roughly **78% of all crypto derivatives volume**, with monthly volume climbing from **$4.14T in January 2024 to $7.24T in January 2026** ([Datawallet](https://www.datawallet.com/crypto/crypto-perpetual-futures-statistics)).
+
+<BarChart id="perps-volume-growth" />
+
+Historically none of that flowed through US-regulated venues. The opening came through the derivatives framework itself: perpetual-style contracts are being brought to market on **CFTC-regulated Designated Contract Markets (DCMs)** rather than through offshore entities. When Kalshi listed perpetual futures, trading reportedly hit **$1 billion in the first week** ([The Motley Fool](https://www.fool.com/investing/2026/07/02/trading-in-perpetual-futures-hit-1-billion-on-kals/)), and multiple crypto firms are now preparing to launch US perpetual futures ahead of the shift ([TradingView / Invezz](https://www.tradingview.com/news/invezz:b20da6fdc094b:0-crypto-firms-prepare-to-launch-us-perpetual-futures-before-rule-change/)).
+
+<Callout title="Why this matters for operators">
+The US has the deepest pool of regulated trading capital in the world, and it has been structurally excluded from crypto perps. A compliant path onshore doesn't just add a market — it changes who your competitors, partners, and customers can be.
+</Callout>
+
+## The compliance bar is different
+
+A US-regulated derivatives venue is not an offshore exchange with a US flag. The regime is built around the CFTC:
+
+| Requirement | What it means |
+|---|---|
+| **DCM (or access to one)** | Perpetual/futures contracts must list on a Designated Contract Market — a licence with capital, surveillance, and reporting obligations. |
+| **Registered intermediaries** | Onboarding flows (FCMs and similar) carry their own registration and capital rules. |
+| **Market surveillance** | Real-time monitoring for manipulation and position limits is table stakes, not optional. |
+| **State money-transmission** | Custody and fiat rails still touch state-level MTL requirements. |
+
+This is a materially higher bar than the [offshore licensing routes](/blog/crypto-derivatives-licensing-global-guide) most crypto perps venues used. For the full jurisdiction-by-jurisdiction picture, see our [global licensing guide](/blog/crypto-derivatives-licensing-global-guide); the US row is the one that just got more interesting.
+
+## What it changes if you're launching
+
+- **Two-track strategy.** Many operators will run a compliant US-facing venue alongside an offshore one — different entities, different rulebooks, shared technology.
+- **Surveillance and reporting are product features, not afterthoughts.** A DCM-grade venue needs trade surveillance, audit trails, and reporting wired into the [matching engine](/blog/inside-a-crypto-matching-engine) from day one.
+- **The infrastructure has to support both worlds.** If your [risk and liquidation](/blog/risk-and-liquidation-engines) and matching stack can't be configured for a stricter regime, you re-platform later — expensively.
+
+That last point is the practical one. Whether you [build or buy](/blog/white-label-vs-building-crypto-exchange), the technology decision now has to account for a US path that may not have been on the roadmap a year ago.
+
+## The takeaway
+
+US-regulated perpetual futures are moving from "impossible" to "early." The opportunity is large, but the compliance bar — DCM-level obligations, surveillance, registered intermediaries — is far above the offshore norm. Operators who plan for it now, at the infrastructure layer, will be positioned when the window opens fully.
+
+<SourceList id="us-perpetual-futures-cftc-regulation" />
+
+*This is general information, not legal advice. US derivatives regulation is complex and evolving — engage qualified US counsel before making licensing or launch decisions.*
