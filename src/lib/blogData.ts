@@ -109,6 +109,86 @@ export const charts: Record<string, ChartData> = {
 };
 
 export const sourceSets: Record<string, Source[]> = {
+  "mark-price-index-price-oracles": [
+    {
+      label: "Index Price, Mark Price, and Last Price in Crypto Futures Explained",
+      href: "https://wazirx.com/blog/crypto-futures-prices-explained/",
+      publisher: "WazirX",
+    },
+    {
+      label: "Mark Price Calculation (Perpetual & Expiry Contracts)",
+      href: "https://www.bybit.com/en/help-center/article/Mark-Price-Calculation-Perpetual-Expiry-Contracts",
+      publisher: "Bybit",
+    },
+    {
+      label: "Mark Price vs Index Price vs Last Price: What Each One Does",
+      href: "https://leverage.trading/mark-price-vs-index-price-vs-last-price/",
+      publisher: "Leverage.trading",
+    },
+  ],
+  "market-making-internal-vs-external": [
+    {
+      label: "Crypto Liquidity Solutions for Exchange Startups (2026)",
+      href: "https://www.dappfort.com/blog/crypto-liquidity-solutions-for-exchange-startups/",
+      publisher: "Dappfort",
+    },
+    {
+      label: "How to Attract Liquidity Providers for a New Crypto Exchange (2026)",
+      href: "https://www.dappfort.com/blog/attract-liquidity-providers-crypto-exchange/",
+      publisher: "Dappfort",
+    },
+    {
+      label: "Crypto Market Making & Liquidity Services",
+      href: "https://www.openware.com/solution/crypto-market-making-and-liquidity-services",
+      publisher: "Openware",
+    },
+  ],
+  "exchange-uptime-latency-sla": [
+    {
+      label: "Architecting for 99.99% Uptime and Ultra-Low Latency",
+      href: "https://www.errna.com/tech-talk/cryptocurrency/the-exchange-operator-s-operational-imperative-architecting-for-99-99-uptime-and-ultra-low-latency.html",
+      publisher: "Errna",
+    },
+    {
+      label: "Best VPS for Algorithmic Trading (latency & uptime benchmarks)",
+      href: "https://www.quantvps.com/blog/best-vps-algorithmic-trading",
+      publisher: "QuantVPS",
+    },
+    {
+      label: "Matching Engine for Crypto and Stock Exchanges",
+      href: "https://devexperts.com/matching-engine/",
+      publisher: "Devexperts",
+    },
+  ],
+  "crypto-order-types-explained": [
+    {
+      label: "Order Types Explained: Market, Limit, Post-Only, Reduce-Only",
+      href: "https://cryptoadventure.com/order-types-explained-market-limit-post-only-reduce-only-with-examples/",
+      publisher: "Crypto Adventure",
+    },
+    {
+      label: "Hyperliquid Order Types 2026: Market, Limit, Stop, TWAP Explained",
+      href: "https://eco.com/support/en/articles/15247718-hyperliquid-order-types-2026-market-limit-stop-twap-explained",
+      publisher: "Eco",
+    },
+    {
+      label: "Understanding Different Crypto Order Types for Trading",
+      href: "https://tokentax.co/blog/crypto-order-types",
+      publisher: "TokenTax",
+    },
+  ],
+  "contango-backwardation-basis": [
+    {
+      label: "What Is Basis? (basis, contango, backwardation, funding)",
+      href: "https://www.cube.exchange/what-is/basis",
+      publisher: "Cube Exchange",
+    },
+    {
+      label: "Contango vs. Backwardation in Futures Markets",
+      href: "https://www.britannica.com/money/contango-vs-backwardation-differences",
+      publisher: "Britannica Money",
+    },
+  ],
   "hong-kong-sfc-vatp-crypto-derivatives": [
     {
       label: "The Full List of Licensed Crypto Exchanges in Hong Kong (2026)",

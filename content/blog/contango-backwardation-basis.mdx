@@ -1,0 +1,42 @@
+---
+title: "Basis, Contango & Backwardation in Crypto Futures"
+description: "What the gap between futures and spot tells you — basis, contango, and backwardation — and how the perpetual funding rate keeps that gap in check. A trader's primer."
+cluster: "Trader Education"
+keyword: "contango backwardation basis crypto"
+date: "2026-07-10"
+author: "GammaFloww Team"
+---
+
+The gap between a futures price and spot has a name — the **basis** — and its sign tells you a lot about market sentiment. If you trade or run derivatives, understanding basis (and its two named states, contango and backwardation) is fundamental to reading the market.
+
+## Basis: the futures-vs-spot gap
+
+**Basis** is simply the difference between the spot ("cash") price and the futures price. It's the general language for the cash-futures gap, and it works across every futures market ([Cube](https://www.cube.exchange/what-is/basis)). Contango and backwardation are just names for the *sign* of that gap:
+
+| State | Relationship | Typical read |
+|---|---|---|
+| **Contango** | Futures **above** spot | Bullish/normal; cost-of-carry positive |
+| **Backwardation** | Futures **below** spot | Often bearish or supply-stressed |
+
+A market is in **contango** when the futures price is higher than spot, and in **backwardation** when futures are below spot ([Britannica](https://www.britannica.com/money/contango-vs-backwardation-differences)). As a dated future approaches expiry, its price converges toward spot — the basis shrinks to zero.
+
+## Where perpetuals fit
+
+[Perpetual futures](/blog/what-are-perpetual-futures) have no expiry to force convergence, so they use a different tool: the [**funding rate**](/blog/funding-rates-explained). Funding is a periodic payment between longs and shorts that pushes the perpetual's price back toward spot — the mechanism that keeps the perp-spot basis near zero over time ([Cube](https://www.cube.exchange/what-is/basis)). When perps trade at a premium (positive basis), longs pay shorts, nudging the price down; at a discount, the reverse.
+
+<Callout title="Basis is a sentiment gauge">
+A persistently positive basis (contango) signals traders are willing to pay up for leveraged long exposure — bullish, but crowded. Extreme contango is often read as over-heated and prone to reversal, while deep backwardation flags stress or aggressive shorting. Basis is one of the cleaner reads on positioning.
+</Callout>
+
+## Why it matters to traders — and operators
+
+- **Traders** watch basis for sentiment and for **basis trades** — arbitraging an unusually wide gap against financing costs.
+- **Operators** feel basis directly: it flows into your [mark price](/blog/mark-price-index-price-oracles) (which blends the index with a basis component) and drives the [funding](/blog/funding-rates-explained) payments your venue calculates and settles. A healthy funding mechanism keeping basis tight is a sign of a well-run perpetual market.
+
+## The takeaway
+
+Basis is the futures-minus-spot gap; contango means futures trade rich, backwardation means they trade cheap. Dated futures converge at expiry; perpetuals use the funding rate to hold basis near zero. Read basis as a sentiment gauge — and, if you operate a venue, as a live input to your mark price and funding.
+
+<SourceList id="contango-backwardation-basis" />
+
+*Educational content, not trading or investment advice.*

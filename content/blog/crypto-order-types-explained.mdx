@@ -1,0 +1,43 @@
+---
+title: "Crypto Order Types Explained: Market, Limit, Stop & More"
+description: "Market, limit, stop-limit, TWAP, post-only, reduce-only — the order types a derivatives exchange needs to support, what each does, and why they matter to traders and operators."
+cluster: "Trader Education"
+keyword: "crypto order types explained"
+date: "2026-07-10"
+author: "GammaFloww Team"
+---
+
+The order types a venue supports quietly define who will trade there. Casual users need market and limit orders; serious traders expect stops, post-only, reduce-only, and TWAP. Here's what each does — and why the list matters when you're building an exchange.
+
+## The core order types
+
+- **Market order** — buy or sell immediately at the best available price. Fast, but you accept whatever [slippage](/blog/maker-taker-fees-explained) the book gives ([Binance.US](https://blog.binance.us/order-types-explained/)).
+- **Limit order** — execute only at your set price or better: a buy fills at your price or lower, a sell at your price or higher. You control price, not timing.
+- **Stop-limit order** — a dormant order that posts a limit order once a trigger (stop) price is hit — the basis of stop-losses and take-profits ([TokenTax](https://tokentax.co/blog/crypto-order-types)).
+
+## The advanced types serious traders expect
+
+| Type | What it does | Why it matters |
+|---|---|---|
+| **Post-only** | Cancels if it would take liquidity — guarantees you're a **maker** | Lower maker fees; pro tooling |
+| **Reduce-only** | Can only shrink a position, never open/flip | Risk control for leveraged books |
+| **TWAP** | Splits a large order into timed slices | Fills size the book can't absorb at once |
+| **Trailing stop** | Stop that follows price at a set distance | Locks in gains dynamically |
+
+**Post-only** ensures your order rests on the book rather than matching immediately — if it would execute on entry, it's cancelled — so you always pay [maker fees](/blog/maker-taker-fees-explained) ([Crypto Adventure](https://cryptoadventure.com/order-types-explained-market-limit-post-only-reduce-only-with-examples/)). **Reduce-only** tells the exchange an order may only *shrink* an existing position — place a reduce-only sell for more than you're long and it's capped at your position size. **TWAP** slices a large order into sub-orders sent over time, for size the book can't absorb in one print ([Eco/Hyperliquid](https://eco.com/support/en/articles/15247718-hyperliquid-order-types-2026-market-limit-stop-twap-explained)).
+
+<Callout title="Why the list matters to operators">
+Post-only, reduce-only, and TWAP aren't luxuries — they're what market makers and professional traders require to operate. A venue missing them won't attract the [liquidity providers](/blog/market-making-internal-vs-external) that create depth. Order-type completeness is a liquidity strategy in disguise.
+</Callout>
+
+## The operator angle
+
+Order types sit on top of the [matching engine](/blog/inside-a-crypto-matching-engine) and interact with your [risk system](/blog/risk-and-liquidation-engines) (reduce-only, stops, and liquidation all touch position state). Supporting the full set — reliably, at [low latency](/blog/exchange-uptime-latency-sla) — is table stakes for attracting professional flow. It's worth confirming exactly which order types a [platform supports](/blog/white-label-exchange-vendor-due-diligence) before you commit.
+
+## The takeaway
+
+Market and limit orders serve everyone; stop-limit, post-only, reduce-only, and TWAP serve the professionals who bring volume and liquidity. For an operator, a complete, reliable order-type suite is less a feature checklist than a prerequisite for attracting serious traders.
+
+<SourceList id="crypto-order-types-explained" />
+
+*Educational content, not trading advice. Order-type behaviour varies by venue — check your exchange's documentation.*

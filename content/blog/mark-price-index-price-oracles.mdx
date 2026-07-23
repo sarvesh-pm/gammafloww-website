@@ -1,0 +1,52 @@
+---
+title: "Mark Price, Index Price & Oracles: Pricing Perpetuals Right"
+description: "Why derivatives exchanges use three different prices — index, mark, and last — how each is calculated, and why liquidations fire on mark price. A pricing primer for operators."
+cluster: "Operator Playbook"
+keyword: "mark price index price oracle"
+date: "2026-07-10"
+author: "GammaFloww Team"
+---
+
+A perpetual contract doesn't have one price — it has three, and confusing them is how exchanges accidentally liquidate healthy positions during a wick. If you're running a derivatives venue, getting index, mark, and last price right is core risk infrastructure, not a detail.
+
+## The three prices
+
+| Price | What it is | Used for |
+|---|---|---|
+| **Index price** | Volume-weighted spot from multiple exchanges | The "true" reference |
+| **Mark price** | Index + a smoothed basis component | Unrealized PnL & **liquidation** |
+| **Last price** | The most recent trade on your book | Matching, display |
+
+**Index price** is a weighted average of spot pulled from several major markets, with weights refreshed roughly every 5 minutes based on recent volume — so if one venue has an outage or flash crash, it doesn't drag the index ([WazirX](https://wazirx.com/blog/crypto-futures-prices-explained/), [Bybit](https://www.bybit.com/en/help-center/article/Index-Price-Calculation)).
+
+**Mark price** blends the index with funding data and a short-term moving average of the basis to filter single-venue noise. Crucially, it's **never directly traded** — it's a calculated output ([leverage.trading](https://leverage.trading/mark-price-vs-index-price-vs-last-price/)).
+
+**Last price** is just the most recent execution on your perp — it ticks with every trade and can spike far from fair value in a thin market.
+
+## Why liquidation uses mark price, not last
+
+This is the whole point. [Liquidations](/blog/how-liquidation-price-is-calculated) trigger on **mark price**, because a brief spike to a fictional last price shouldn't wipe out otherwise-sound positions ([Bybit](https://www.bybit.com/en/help-center/article/Mark-Price-Calculation-Perpetual-Expiry-Contracts)). In fast markets the drift between last and index can be large — liquidating on last price would let a single manipulative wick cascade the whole book.
+
+<Callout title="The operator failure mode">
+Use last price for liquidation and a whale can *manufacture* liquidations with a thin-book spike. Use a single-source index and one exchange's outage becomes your outage. Robust pricing — multi-source index, mark-price smoothing — is what prevents manipulation-driven [liquidation cascades](/blog/risk-and-liquidation-engines).
+</Callout>
+
+## Oracles: pricing what isn't on your book
+
+For assets that don't trade natively on your venue — [tokenized stocks, RWAs](/blog/perpetuals-on-tokenized-stocks-rwa), or on-chain perps — you need an **oracle** to feed external prices. The same principles apply, magnified: a single-source oracle is a single point of failure, and oracle manipulation is a classic on-chain attack vector. Aggregation and sanity bounds are non-negotiable.
+
+## What operators should get right
+
+- **Multi-source index** with volume weighting and outlier rejection.
+- **Mark-price smoothing** so momentary wicks don't liquidate healthy positions.
+- **Oracle redundancy** for any off-book underlying.
+
+This pricing layer feeds directly into your [risk and liquidation engine](/blog/risk-and-liquidation-engines) and [funding](/blog/funding-rates-explained) calculations — it's the foundation both stand on.
+
+## The takeaway
+
+Index price is the truth, mark price is the smoothed version you liquidate on, and last price is just the latest trade. Fire liquidations on a well-constructed, multi-source mark price — never on last — and treat oracle design as core risk infrastructure for anything not trading on your own book.
+
+<SourceList id="mark-price-index-price-oracles" />
+
+*Mechanics are standard across venues; exact formulas and parameters vary. Not trading advice.*

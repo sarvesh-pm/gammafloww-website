@@ -1,0 +1,49 @@
+---
+title: "Uptime, Latency & SLAs for a Derivatives Exchange"
+description: "What performance actually matters for a crypto derivatives venue: 99.99% uptime, sub-millisecond matching latency, and the SLA terms operators should demand from a platform."
+cluster: "Operator Playbook"
+keyword: "crypto exchange uptime latency sla"
+date: "2026-07-10"
+author: "GammaFloww Team"
+---
+
+For a derivatives venue, downtime and latency aren't IT metrics — they're trust and revenue. A venue that stalls during a volatile candle loses money for its traders and credibility for itself. Here's what "good enough" actually means, and what to demand from a platform.
+
+## Uptime: the difference between "three nines" and "four"
+
+The gap between 99.9% and 99.99% sounds trivial and isn't:
+
+| SLA | Allowed downtime / year |
+|---|---|
+| 99.9% ("three nines") | **~8.76 hours** |
+| 99.99% ("four nines") | **~53 minutes** |
+
+Top exchanges target **99.99% uptime** ([Errna](https://www.errna.com/tech-talk/cryptocurrency/the-exchange-operator-s-operational-imperative-architecting-for-99-99-uptime-and-ultra-low-latency.html)). The problem with 8.76 hours isn't the total — it's *when* it lands. Downtime during a Fed announcement or a liquidation cascade, when traders most need to act, is catastrophic in a way a quiet 3am blip is not ([QuantVPS](https://www.quantvps.com/blog/best-vps-algorithmic-trading)).
+
+## Latency: why microseconds move volume
+
+A derivatives [matching engine](/blog/inside-a-crypto-matching-engine) lives or dies on latency. Serious implementations show median matching latency around **5–10 microseconds** per order, sub-100µs end-to-end at the 99th percentile, handling **5,000+ trades/sec** ([Devexperts](https://devexperts.com/matching-engine/)). And it matters commercially: a consistent **100ms increase in matching latency can correlate with a 5–8% drop** in professional trading volume ([QuantVPS](https://www.quantvps.com/blog/best-vps-algorithmic-trading)). Slow venues lose the traders who generate the most volume.
+
+<Callout title="Isolate to survive">
+Resilient venues run the matching engine, order management, and wallet services as **isolated microservices**, so a failure in one doesn't crash trading. Pair that with a defined incident-response SLA (e.g., 6-hour response, 24/7/365 coverage) so problems are contained *and* answered fast.
+</Callout>
+
+## The SLA terms to demand
+
+When you evaluate a [white-label platform](/blog/white-label-vs-building-crypto-exchange), get these in writing — don't accept a demo as proof:
+
+- **Uptime guarantee** (target 99.99%) and the measurement method.
+- **Latency benchmarks** under load, at the 99th percentile — not average on a quiet book.
+- **Throughput ceiling** (trades/sec) and behaviour at 10× your launch volume.
+- **Incident response** time, escalation path, and status transparency.
+- **Penalties** for SLA breach.
+
+These belong on your [vendor due-diligence checklist](/blog/white-label-exchange-vendor-due-diligence) — they're where a polished demo and a production-grade platform diverge.
+
+## The takeaway
+
+Aim for 99.99% uptime and sub-millisecond matching, and judge both at the 99th percentile under load, not on averages. Downtime and latency directly cost volume and trust — so make uptime, latency, throughput, and incident-response terms explicit, measured, and penalised in your platform SLA.
+
+<SourceList id="exchange-uptime-latency-sla" />
+
+*Benchmarks are indicative and implementation-dependent. Verify performance claims under realistic load.*

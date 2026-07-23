@@ -1,0 +1,50 @@
+---
+title: "Market Making: Internal Desk vs. External Providers"
+description: "Should a new exchange run its own market-making desk or lease liquidity from external providers? The trade-offs on control, margin, capital, and risk — and the hybrid most venues land on."
+cluster: "Operator Playbook"
+keyword: "crypto exchange market making internal external"
+date: "2026-07-10"
+author: "GammaFloww Team"
+---
+
+Every new venue faces the [cold-start liquidity problem](/blog/crypto-exchange-liquidity-cold-start): no traders without liquidity, no liquidity without traders. How you solve it — build a market-making desk or lease liquidity from outside — shapes your margins, your capital needs, and your risk. Here's the decision.
+
+## Two ways to source liquidity
+
+| | Internal desk (build) | External providers (lease) |
+|---|---|---|
+| **Control** | You set spreads and priorities | Provider-driven |
+| **Margin** | You capture it | You pay it away |
+| **Capital** | You fund inventory & risk | Lower upfront |
+| **Speed** | Slower to stand up | Fast to plug in |
+| **Expertise** | You build it | You rent it |
+
+**Internal market making** — your own or an affiliated desk quoting on your venue — gives control external arrangements can't: you decide spreads and priority pairs, and you capture the margin instead of paying it out ([Dappfort](https://www.dappfort.com/blog/crypto-liquidity-solutions-for-exchange-startups/)). **External liquidity providers** supply capital and quotes as an intermediary, getting you liquid fast without building a trading operation ([Openware](https://www.openware.com/solution/crypto-market-making-and-liquidity-services)).
+
+## The hybrid most venues actually run
+
+In practice, mid-sized exchanges land on a blend: **internal making on the top 3–5 pairs, external providers or aggregation for everything else** ([Dappfort](https://www.dappfort.com/blog/attract-liquidity-providers-crypto-exchange/)). You control margins where volume concentrates (BTC, ETH, your native token) and rent breadth everywhere else. A common rule of thumb: running your own desk on core pairs tends to make economic sense within **12–18 months** of launch, once volume justifies the operation.
+
+<Callout title="Lease first, build later">
+For most launches the sequence is: **lease** external liquidity to open with depth on day one, then **build** an internal desk on your highest-volume pairs as volume grows and the margin you're paying away becomes worth capturing. Trying to build before you have volume just burns capital.
+</Callout>
+
+## What it means for the P&L
+
+Liquidity isn't just an operational choice — it's a revenue one. The [spread and maker-taker economics](/blog/maker-taker-fees-explained) you pay external MMs come straight out of the [trading-fee revenue](/blog/how-crypto-exchanges-make-money) that is your business. Early on, paying for depth is worth it; at scale, capturing it yourself on core pairs can materially improve margin.
+
+Whichever route, real depth is also your best defence against needing to fake volume — see [market surveillance & wash trading](/blog/market-surveillance-wash-trading).
+
+## What operators should decide
+
+- **Open with leased liquidity** so day-one users see real depth.
+- **Identify your core pairs** and plan to bring making in-house there as volume grows.
+- **Check the platform supports both** — internal MM tools *and* external LP/aggregation integration — during [vendor due diligence](/blog/white-label-exchange-vendor-due-diligence).
+
+## The takeaway
+
+Lease liquidity to launch with depth, build an internal desk on your core pairs as volume justifies it, and expect to run a hybrid in between. The right split protects your margins where they matter most without starving a young venue of the liquidity it needs to grow.
+
+<SourceList id="market-making-internal-vs-external" />
+
+*General guidance; the right liquidity mix depends on your pairs, volume, and capital. Not financial advice.*
