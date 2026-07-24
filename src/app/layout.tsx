@@ -1,7 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { DemoModalProvider } from "@/components/demo/DemoModalProvider";
+
+// GA4 measurement ID. Public value; overridable via env. Analytics only loads
+// in production so local/dev traffic doesn't pollute the reports.
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-QTS675HP95";
+const analyticsEnabled = process.env.NODE_ENV === "production";
 
 const plexSans = IBM_Plex_Sans({
   variable: "--font-plex-sans",
@@ -98,6 +104,20 @@ export default function RootLayout({
           Skip to content
         </a>
         <DemoModalProvider>{children}</DemoModalProvider>
+        {analyticsEnabled && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_ID}');`}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );
