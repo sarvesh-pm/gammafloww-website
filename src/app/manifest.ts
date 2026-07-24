@@ -7,7 +7,10 @@ export default function manifest(): MetadataRoute.Manifest {
     description:
       "White-label derivatives infrastructure to launch your own crypto futures & options exchange in weeks.",
     start_url: "/",
-    display: "standalone",
+    // "browser" (not "standalone") keeps the manifest's metadata benefits
+    // without marking the site installable — so Chrome drops the "Install"
+    // app prompt, which isn't wanted for a marketing site.
+    display: "browser",
     background_color: "#05070b",
     theme_color: "#05070b",
     icons: [
