@@ -6,6 +6,7 @@ import { RevenueEstimator } from "./RevenueEstimator";
 import { LiquidationCalculator } from "./LiquidationCalculator";
 import { FundingCalculator } from "./FundingCalculator";
 import { SlippageCalculator } from "./SlippageCalculator";
+import { TrackedTool } from "../TrackedTool";
 
 type A = ComponentPropsWithoutRef<"a">;
 
@@ -63,8 +64,17 @@ export const mdxComponents = {
   Callout,
   SourceList,
   BarChart,
-  RevenueEstimator,
-  LiquidationCalculator,
-  FundingCalculator,
-  SlippageCalculator,
+  // Calculators wrapped so first interaction fires a `tool_use` event.
+  RevenueEstimator: () => (
+    <TrackedTool name="revenue_estimator"><RevenueEstimator /></TrackedTool>
+  ),
+  LiquidationCalculator: () => (
+    <TrackedTool name="liquidation_calculator"><LiquidationCalculator /></TrackedTool>
+  ),
+  FundingCalculator: () => (
+    <TrackedTool name="funding_calculator"><FundingCalculator /></TrackedTool>
+  ),
+  SlippageCalculator: () => (
+    <TrackedTool name="slippage_calculator"><SlippageCalculator /></TrackedTool>
+  ),
 };

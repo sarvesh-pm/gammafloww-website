@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ScrollProgress } from "@/components/ScrollProgress";
+import { ArticleScrollTracker } from "@/components/ArticleScrollTracker";
 import { ArrowRightIcon } from "@/components/Icons";
 import { mdxComponents } from "@/components/mdx";
 import { getAllSlugs, getPostSource } from "@/lib/blog";
@@ -106,6 +107,7 @@ export default async function ArticlePage({
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <ScrollProgress />
+      <ArticleScrollTracker slug={slug} />
       <Navbar />
       <main id="main" className="pt-32 sm:pt-40">
         <article className="mx-auto max-w-3xl px-5 pb-8">
