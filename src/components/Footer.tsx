@@ -48,7 +48,7 @@ export function Footer() {
               </span>
             </HashLink>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">{site.tagline}</p>
-            <DemoButton className="mt-5 inline-flex rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.03]">
+            <DemoButton location="footer" className="mt-5 inline-flex rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.03]">
               Schedule a Demo
             </DemoButton>
 

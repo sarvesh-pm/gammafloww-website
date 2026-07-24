@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { nav, site } from "@/lib/content";
+import { track } from "@/lib/analytics";
 import { HashLink } from "./HashLink";
 import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
@@ -48,6 +49,7 @@ export function Navbar() {
             <HashLink
               key={item.label}
               href={item.href}
+              onClick={() => track("nav_click", { label: item.label })}
               className="text-sm text-muted transition-colors hover:text-ink"
             >
               {item.label}
@@ -57,7 +59,7 @@ export function Navbar() {
 
         <div className="flex items-center gap-2.5">
           <ThemeToggle />
-          <DemoButton className="hidden rounded-full bg-brand px-4 py-2 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.03] md:inline-flex">
+          <DemoButton location="navbar" className="hidden rounded-full bg-brand px-4 py-2 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.03] md:inline-flex">
             Schedule a Demo
           </DemoButton>
           <button
@@ -89,13 +91,17 @@ export function Navbar() {
               <HashLink
                 key={item.label}
                 href={item.href}
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  track("nav_click", { label: item.label, location: "mobile_menu" });
+                  setOpen(false);
+                }}
                 className="border-b border-border/60 py-3 text-sm text-muted last:border-0 hover:text-ink"
               >
                 {item.label}
               </HashLink>
             ))}
             <DemoButton
+              location="mobile_menu"
               onClick={() => setOpen(false)}
               className="mt-4 rounded-full bg-brand px-4 py-2.5 text-center text-sm font-semibold text-brand-ink"
             >

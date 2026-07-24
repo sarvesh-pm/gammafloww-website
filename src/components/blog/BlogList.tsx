@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { track } from "@/lib/analytics";
 import type { PostMeta } from "@/lib/blog";
 
 const clusterTone: Record<string, string> = {
@@ -49,6 +50,7 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
           <Link
             key={p.slug}
             href={`/blog/${p.slug}`}
+            onClick={() => track("blog_card_click", { slug: p.slug, cluster: p.cluster })}
             className="group flex h-full flex-col rounded-2xl border border-border bg-surface p-6 shadow-soft transition-all duration-200 hover:-translate-y-1 hover:border-brand/40 hover:shadow-glow"
           >
             <span className={`w-fit rounded-full px-2.5 py-1 text-[11px] font-semibold ${clusterTone[p.cluster] ?? "bg-surface-2 text-muted"}`}>

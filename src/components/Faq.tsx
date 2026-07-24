@@ -64,7 +64,7 @@ export function Faq() {
 
         <div className="mt-10 text-center text-sm text-muted">
           Still curious?{" "}
-          <DemoButton className="font-semibold text-brand hover:underline">
+          <DemoButton location="faq" className="font-semibold text-brand hover:underline">
             Book a 30-minute demo →
           </DemoButton>
         </div>

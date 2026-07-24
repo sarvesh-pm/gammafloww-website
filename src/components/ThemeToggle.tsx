@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { useTheme } from "@/lib/useTheme";
+import { track } from "@/lib/analytics";
 
 function SunIcon() {
   return (
@@ -27,7 +28,10 @@ export function ThemeToggle() {
   return (
     <button
       type="button"
-      onClick={toggle}
+      onClick={() => {
+        track("theme_toggle", { theme: isDark ? "light" : "dark" });
+        toggle();
+      }}
       role="switch"
       aria-checked={isDark}
       aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}

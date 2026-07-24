@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { site } from "@/lib/content";
+import { track } from "@/lib/analytics";
 import { ArrowRightIcon } from "@/components/Icons";
 
 const REGIONS = [
@@ -107,7 +108,10 @@ export function DemoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
         setStatus("error");
         return;
       }
-      // Success — reveal the booking calendar in-place (step 2).
+      // Success — the qualified lead is captured. This is the key conversion.
+      track("generate_lead", { method: "demo_form" });
+      track("demo_booking_viewed");
+      // Reveal the booking calendar in-place (step 2).
       setLead({ name, email });
       setStep("booking");
       setStatus("idle");
