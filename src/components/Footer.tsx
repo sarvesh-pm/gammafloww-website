@@ -41,7 +41,7 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4 lg:grid-cols-12">
           {/* Brand block */}
           <div className="col-span-2 sm:col-span-4 lg:col-span-5 lg:pr-8">
-            <HashLink href="/#top" className="flex items-center gap-2.5">
+            <HashLink href="/" className="flex items-center gap-2.5">
               <Logo className="h-7 w-auto" />
               <span className="text-[17px] font-semibold tracking-tight">
                 Gamma<span className="text-brand">Floww</span>

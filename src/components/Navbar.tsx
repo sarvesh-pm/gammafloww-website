@@ -37,7 +37,7 @@ export function Navbar() {
             : "my-4 border border-transparent py-3"
         }`}
       >
-        <HashLink href="/#top" className="flex items-center gap-2.5" aria-label={site.name}>
+        <HashLink href="/" className="flex items-center gap-2.5" aria-label={site.name}>
           <Logo className="h-7 w-auto" />
           <span className="text-[17px] font-semibold tracking-tight">
             Gamma<span className="text-brand">Floww</span>

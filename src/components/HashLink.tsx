@@ -19,21 +19,23 @@ type HashLinkProps = ComponentProps<typeof Link> & { href: string };
 export function HashLink({ href, onClick, ...rest }: HashLinkProps) {
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
     const hashIndex = href.indexOf("#");
-    if (hashIndex !== -1) {
-      const path = href.slice(0, hashIndex) || "/";
-      const id = href.slice(hashIndex + 1);
-      if (window.location.pathname === path) {
-        e.preventDefault();
-        if (id === "top") {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-          history.pushState(null, "", path);
-        } else {
-          const el = document.getElementById(id);
-          if (el) {
-            el.scrollIntoView({ behavior: "smooth" });
-            history.pushState(null, "", `#${id}`);
-          }
+    const path = hashIndex === -1 ? href : href.slice(0, hashIndex) || "/";
+    const id = hashIndex === -1 ? "" : href.slice(hashIndex + 1);
+    // Only intercept when we're already on the target path (same-page nav).
+    if (window.location.pathname === path) {
+      if (id && id !== "top") {
+        const el = document.getElementById(id);
+        if (el) {
+          e.preventDefault();
+          el.scrollIntoView({ behavior: "smooth" });
+          history.pushState(null, "", `#${id}`);
         }
+      } else {
+        // No fragment (or the "top" sentinel): smooth-scroll to the top and
+        // keep the URL clean (just the path, no "#top").
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        history.pushState(null, "", path);
       }
     }
     onClick?.(e);
