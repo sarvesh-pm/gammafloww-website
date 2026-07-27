@@ -3,6 +3,7 @@ import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { DemoModalProvider } from "@/components/demo/DemoModalProvider";
+import { HashCleanup } from "@/components/HashCleanup";
 
 // GA4 measurement ID. Public value; overridable via env. Analytics only loads
 // in production so local/dev traffic doesn't pollute the reports.
@@ -103,6 +104,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <HashCleanup />
         <DemoModalProvider>{children}</DemoModalProvider>
         {analyticsEnabled && (
           <>

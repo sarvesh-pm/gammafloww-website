@@ -22,20 +22,21 @@ export function HashLink({ href, onClick, ...rest }: HashLinkProps) {
     const path = hashIndex === -1 ? href : href.slice(0, hashIndex) || "/";
     const id = hashIndex === -1 ? "" : href.slice(hashIndex + 1);
     // Only intercept when we're already on the target path (same-page nav).
+    // We smooth-scroll but never write a fragment to the URL — the address
+    // bar stays clean (just the path). HashCleanup handles the cross-page and
+    // direct-load cases.
     if (window.location.pathname === path) {
       if (id && id !== "top") {
         const el = document.getElementById(id);
         if (el) {
           e.preventDefault();
           el.scrollIntoView({ behavior: "smooth" });
-          history.pushState(null, "", `#${id}`);
+          if (window.location.hash) history.replaceState(null, "", path);
         }
       } else {
-        // No fragment (or the "top" sentinel): smooth-scroll to the top and
-        // keep the URL clean (just the path, no "#top").
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: "smooth" });
-        history.pushState(null, "", path);
+        if (window.location.hash) history.replaceState(null, "", path);
       }
     }
     onClick?.(e);
