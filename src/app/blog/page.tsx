@@ -9,7 +9,7 @@ import { getAllPosts } from "@/lib/blog";
 export const metadata: Metadata = {
   title: "Blog — Building & Running Crypto Derivatives Exchanges",
   description:
-    "Playbooks, data, and guides on launching and operating a crypto derivatives exchange — liquidity, licensing, fees, risk engines, and the mechanics of perpetual futures.",
+    "Playbooks and guides on launching and operating a crypto derivatives exchange — liquidity, licensing, fees, risk engines, and perpetual futures.",
   alternates: { canonical: "/blog" },
   openGraph: {
     type: "website",
@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     title: "The GammaFloww Blog",
     description:
       "Playbooks, data, and guides on launching and operating a crypto derivatives exchange.",
+    images: ["/opengraph-image"],
   },
 };
 
