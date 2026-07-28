@@ -445,7 +445,6 @@ export const sourceSets: Record<string, Source[]> = {
   ],
   "crypto-exchange-liquidity-cold-start": [
     { label: "How market makers provide liquidity and stabilize crypto markets", href: "https://www.xbto.com/resources/how-market-makers-provide-liquidity-and-stabilize-crypto-markets", publisher: "XBTO" },
-    { label: "Building liquidity in crypto exchanges: how-to and tools", href: "https://www.openware.com/news/articles/building-liquidity-in-crypto-exchanges-how-to-and-tools", publisher: "Openware" },
   ],
   "inside-a-crypto-matching-engine": [
     { label: "What is a matching engine in crypto?", href: "https://paybis.com/blog/glossary/matching-engine/", publisher: "Paybis" },
