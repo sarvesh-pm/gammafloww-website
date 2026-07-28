@@ -9,7 +9,7 @@ import { ScrollProgress } from "@/components/ScrollProgress";
 import { ArticleScrollTracker } from "@/components/ArticleScrollTracker";
 import { ArrowRightIcon } from "@/components/Icons";
 import { mdxComponents } from "@/components/mdx";
-import { getAllSlugs, getPostSource } from "@/lib/blog";
+import { getAllSlugs, getAllPosts, getPostSource } from "@/lib/blog";
 import { DemoButton } from "@/components/demo/DemoButton";
 
 const siteUrl = "https://www.gammafloww.com";
@@ -77,6 +77,17 @@ export default async function ArticlePage({
     },
   });
 
+  // Related articles: a ring of same-cluster neighbours so every post gets
+  // internal cross-links (not just the newest few), improving crawl depth.
+  const clusterPosts = getAllPosts().filter((p) => p.cluster === meta.cluster);
+  const here = clusterPosts.findIndex((p) => p.slug === slug);
+  const related =
+    here === -1
+      ? clusterPosts.filter((p) => p.slug !== slug).slice(0, 4)
+      : Array.from({ length: Math.min(4, clusterPosts.length - 1) }, (_, i) =>
+          clusterPosts[(here + 1 + i) % clusterPosts.length],
+        );
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -138,6 +149,29 @@ export default async function ArticlePage({
 
           {/* Body */}
           <div className="mt-2">{content}</div>
+
+          {/* Related articles — internal cross-links within the cluster */}
+          {related.length > 0 && (
+            <section className="mt-14 border-t border-border pt-8">
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-faint">
+                More in {meta.cluster}
+              </h2>
+              <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                {related.map((p) => (
+                  <Link
+                    key={p.slug}
+                    href={`/blog/${p.slug}`}
+                    className="group rounded-2xl border border-border bg-surface p-5 transition-colors hover:border-brand/40"
+                  >
+                    <h3 className="text-base font-semibold leading-snug tracking-tight text-ink transition-colors group-hover:text-brand">
+                      {p.title}
+                    </h3>
+                    <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted">{p.description}</p>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* In-article CTA */}
           <div className="mt-14 overflow-hidden rounded-3xl border border-border bg-bg-soft p-8 text-center">
