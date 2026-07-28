@@ -568,4 +568,24 @@ export const sourceSets: Record<string, Source[]> = {
     { label: "Exchange Review, March 2026 (derivatives = 76.5% of CEX volume)", href: "https://data.coindesk.com/reports/exchange-review-march-2026", publisher: "CCData" },
     { label: "Best crypto derivatives exchanges 2026 — perps & futures", href: "https://cryptoslate.com/crypto-exchanges/derivatives/", publisher: "CryptoSlate" },
   ],
+  "australia-asic-crypto-derivatives-regulation": [
+    { label: "Australia moves to regulate crypto platforms: AFSL bill passes", href: "https://www.financemagnates.com/cryptocurrency/australia-moves-to-regulate-crypto-platforms-as-parliament-passes-bill-for-afsl/", publisher: "Finance Magnates" },
+    { label: "CP 381 / INFO 225: Digital assets — financial products and services", href: "https://www.asic.gov.au/regulatory-resources/find-a-document/consultations/cp-381-updates-to-info-225-digital-assets-financial-products-and-services/", publisher: "ASIC" },
+    { label: "The 2026 guide to crypto regulation in Australia", href: "https://transak.com/blog/australia-crypto-regulation-guide", publisher: "Transak" },
+  ],
+  "japan-fsa-crypto-exchange-regulation": [
+    { label: "Japan crypto regulation 2026: what the FSA's new rules mean", href: "https://web3.bitget.com/en/academy/japan-crypto-regulation-2026-what-the-fsas-new-rules-mean-for-investors-and-exchanges", publisher: "Bitget" },
+    { label: "Japan Payment Services Act — crypto regulation", href: "https://cryptoslate.com/crypto-laws/japan-payment-services-act/", publisher: "CryptoSlate" },
+    { label: "Japan moves to enhance transparency in crypto-asset markets (FIEA)", href: "https://connectontech.bakermckenzie.com/japan-moves-to-enhance-transparency-in-crypto-asset-markets/", publisher: "Baker McKenzie" },
+  ],
+  "vara-vs-adgm-uae-crypto-license": [
+    { label: "Digital Assets — MTFs, derivatives & funds over Digital Assets", href: "https://www.adgm.com/business-areas/digital-assets", publisher: "ADGM" },
+    { label: "VASP licence applications & categories", href: "https://www.vara.ae/en/licenses-and-register/licence-applications/", publisher: "VARA" },
+    { label: "Crypto licensing UAE: regulatory pathways across ADGM, VARA and the GCC", href: "https://arnifi.com/blog/crypto-licensing-uae-regulatory-pathways-across-adgm-vara-and-the-gcc/", publisher: "Arnifi" },
+  ],
+  "crypto-derivatives-emerging-markets": [
+    { label: "Q1 2026 Global Crypto Adoption Index", href: "https://www.trmlabs.com/resources/blog/q1-2026-global-crypto-adoption-index", publisher: "TRM Labs" },
+    { label: "Latin America's crypto moment: why 2026 could be LATAM's biggest year", href: "https://gomarkets.com/en/articles/latin-americas-crypto-moment-why-2026-could-be-latams-biggest-year-yet", publisher: "GO Markets" },
+    { label: "The 2026 Global Digital Asset Adoption Index", href: "https://www.coindesk.com/research/the-2026-global-digital-asset-adoption-index", publisher: "CoinDesk" },
+  ],
 };
