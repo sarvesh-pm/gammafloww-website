@@ -1,0 +1,38 @@
+---
+title: "Proof of Reserves: What It Proves (and What It Misses)"
+description: "Since FTX, proof of reserves has become table stakes for exchanges. How Merkle-tree PoR works, why zk-proofs improve it, and the limits every operator should be honest about."
+cluster: "Operator Playbook"
+keyword: "proof of reserves crypto exchange"
+date: "2026-08-01"
+author: "GammaFloww Team"
+---
+
+After FTX, "trust us" stopped working. **Proof of reserves (PoR)** is how a modern exchange shows users their assets are actually there — and for a new venue, publishing credible PoR is one of the fastest ways to build the trust you haven't earned yet. But PoR is widely misunderstood, and a checkmark is not the same as solvency. Here's what it does and doesn't prove.
+
+## How Merkle-tree proof of reserves works
+
+The standard approach hashes **every customer balance** and combines them upward into a single fingerprint — a **Merkle root** — that represents total liabilities. Each user can verify their own balance was included in that root without seeing anyone else's ([Phemex](https://phemex.com/academy/merkle-tree-proof-of-reserves)). Alongside, the exchange proves control of on-chain **assets** (via signatures or attestations). Assets ≥ liabilities ⇒ the exchange is at least 1:1 backed at that moment.
+
+## The subtle weakness — and the zk-proof fix
+
+A plain Merkle tree proves *your* balance is in the total, but not that the exchange built the tree honestly — in principle it could insert **negative or fake entries** to understate liabilities, which a user checking a single branch wouldn't catch ([FinanceFeeds](https://financefeeds.com/proof-of-reserves-crypto-exchanges/)).
+
+The fix leading venues adopted is a **zero-knowledge proof (zk-SNARK)** layered on top: the exchange proves "the sum of all real, **non-negative** customer balances equals this published number" without revealing individual balances, and anyone can verify the proof. Binance, for example, implemented zk-SNARK verification atop its Merkle system ([FinanceFeeds](https://financefeeds.com/proof-of-reserves-crypto-exchanges/)).
+
+<Callout title="A checkmark is not solvency">
+Even sophisticated PoR has hard limits. It's a **point-in-time snapshot** (reserves can move the next block); it can't see **off-chain liabilities** (loans, undisclosed debts, obligations to third parties); and proving you control an address isn't the same as proving those assets are **unencumbered**. PoR improves transparency — it does not guarantee long-term solvency.
+</Callout>
+
+## What operators should actually do
+
+- **Publish regularly**, not once. A single snapshot is marketing; recurring PoR is a signal.
+- **Cover liabilities honestly** — use the zk-enhanced approach so the liability side is provably non-negative and complete.
+- **Bring in a credible third party.** Self-attestation is weaker than an independent auditor or verifiable cryptographic proof.
+- **Pair PoR with sound [custody](/blog/crypto-exchange-custody-models).** Transparency about *where* keys and assets sit matters as much as the totals.
+- **Don't overclaim.** State plainly what your PoR covers and what it doesn't — informed users trust honesty more than a green tick.
+
+## The takeaway
+
+Proof of reserves — ideally Merkle-tree plus a zk-SNARK over liabilities, published regularly and independently verified — is now table stakes for earning trader trust. But it's a point-in-time, on-chain-only view that can't prove off-chain solvency. Treat it as one pillar of transparency alongside strong custody and compliance, and be honest about its limits. Trust, once broken, is the one thing a new exchange can't easily rebuild.
+
+<SourceList id="proof-of-reserves-crypto-exchange" />

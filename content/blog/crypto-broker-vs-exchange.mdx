@@ -1,0 +1,50 @@
+---
+title: "Crypto Broker vs. Exchange: Which Model to Launch"
+description: "Broker or exchange? One quotes prices and fills from its own liquidity; the other runs a neutral order book. How the two models differ on revenue, complexity, risk and regulation."
+cluster: "Launch & Buy"
+keyword: "crypto broker vs exchange"
+date: "2026-07-31"
+author: "GammaFloww Team"
+---
+
+"Launch a crypto platform" hides a fork in the road: are you building an **exchange** or a **broker**? They look similar to an end user, but under the hood they're different businesses — different technology, revenue, risk and regulation. Choosing wrong is expensive, so decide deliberately.
+
+## The core difference
+
+- **Exchange** — runs a neutral **order book** and matches buyers against sellers through market-driven pricing. The platform is a facilitator; it needs a [matching engine](/blog/inside-a-crypto-matching-engine), wallets, and deep [liquidity](/blog/crypto-exchange-liquidity-cold-start) ([ChainUp](https://www.chainup.com/blog/crypto-brokers-vs-crypto-exchanges-what-to-know/)).
+- **Broker** — quotes prices directly and fills client trades from aggregated liquidity, acting as the execution venue. Brokers source crypto from exchanges/liquidity providers and sell to customers at a quoted price ([B2Broker](https://b2broker.com/news/crypto-broker-vs-exchange/)).
+
+## Side by side
+
+| | **Exchange** | **Broker** |
+|---|---|---|
+| Pricing | Market-driven order book | Quoted spread from aggregated liquidity |
+| Revenue | Trading fees, listings, data/API | Spread markup, swaps, packaged services |
+| Core tech | Matching engine, order book, custody | Liquidity aggregation, pricing, routing |
+| Time-to-market | Longer, heavier | Faster, lighter |
+| Liquidity burden | You must attract it | Sourced from providers |
+
+## Trade-offs that decide it
+
+**Complexity & speed.** The broker model removes the need for an internal order book and (often) heavy custody, so it's faster and cheaper to launch ([Shift Markets](https://www.shiftmarkets.com/blog/difference-between-crypto-exchange-brokerage)). An exchange is a bigger build but owns its liquidity and network effects.
+
+**Economics.** Brokers earn on **spread**; exchanges earn on **volume-based fees**. Exchange economics reward scale and liquidity depth but depend on active flow — the [cold-start problem](/blog/crypto-exchange-liquidity-cold-start) is real. Broker economics are more controllable early on.
+
+<Callout title="A-book vs. B-book: the broker's risk choice">
+A broker decides whether to **pass client orders to the market (A-book)** or **take the other side internally (B-book)**. B-booking can be profitable but puts you in a position of interest against your own clients — with conduct, risk-management and (in many places) regulatory implications. If you launch a broker, decide this policy explicitly and disclose it.
+</Callout>
+
+**Regulation.** Brokers often map to traditional financial frameworks (MSB registration, investment-firm/derivatives permissions); exchanges attract crypto-specific regimes. The right jurisdiction analysis differs by model — see our [global licensing guide](/blog/crypto-derivatives-licensing-global-guide).
+
+## Which should you launch?
+
+- **Broker** if you want speed, lighter tech, and controllable early economics, and you're comfortable managing pricing and (if B-book) market risk.
+- **Exchange** if you're building for scale, network effects and long-term liquidity ownership — the model behind a serious [derivatives venue](/blog/how-to-launch-a-crypto-derivatives-exchange).
+
+Many operators blur the line — an "exchange" front-end with broker-style aggregated liquidity underneath — which a [white-label derivatives stack](/blog/white-label-crypto-derivatives-exchange-guide) can enable either way.
+
+## The takeaway
+
+An exchange runs a neutral order book and earns on fees; a broker quotes prices and earns on spread. The broker route is faster and lighter but carries pricing/market-risk decisions; the exchange route is heavier but owns liquidity and network effects. Pick based on your capital, speed, risk appetite and regulatory path — then commit the architecture to it.
+
+<SourceList id="crypto-broker-vs-exchange" />

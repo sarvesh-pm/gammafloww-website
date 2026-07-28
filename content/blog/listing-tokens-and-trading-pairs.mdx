@@ -1,0 +1,41 @@
+---
+title: "Listing Tokens & Adding Trading Pairs on Your Exchange"
+description: "What to list is a risk decision, not just a product one. The operator's listing pipeline — due diligence, liquidity readiness, technical integration, and choosing derivatives pairs."
+cluster: "Operator Playbook"
+keyword: "how to list a token on an exchange"
+date: "2026-07-30"
+author: "GammaFloww Team"
+---
+
+Deciding what trades on your venue looks like a growth lever — more pairs, more volume — but it's really a risk decision. A bad listing can expose you to a security-classification problem, a hacked contract, or a thin, manipulable market that damages trust. The "wild west" era of effortless listings is over; the 2026 bar is a genuine due-diligence gauntlet ([The Signal](https://thesignal.directory/intelligence/crypto-exchange-listing-process-costs-2026)). Here's the operator's pipeline.
+
+## The listing pipeline
+
+| Stage | What you're checking |
+|---|---|
+| **1. Due diligence** | Legal classification, contract audit, team, tokenomics |
+| **2. Liquidity readiness** | Market maker in place, depth, spreads |
+| **3. Technical integration** | Wallet/custody, deposits/withdrawals, network support |
+| **4. Ongoing risk** | Surveillance, delisting triggers, monitoring |
+
+### 1. Due diligence
+This is the gate. Expect to require a **legal opinion** on whether the token is a security or a commodity in the markets you serve; a **smart-contract audit** (firms like CertiK or Hacken, with all critical/high issues resolved); and review of the **team, tokenomics, vesting and concentration** ([Token Market Maker](https://www.tokenmarketmaker.io/cex-token-listing-requirements-2026/)). Listing compliance is now a formal standard, not a favour ([Midlands in Business](https://midlandsinbusiness.com/token-listing-compliance-due-diligence-standards-for-crypto-exchanges)).
+
+### 2. Liquidity readiness
+A listing with no depth is worse than no listing — users hit slippage and leave. Require a **market-making commitment** and target tight spreads and consistent depth before you go live. An emerging Tier-1 practice is mandating independent, third-party market depth ("proof of liquidity provision") so a token doesn't list into a vacuum.
+
+### 3. Technical integration
+The asset has to actually move: wallet and [custody](/blog/crypto-exchange-custody-models) support, deposit/withdrawal flows, correct network/chain support (and the right confirmations), and monitoring for reorgs or bridge risk.
+
+<Callout title="Derivatives listings are a different bar">
+Listing a *perpetual* on an asset is harder than listing spot. You need a **reliable price feed** — a robust index across liquid venues and a manipulation-resistant [mark price](/blog/mark-price-index-price-oracles) — or your funding and liquidations can be gamed. Thin-underlying perps are a classic manipulation vector; be conservative about which assets get leverage.
+</Callout>
+
+### 4. Ongoing risk
+Listing isn't the end. Wire the pair into [market surveillance](/blog/market-surveillance-wash-trading), define **delisting triggers** (collapsed volume, security incident, regulatory change), and keep AML monitoring on deposits of the new asset.
+
+## The takeaway
+
+Run listings as a risk pipeline, not a growth checkbox: clear the legal and audit due-diligence gate, secure real liquidity before launch, integrate custody and network support properly, and — for derivatives — insist on a manipulation-resistant price feed. A disciplined listing process protects the one thing a new exchange can't easily rebuild: trader trust. Pair it with your [liquidity](/blog/crypto-exchange-liquidity-cold-start) and [compliance](/blog/kyc-aml-for-crypto-exchanges) foundations.
+
+<SourceList id="listing-tokens-and-trading-pairs" />

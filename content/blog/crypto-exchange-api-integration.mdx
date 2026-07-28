@@ -1,0 +1,48 @@
+---
+title: "Integrating a Crypto Exchange: REST, WebSocket & FIX"
+description: "APIs are how market makers, algo traders and your own apps connect to your venue. The three protocols that matter, what a production-grade exchange API needs, and integration best practices."
+cluster: "Operator Playbook"
+keyword: "crypto exchange api integration"
+date: "2026-07-30"
+author: "GammaFloww Team"
+---
+
+Your exchange's API is not a side feature — it's how liquidity actually arrives. Market makers, algorithmic traders, portfolio tools and often your own web and mobile front-ends all talk to the venue through it. A slow, flaky or poorly documented API quietly caps your volume, because the sophisticated traders who provide most of it simply won't connect. Here's what a serious exchange API needs.
+
+## Three protocols, three jobs
+
+| Protocol | Job | Used for |
+|---|---|---|
+| **REST** | Request/response | Placing/cancelling orders, balances, account state, historical data |
+| **WebSocket** | Server-push streams | Live order book, trades, ticker, private order/fill updates |
+| **FIX** | Institutional standard | Low-latency order flow for professional/institutional desks |
+
+REST is the workhorse for actions and lookups. **WebSockets replace polling with continuous streams** — for order-flow trading they're effectively mandatory, because REST polling can't capture microsecond-level order-book changes ([Kalena](https://blog.kalena.ai/best-cryptocurrency-exchange-api-how-to-evaluate-websocket-feeds-order-book-depth-and-rate-limits-before-you-build-a-single-line-of-code)). **FIX** is what institutional counterparties expect; offering it signals you're ready for serious flow ([CryptoRank](https://cryptorank.io/news/feed/crypto-exchange-api-guide)).
+
+## What a production-grade API needs
+
+- **Full order-book depth over WebSocket** with sub-100ms updates, and normalized trade/ticker data across spot and futures.
+- **Generous, well-documented rate limits** — high-frequency strategies need headroom (leading venues support well over 1,000 requests/minute).
+- **Complete order management** — limit, market, stop, post-only, reduce-only; batch and cancel-replace; clear order-state transitions.
+- **Idempotency** — client order IDs so a retried request never double-places an order.
+- **A testnet/sandbox** — market makers will not integrate against production blind.
+- **Secure auth** — scoped API keys (read / trade / withdraw), IP allowlisting, signed requests.
+- **Webhooks** for async events where clients shouldn't have to poll.
+- **Reliability** — 99.9%+ uptime *during volatility*, when it matters most (see [uptime, latency & SLAs](/blog/exchange-uptime-latency-sla)).
+
+<Callout title="Rate limits are a shared contract">
+Publish clear, per-endpoint rate limits and return proper headers so clients can self-throttle. A common client pattern: track request weight in real time, pause non-critical calls at ~80% of the limit, and shed everything except active order management near 95%. If your limits are opaque or stingy, you push away exactly the high-volume traders you want.
+</Callout>
+
+## Integration best practices (yours and theirs)
+
+- **Stream, don't poll.** Push order-book and fill updates over WebSocket; reserve REST for actions and cold reads.
+- **Design for backoff.** Expect clients to use exponential backoff and request queuing — and make your errors machine-readable so they can.
+- **Version your API.** Breaking changes without versioning break every integration at once.
+- **Docs are product.** Complete, example-rich docs plus a sandbox are the difference between a market maker integrating in a day or giving up.
+
+## The takeaway
+
+Treat the API as a first-class product: REST for actions, WebSocket for real-time data, FIX for institutions, wrapped in generous rate limits, idempotent order handling, a sandbox, and excellent docs. It's the connective tissue between your [matching engine](/blog/inside-a-crypto-matching-engine) and the [market makers](/blog/market-making-internal-vs-external) whose liquidity your venue lives on.
+
+<SourceList id="crypto-exchange-api-integration" />

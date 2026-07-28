@@ -1,0 +1,51 @@
+---
+title: "Fiat On-Ramps & Off-Ramps for Your Crypto Exchange"
+description: "Deposits and withdrawals make or break a new exchange. How fiat on-ramps and off-ramps work, the main providers, and the integration and compliance traps to plan for."
+cluster: "Operator Playbook"
+keyword: "crypto exchange fiat on ramp"
+date: "2026-07-29"
+author: "GammaFloww Team"
+---
+
+In a white-label model, you own deposits, withdrawals and treasury — which means the **fiat on-ramp** (money in) and **off-ramp** (money out) are your problem, not your infrastructure provider's. They're also where most new exchanges lose users: if a first-time trader can't fund an account with the card or bank transfer they actually have, they never trade. Here's how to think about ramps as an operator.
+
+## Build vs. integrate
+
+Almost no new venue builds ramps in-house. Doing so means direct acquiring relationships, PCI compliance, fraud systems, and money-transmitter/MSB licensing in every market you serve — years of work. The norm is to **integrate a specialist ramp provider** (or several) that already holds those licences and banking relationships, and to route users to whichever one covers their country and payment method.
+
+## The main providers
+
+| Provider | Strength |
+|---|---|
+| **MoonPay** | Global card-first coverage; large wallet/exchange partner network; institutional arm |
+| **Ramp Network** | Wide country & payment-method coverage, smooth UX |
+| **Transak** | Broad coverage, many assets/networks, developer-friendly |
+| **Banxa** | Enterprise/banking compliance focus; competitive card fees |
+| **Alchemy Pay / Sardine** | Regional coverage; Sardine strong on fraud/compliance |
+
+The six ramp providers most commonly integrated in 2026 are MoonPay, Ramp Network, Transak, Sardine, Banxa and Alchemy Pay ([Token Metrics](https://tokenmetrics.com/blog/top-on-and-off-ramp-providers-fiat-to-crypto-2026/)). Which one wins depends less on brand and more on whether your exact **country + payment method + asset + direction (buy/sell)** is actually supported ([Spark](https://www.spark.money/tools/crypto-on-ramp-comparison)).
+
+## Two integration models
+
+- **Hosted widget / redirect** — the provider handles the payment UI, KYC and payout. Fastest to ship; less control over UX and data.
+- **API integration** — you embed the flow natively for a seamless experience, at the cost of more engineering and compliance surface.
+
+Most operators start with a widget and graduate to API as volume justifies it.
+
+<Callout title="The chargeback problem">
+Card on-ramps carry **fraud and chargeback risk** — a user can buy crypto, withdraw it, then dispute the card charge, leaving someone holding the loss. Understand exactly who bears chargeback liability in your provider contract, and expect card payins to carry higher fees (often ~2%+) than bank transfers precisely because of this risk.
+</Callout>
+
+## What actually trips operators up
+
+- **Coverage gaps.** "Global" providers still have dead zones by country and payment method. Map your target markets to real coverage before you promise users anything.
+- **Duplicated KYC.** The ramp does its own KYC, and so do you — plan the handoff so users aren't verified twice or blocked by mismatches. See [KYC/AML for exchanges](/blog/kyc-aml-for-crypto-exchanges).
+- **Banking & licensing.** The ramp's licences don't automatically cover *your* activity. Know where you still need your own registrations.
+- **Fees eat conversion.** Ramp fees are visible to the user at the worst moment — funding. Shop rates and consider subsidising to protect conversion.
+- **Off-ramp is harder than on-ramp.** Paying fiat *out* attracts more AML scrutiny and fewer providers. Don't assume the withdrawal side is symmetric.
+
+## The takeaway
+
+Treat ramps as a core part of the product, not a plumbing afterthought: integrate one or more licensed providers, match them precisely to the countries and payment methods your users have, and plan for chargebacks, duplicated KYC, and a harder off-ramp. Ramps are where funding-stage drop-off is won or lost — and where a chunk of your economics lives, alongside [trading fees](/blog/how-crypto-exchanges-make-money) and a sound [custody setup](/blog/crypto-exchange-custody-models).
+
+<SourceList id="crypto-exchange-fiat-on-ramps" />

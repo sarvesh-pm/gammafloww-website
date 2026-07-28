@@ -1,0 +1,55 @@
+---
+title: "Adding Derivatives to a Spot Crypto Exchange"
+description: "Derivatives are ~77% of crypto trading volume, and spot-only venues are feeling it. What it takes to add perpetual futures to a spot exchange — and why most operators buy the layer."
+cluster: "Launch & Buy"
+keyword: "add derivatives to crypto exchange"
+date: "2026-08-01"
+author: "GammaFloww Team"
+---
+
+If you run a spot exchange, the volume has already moved without you. Derivatives — perpetual futures especially — dominate crypto trading, and spot-only venues are watching fee revenue and active traders drift to platforms that offer leverage. Adding a derivatives product is increasingly less an upgrade than a defence. Here's what it actually takes.
+
+## The volume has moved to derivatives
+
+<BarChart id="derivatives-vs-spot" />
+
+Derivatives are the majority of centralized-exchange volume, and the gap is widening: across 2025, futures traded roughly **3.4× spot** ([Datawallet](https://www.datawallet.com/crypto/crypto-perpetual-futures-statistics)). The strategic shift is visible at the top — even large venues are leaning in, with some reporting derivatives volume up triple digits year-over-year as spot softened. For a spot operator, the question isn't whether traders want leverage; it's whether they get it from you or a competitor.
+
+## Why spot operators add derivatives
+
+- **Revenue.** Derivatives add funding, liquidation and (typically higher-velocity) fee income on top of spot — see [how exchanges make money](/blog/how-crypto-exchanges-make-money).
+- **Retention.** Active traders want leverage; without it they open an account elsewhere and take their spot volume with them.
+- **Competitive parity.** Derivatives are now expected table stakes at any venue with ambition.
+
+## What's genuinely harder than spot
+
+Derivatives are not "spot with leverage." A perp venue needs machinery a spot exchange simply doesn't have:
+
+| Spot exchange has | Derivatives venue also needs |
+|---|---|
+| Order book + matching | Leverage-aware matching, margin system |
+| Wallets / custody | **Risk & [liquidation engine](/blog/risk-and-liquidation-engines)**, insurance fund, ADL |
+| Spot pairs | **Funding rate** mechanism, [mark & index price](/blog/mark-price-index-price-oracles) |
+| Basic market data | Position/PnL, margin modes (cross/isolated) |
+| Spot liquidity | Derivatives liquidity / market making |
+| Spot-tier compliance | Derivatives **licensing** in each market |
+
+The risk engine is the crux: get liquidations, mark price or the insurance fund wrong and a single volatile candle can leave the venue with bad debt. This is why derivatives is a specialist build.
+
+<Callout title="Build the layer, or buy it">
+You can build the derivatives stack in-house (12–18 months and deep quant/risk expertise) or add it via a white-label derivatives engine and go live in weeks. For most spot operators the calculus favours buying the hard parts — matching, risk, liquidity — and keeping your brand, users and treasury. That's exactly the [white-label derivatives](/blog/white-label-crypto-derivatives-exchange-guide) model.
+</Callout>
+
+## A sensible sequencing
+
+1. **Confirm licensing** for derivatives in your target markets (often stricter than spot).
+2. **Choose build vs. buy** for the engine, risk system and liquidity.
+3. **Start with perpetuals** on your most liquid underlyings, conservative leverage, solid mark-price.
+4. **Wire in risk** — insurance fund, ADL, position limits — before you widen the product.
+5. **Migrate your spot users** with unified accounts so the derivatives product compounds your existing base.
+
+## The takeaway
+
+Adding derivatives is how a spot exchange defends its volume and unlocks new revenue — but it demands a risk and liquidation engine, funding and mark-price machinery, derivatives liquidity and (usually) additional licensing. Decide build-vs-buy early; most operators add the derivatives layer via white-label to launch in weeks instead of quarters. Start with perpetuals on liquid assets, get the risk engine right, and unify with your spot base. First, though, make sure derivatives is the right next step for you: [spot vs. derivatives, which first](/blog/spot-vs-derivatives-exchange-which-first).
+
+<SourceList id="adding-derivatives-to-a-spot-exchange" />

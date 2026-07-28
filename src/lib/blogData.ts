@@ -479,6 +479,42 @@ export const sourceSets: Record<string, Source[]> = {
     { label: "Guidance – Regulation of Virtual Asset Activities in ADGM", href: "https://www.adgm.com/documents/legal-framework/guidance-and-policy/fsra/guidance-virtual-asset-activities-in-adgm-20231218.pdf", publisher: "FSRA (ADGM)" },
     { label: "ADGM FSRA implements amendments to its Digital Asset Regulatory Framework", href: "https://www.kslaw.com/news-and-insights/adgm-fsra-implements-amendments-to-its-digital-asset-regulatory-framework", publisher: "King & Spalding" },
   ],
+  "offshore-crypto-derivatives-licensing": [
+    { label: "Seychelles FSA Securities Dealer License (crypto-CFDs permitted; ~US$100k capital)", href: "https://www.zitadelleag.com/services/investment-licensing/seychelles-fsa", publisher: "Zitadelle" },
+    { label: "Seychelles crypto license: VASP Act 2024 reality check", href: "https://www.zitadelleag.com/news/seychelles-crypto-license-offshore-vasp-setup", publisher: "Zitadelle" },
+    { label: "Offshore crypto license 2026 (jurisdiction overview)", href: "https://gofaizen-sherle.com/offshore-crypto-license", publisher: "Gofaizen & Sherle" },
+    { label: "FATF standards on virtual assets & VASPs (AML/CFT)", href: "https://www.fatf-gafi.org/", publisher: "FATF" },
+  ],
+  "uk-fca-crypto-derivatives-regulation": [
+    { label: "PS20/10: Prohibiting sale to retail clients of products referencing cryptoassets", href: "https://www.fca.org.uk/publications/policy-statements/ps20-10-prohibiting-sale-retail-clients-investment-products-reference-cryptoassets", publisher: "FCA" },
+    { label: "FCA bans the sale of crypto-derivatives to retail consumers", href: "https://www.fca.org.uk/news/press-releases/fca-bans-sale-crypto-derivatives-retail-consumers", publisher: "FCA" },
+    { label: "A new regime for cryptoasset regulation", href: "https://www.fca.org.uk/firms/new-regime-cryptoasset-regulation", publisher: "FCA" },
+  ],
+  "malaysia-sc-digital-asset-exchange-license": [
+    { label: "Guidelines on Recognized Markets (DAX / RMO framework)", href: "https://www.sc.com.my/regulation/guidelines/recognizedmarkets", publisher: "SC Malaysia" },
+    { label: "SC issues revised guidelines on Recognized Markets for Digital Asset Exchange", href: "https://www.sc.com.my/resources/media/media-release/sc-issues-revised-guidelines-on-recognized-markets-for-digital-asset-exchange", publisher: "SC Malaysia" },
+    { label: "List of registered Digital Asset Exchanges", href: "https://www.sc.com.my/regulation/guidelines/recognizedmarkets/list-of-registered-digital-asset-exchanges", publisher: "SC Malaysia" },
+  ],
+  "crypto-exchange-fiat-on-ramps": [
+    { label: "Top on-ramp & off-ramp providers (fiat to crypto), 2026", href: "https://tokenmetrics.com/blog/top-on-and-off-ramp-providers-fiat-to-crypto-2026/", publisher: "Token Metrics" },
+    { label: "Crypto on-ramp comparison: MoonPay, Ramp, Transak and more", href: "https://www.spark.money/tools/crypto-on-ramp-comparison", publisher: "Spark" },
+    { label: "10 best crypto off-ramps in 2026, ranked and compared", href: "https://cryptonews.com/cryptocurrency/best-crypto-off-ramp/", publisher: "CryptoNews" },
+  ],
+  "crypto-exchange-affiliate-programs": [
+    { label: "Best crypto affiliate programs 2026: operator teardown", href: "https://track360.io/blog/best-crypto-affiliate-programs-2026-operator-teardown", publisher: "track360" },
+    { label: "Crypto affiliate networks (2026)", href: "https://www.businessofapps.com/affiliate/crypto/", publisher: "Business of Apps" },
+    { label: "Crypto affiliate marketing: 2026 operator guide", href: "https://track360.io/blog/crypto-affiliate-marketing-guide-2026", publisher: "track360" },
+  ],
+  "crypto-exchange-api-integration": [
+    { label: "Evaluating WebSocket feeds, order-book depth & rate limits", href: "https://blog.kalena.ai/best-cryptocurrency-exchange-api-how-to-evaluate-websocket-feeds-order-book-depth-and-rate-limits-before-you-build-a-single-line-of-code", publisher: "Kalena" },
+    { label: "Best crypto exchange APIs in 2026: a full guide", href: "https://cryptorank.io/news/feed/crypto-exchange-api-guide", publisher: "CryptoRank" },
+    { label: "5 best crypto exchange APIs to use in your business, 2026", href: "https://www.coinspeaker.com/guides/best-crypto-exchange-apis/", publisher: "Coinspeaker" },
+  ],
+  "listing-tokens-and-trading-pairs": [
+    { label: "Crypto exchange listing process, costs and requirements 2026", href: "https://thesignal.directory/intelligence/crypto-exchange-listing-process-costs-2026", publisher: "The Signal" },
+    { label: "CEX token listing requirements 2026: Binance, OKX, KuCoin", href: "https://www.tokenmarketmaker.io/cex-token-listing-requirements-2026/", publisher: "Token Market Maker" },
+    { label: "Token listing compliance: due-diligence standards for exchanges", href: "https://midlandsinbusiness.com/token-listing-compliance-due-diligence-standards-for-crypto-exchanges", publisher: "Midlands in Business" },
+  ],
   "kyc-aml-for-crypto-exchanges": [
     { label: "Best practices on Travel Rule supervision (June 2025)", href: "https://www.fatf-gafi.org/content/dam/fatf-gafi/recommendations/Best-Practices-Travel-Rule-Supervision.pdf", publisher: "FATF" },
     { label: "Financial Action Task Force (Recommendation 16 / Travel Rule)", href: "https://www.fatf-gafi.org/", publisher: "FATF" },
@@ -511,5 +547,25 @@ export const sourceSets: Record<string, Source[]> = {
   "crypto-exchange-launch-timeline": [
     { label: "White-label vs. building from scratch: 2026 cost comparison", href: "https://codono.com/blog/white-label-crypto-exchange-vs-custom-build", publisher: "Codono" },
     { label: "How much does a white-label crypto exchange cost in 2026?", href: "https://tinytrader.com/how-much-does-a-white-label-crypto-exchange-cost-in-2026/", publisher: "TinyTrader" },
+  ],
+  "best-white-label-crypto-derivatives-providers": [
+    { label: "9 best white-label crypto exchange providers for 2026", href: "https://btsesolutions.com/articles/9-best-white-label-crypto-exchange-providers-for-2026", publisher: "BTSE Solutions" },
+    { label: "Top white-label crypto exchange software providers in 2026", href: "https://b2broker.com/news/best-white-label-crypto-exchange-software/", publisher: "B2Broker" },
+    { label: "Top white-label crypto exchange providers of 2026", href: "https://www.financemagnates.com/cryptocurrency/top-white-label-crypto-exchange-providers-of-2026/", publisher: "Finance Magnates" },
+  ],
+  "crypto-broker-vs-exchange": [
+    { label: "Crypto broker vs exchange: which model is right for you?", href: "https://b2broker.com/news/crypto-broker-vs-exchange/", publisher: "B2Broker" },
+    { label: "Crypto brokers vs. crypto exchanges: what to know", href: "https://www.chainup.com/blog/crypto-brokers-vs-crypto-exchanges-what-to-know/", publisher: "ChainUp" },
+    { label: "Difference between crypto exchange and brokerage", href: "https://www.shiftmarkets.com/blog/difference-between-crypto-exchange-brokerage", publisher: "Shift Markets" },
+  ],
+  "proof-of-reserves-crypto-exchange": [
+    { label: "Proof of reserves crypto exchanges: how verification works in 2026", href: "https://financefeeds.com/proof-of-reserves-crypto-exchanges/", publisher: "FinanceFeeds" },
+    { label: "Merkle-tree proof of reserves explained", href: "https://phemex.com/academy/merkle-tree-proof-of-reserves", publisher: "Phemex" },
+    { label: "Proof of reserves in crypto: what it proves, what it misses", href: "https://cryptodaily.co.uk/2026/07/crypto-proof-of-reserves-what-it-proves-misses", publisher: "Crypto Daily" },
+  ],
+  "adding-derivatives-to-a-spot-exchange": [
+    { label: "Crypto perpetual futures statistics & trends in 2026", href: "https://www.datawallet.com/crypto/crypto-perpetual-futures-statistics", publisher: "Datawallet" },
+    { label: "Exchange Review, March 2026 (derivatives = 76.5% of CEX volume)", href: "https://data.coindesk.com/reports/exchange-review-march-2026", publisher: "CCData" },
+    { label: "Best crypto derivatives exchanges 2026 — perps & futures", href: "https://cryptoslate.com/crypto-exchanges/derivatives/", publisher: "CryptoSlate" },
   ],
 };
