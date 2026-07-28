@@ -112,7 +112,7 @@ export const sourceSets: Record<string, Source[]> = {
   "crypto-exchange-software": [
     {
       label: "Crypto Exchange Software 2026: Architecture, MiCA, White-Label",
-      href: "https://crassula.io/guides/crypto-exchange-software/",
+      href: "https://crassula.io/solutions/crypto-banking/guides/crypto-exchange-software/",
       publisher: "Crassula",
     },
     {
@@ -163,7 +163,7 @@ export const sourceSets: Record<string, Source[]> = {
   "exchange-uptime-latency-sla": [
     {
       label: "Architecting for 99.99% Uptime and Ultra-Low Latency",
-      href: "https://www.errna.com/tech-talk/cryptocurrency/the-exchange-operator-s-operational-imperative-architecting-for-99-99-uptime-and-ultra-low-latency.html",
+      href: "https://www.errna.com/tech-talk/the-exchange-operator-s-operational-imperative-architecting-for-99-99-uptime-and-ultra-low-latency.html",
       publisher: "Errna",
     },
     {
@@ -410,7 +410,7 @@ export const sourceSets: Record<string, Source[]> = {
     },
     {
       label: "Trading fee schedule (standard spot 0.10%)",
-      href: "https://www.binance.com/en/fee/schedule",
+      href: "https://www.binance.com/en/fee/trading",
       publisher: "Binance",
     },
     {
@@ -440,7 +440,7 @@ export const sourceSets: Record<string, Source[]> = {
     { label: "Introduction to Binance Futures Funding Rates", href: "https://www.binance.com/en/support/faq/detail/360033525031", publisher: "Binance" },
   ],
   "maker-taker-fees-explained": [
-    { label: "Spot trading fee schedule (standard 0.10%)", href: "https://www.binance.com/en/fee/schedule", publisher: "Binance" },
+    { label: "Spot trading fee schedule (standard 0.10%)", href: "https://www.binance.com/en/fee/trading", publisher: "Binance" },
     { label: "USDⓈ-M futures fee schedule (standard ~0.02%/0.04%)", href: "https://www.binance.com/en/fee/futureFee", publisher: "Binance" },
   ],
   "crypto-exchange-liquidity-cold-start": [
