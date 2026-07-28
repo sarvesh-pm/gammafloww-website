@@ -1,0 +1,59 @@
+---
+title: "Crypto Exchange Software: Build, Buy, or White-Label?"
+description: "What crypto exchange software actually includes — matching engine, wallets, KYC, liquidity, admin — and how to decide between building it, buying it, or going white-label."
+cluster: "Launch & Buy"
+keyword: "crypto exchange software"
+date: "2026-07-28"
+author: "GammaFloww Team"
+---
+
+"Crypto exchange software" sounds like one thing you buy. It isn't — it's a stack of hard-to-build systems that have to work together perfectly, under load, in real time. Understanding what's actually in it is the first step to the decision that follows: build it, buy it, or run a white-label platform.
+
+## What crypto exchange software actually includes
+
+A production exchange bundles far more than a trading screen. The core layers ([Crassula](https://crassula.io/guides/crypto-exchange-software/), [B2Broker](https://b2broker.com/news/best-white-label-crypto-exchange-software/)):
+
+| Layer | What it does |
+|---|---|
+| **[Matching engine](/blog/inside-a-crypto-matching-engine)** | Matches orders in real time — the performance-critical core |
+| **Order book & routing** | Maintains the book, routes and executes orders |
+| **Wallets & [custody](/blog/crypto-exchange-custody-models)** | Secure hot/cold key management, multi-chain support |
+| **KYC / AML** | Onboarding, screening, and the [Travel Rule](/blog/crypto-travel-rule-compliance) |
+| **[Liquidity](/blog/crypto-exchange-liquidity-cold-start)** | Market-maker connectivity and aggregation |
+| **[Risk & liquidation](/blog/risk-and-liquidation-engines)** | Margining, liquidation, insurance fund (for derivatives) |
+| **Back office** | Admin console, permissions, reporting, surveillance |
+| **Fiat on/off ramps** | Deposits, withdrawals, banking rails |
+
+Miss or under-build any one of these and the whole venue is fragile.
+
+## Build vs. buy vs. white-label
+
+In 2026 the question is rarely "can we build this" — it's "*should* we." Building the full stack from scratch takes **12–24 months** and a large specialist team; white-label gets you live in weeks to months instead ([Crassula](https://crassula.io/guides/crypto-exchange-software/)).
+
+<BarChart id="time-to-launch" />
+
+The honest rule: **build only if your differentiator lives in the engine itself.** If your edge is your brand, market, product, or distribution — not a novel matching engine — building the plumbing from zero trades years and millions for "flexibility" you rarely use. This is the same [build-vs-buy calculus](/blog/white-label-vs-building-crypto-exchange) every operator faces.
+
+<Callout title="The hidden cost of building">
+White-label vendors that began as custom builders now ship production-grade stacks that would cost **$5M+ and two years to replicate** ([Crassula](https://crassula.io/guides/crypto-exchange-software/)). "We'll just build it" almost always underestimates the matching engine, wallet security, and compliance work by an order of magnitude.
+</Callout>
+
+## What to look for in a platform
+
+If you're evaluating [white-label software](/blog/white-label-crypto-derivatives-exchange-guide), judge it on the things that are hardest to fix later:
+
+- **Engine performance** under load — latency and throughput at the 99th percentile, not a demo ([uptime & latency benchmarks](/blog/exchange-uptime-latency-sla)).
+- **Products supported** — spot only, or [derivatives](/blog/perpetual-futures-vs-options-vs-dated-futures) too? Re-platforming later is painful.
+- **Liquidity model** — bundled or bring-your-own.
+- **Compliance depth** — [KYC/AML](/blog/kyc-aml-for-crypto-exchanges), jurisdictions, reporting.
+- **Commercials & exit** — the true [cost of ownership](/blog/cost-to-launch-crypto-derivatives-exchange) and your data-portability terms.
+
+Run every candidate through the same [vendor due-diligence checklist](/blog/white-label-exchange-vendor-due-diligence).
+
+## The takeaway
+
+Crypto exchange software isn't a single product — it's a matching engine, wallets, compliance, liquidity, risk, and back-office systems that must work as one. Build the stack only if the engine is your edge; otherwise white-label gets you a production venue in weeks instead of years, for a fraction of a multi-million-dollar build.
+
+<SourceList id="crypto-exchange-software" />
+
+*General guidance; the right approach depends on your product, market, and resources. Not financial advice.*

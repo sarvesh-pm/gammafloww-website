@@ -109,6 +109,23 @@ export const charts: Record<string, ChartData> = {
 };
 
 export const sourceSets: Record<string, Source[]> = {
+  "crypto-exchange-software": [
+    {
+      label: "Crypto Exchange Software 2026: Architecture, MiCA, White-Label",
+      href: "https://crassula.io/guides/crypto-exchange-software/",
+      publisher: "Crassula",
+    },
+    {
+      label: "Top White Label Crypto Exchange Software Providers in 2026",
+      href: "https://b2broker.com/news/best-white-label-crypto-exchange-software/",
+      publisher: "B2Broker",
+    },
+    {
+      label: "Top White Label Crypto Exchange Providers of 2026",
+      href: "https://www.financemagnates.com/cryptocurrency/top-white-label-crypto-exchange-providers-of-2026/",
+      publisher: "Finance Magnates",
+    },
+  ],
   "mark-price-index-price-oracles": [
     {
       label: "Index Price, Mark Price, and Last Price in Crypto Futures Explained",
@@ -457,6 +474,11 @@ export const sourceSets: Record<string, Source[]> = {
   "uae-vara-crypto-derivatives-license": [
     { label: "Licence applications & categories", href: "https://www.vara.ae/en/licenses-and-register/licence-applications/", publisher: "VARA" },
     { label: "Licensed activities (FAQ)", href: "https://www.vara.ae/en/faq/", publisher: "VARA" },
+  ],
+  "adgm-fsra-crypto-derivatives-license": [
+    { label: "Digital Assets — MTFs, derivatives & funds over Digital Assets", href: "https://www.adgm.com/business-areas/digital-assets", publisher: "ADGM" },
+    { label: "Guidance – Regulation of Virtual Asset Activities in ADGM", href: "https://www.adgm.com/documents/legal-framework/guidance-and-policy/fsra/guidance-virtual-asset-activities-in-adgm-20231218.pdf", publisher: "FSRA (ADGM)" },
+    { label: "ADGM FSRA implements amendments to its Digital Asset Regulatory Framework", href: "https://www.kslaw.com/news-and-insights/adgm-fsra-implements-amendments-to-its-digital-asset-regulatory-framework", publisher: "King & Spalding" },
   ],
   "kyc-aml-for-crypto-exchanges": [
     { label: "Best practices on Travel Rule supervision (June 2025)", href: "https://www.fatf-gafi.org/content/dam/fatf-gafi/recommendations/Best-Practices-Travel-Rule-Supervision.pdf", publisher: "FATF" },
