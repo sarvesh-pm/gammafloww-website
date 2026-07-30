@@ -19,7 +19,7 @@ export default async function OpengraphImage() {
           justifyContent: "space-between",
           padding: "72px",
           background:
-            "radial-gradient(1000px 500px at 20% 0%, rgba(109,139,255,0.28), transparent), #05070b",
+            "radial-gradient(1000px 500px at 20% 0%, rgba(10,141,253,0.28), transparent), #05070b",
           color: "#f4f7fb",
           fontFamily: "sans-serif",
         }}
@@ -29,7 +29,7 @@ export default async function OpengraphImage() {
           {/* eslint-disable-next-line @next/next/no-img-element -- Satori requires a raw img element */}
           <img src={logoSrc} width={49} height={56} alt="" style={{ marginRight: 18 }} />
           <span>
-            Gamma<span style={{ color: "#6d8bff" }}>Floww</span>
+            Gamma<span style={{ color: "#0a8dfd" }}>Floww</span>
           </span>
         </div>
 
@@ -44,7 +44,7 @@ export default async function OpengraphImage() {
               fontWeight: 700,
               lineHeight: 1.05,
               letterSpacing: -1,
-              backgroundImage: "linear-gradient(100deg, #6d8bff, #22d3ee, #8b5cf6)",
+              backgroundImage: "linear-gradient(100deg, #0a8dfd, #149bfe, #0066f8)",
               backgroundClip: "text",
               color: "transparent",
             }}

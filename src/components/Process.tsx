@@ -61,9 +61,9 @@ export function Process() {
           )
           .fromTo(
             ".gf-badge",
-            { boxShadow: "0 0 0 0 rgba(109,139,255,0.55)" },
+            { boxShadow: "0 0 0 0 rgba(0,102,248,0.55)" },
             {
-              boxShadow: "0 0 0 12px rgba(109,139,255,0)",
+              boxShadow: "0 0 0 12px rgba(0,102,248,0)",
               duration: 0.7,
               stagger: STEP,
               ease: "power2.out",

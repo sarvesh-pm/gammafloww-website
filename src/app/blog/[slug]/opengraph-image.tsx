@@ -29,7 +29,7 @@ export default async function ArticleOgImage({ params }: { params: Promise<{ slu
           justifyContent: "space-between",
           padding: "72px",
           background:
-            "radial-gradient(900px 500px at 15% 0%, rgba(109,139,255,0.30), transparent), #05070b",
+            "radial-gradient(900px 500px at 15% 0%, rgba(10,141,253,0.30), transparent), #05070b",
           color: "#f4f7fb",
           fontFamily: "sans-serif",
         }}
@@ -38,13 +38,13 @@ export default async function ArticleOgImage({ params }: { params: Promise<{ slu
           {/* eslint-disable-next-line @next/next/no-img-element -- Satori requires a raw img element */}
           <img src={logoSrc} width={39} height={44} alt="" style={{ marginRight: 16 }} />
           <span>
-            Gamma<span style={{ color: "#6d8bff" }}>Floww</span>
+            Gamma<span style={{ color: "#0a8dfd" }}>Floww</span>
           </span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
           {cluster && (
-            <div style={{ fontSize: 24, color: "#6d8bff", fontWeight: 600, marginBottom: 20 }}>
+            <div style={{ fontSize: 24, color: "#0a8dfd", fontWeight: 600, marginBottom: 20 }}>
               {cluster.toUpperCase()}
             </div>
           )}
