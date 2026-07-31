@@ -1,6 +1,6 @@
 ---
 title: "Integrating a Crypto Exchange: REST, WebSocket & FIX"
-description: "APIs are how market makers, algo traders and your own apps connect to your venue. The three protocols that matter, what a production-grade exchange API needs, and integration best practices."
+description: "APIs connect market makers, algo traders and your own apps to your venue. The three protocols that matter and what a production-grade exchange API needs."
 cluster: "Operator Playbook"
 keyword: "crypto exchange api integration"
 date: "2026-07-30"
@@ -17,7 +17,7 @@ Your exchange's API is not a side feature — it's how liquidity actually arrive
 | **WebSocket** | Server-push streams | Live order book, trades, ticker, private order/fill updates |
 | **FIX** | Institutional standard | Low-latency order flow for professional/institutional desks |
 
-REST is the workhorse for actions and lookups. **WebSockets replace polling with continuous streams** — for order-flow trading they're effectively mandatory, because REST polling can't capture microsecond-level order-book changes ([Kalena](https://blog.kalena.ai/best-cryptocurrency-exchange-api-how-to-evaluate-websocket-feeds-order-book-depth-and-rate-limits-before-you-build-a-single-line-of-code)). **FIX** is what institutional counterparties expect; offering it signals you're ready for serious flow ([CryptoRank](https://cryptorank.io/news/feed/crypto-exchange-api-guide)).
+REST is the workhorse for actions and lookups. **WebSockets replace polling with continuous streams** — for order-flow trading they're effectively mandatory, because REST polling can't capture microsecond-level order-book changes ([Kalena](https://kalena.ai/blog/best-cryptocurrency-exchange-api-how-to-evaluate-websocket-feeds-order-book-depth-and-rate-limits-before-you-build-a-single-line-of-code)). **FIX** is what institutional counterparties expect; offering it signals you're ready for serious flow ([CryptoRank](https://cryptorank.io/news/feed/crypto-exchange-api-guide)).
 
 ## What a production-grade API needs
 

@@ -236,7 +236,7 @@ export const sourceSets: Record<string, Source[]> = {
     },
     {
       label: "Global stablecoin regulations 2026: What enterprises need to know",
-      href: "https://bvnk.com/blog/global-stablecoin-regulations-2026",
+      href: "https://www.bvnk.com/blog/global-stablecoin-regulations-2026",
       publisher: "BVNK",
     },
   ],
@@ -506,7 +506,7 @@ export const sourceSets: Record<string, Source[]> = {
     { label: "Crypto affiliate marketing: 2026 operator guide", href: "https://track360.io/blog/crypto-affiliate-marketing-guide-2026", publisher: "track360" },
   ],
   "crypto-exchange-api-integration": [
-    { label: "Evaluating WebSocket feeds, order-book depth & rate limits", href: "https://blog.kalena.ai/best-cryptocurrency-exchange-api-how-to-evaluate-websocket-feeds-order-book-depth-and-rate-limits-before-you-build-a-single-line-of-code", publisher: "Kalena" },
+    { label: "Evaluating WebSocket feeds, order-book depth & rate limits", href: "https://kalena.ai/blog/best-cryptocurrency-exchange-api-how-to-evaluate-websocket-feeds-order-book-depth-and-rate-limits-before-you-build-a-single-line-of-code", publisher: "Kalena" },
     { label: "Best crypto exchange APIs in 2026: a full guide", href: "https://cryptorank.io/news/feed/crypto-exchange-api-guide", publisher: "CryptoRank" },
     { label: "5 best crypto exchange APIs to use in your business, 2026", href: "https://www.coinspeaker.com/guides/best-crypto-exchange-apis/", publisher: "Coinspeaker" },
   ],
@@ -570,7 +570,7 @@ export const sourceSets: Record<string, Source[]> = {
   ],
   "australia-asic-crypto-derivatives-regulation": [
     { label: "Australia moves to regulate crypto platforms: AFSL bill passes", href: "https://www.financemagnates.com/cryptocurrency/australia-moves-to-regulate-crypto-platforms-as-parliament-passes-bill-for-afsl/", publisher: "Finance Magnates" },
-    { label: "CP 381 / INFO 225: Digital assets — financial products and services", href: "https://www.asic.gov.au/regulatory-resources/find-a-document/consultations/cp-381-updates-to-info-225-digital-assets-financial-products-and-services/", publisher: "ASIC" },
+    { label: "CP 381 / INFO 225: Digital assets — financial products and services", href: "https://asic.gov.au/regulatory-resources/digital-transformation/crypto-assets/", publisher: "ASIC" },
     { label: "The 2026 guide to crypto regulation in Australia", href: "https://transak.com/blog/australia-crypto-regulation-guide", publisher: "Transak" },
   ],
   "japan-fsa-crypto-exchange-regulation": [
