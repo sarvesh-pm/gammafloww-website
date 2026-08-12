@@ -8,6 +8,8 @@ import { HashCleanup } from "@/components/HashCleanup";
 // GA4 measurement ID. Public value; overridable via env. Analytics only loads
 // in production so local/dev traffic doesn't pollute the reports.
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-QTS675HP95";
+// Ahrefs Web Analytics (cookieless, no consent banner needed). Public site key.
+const AHREFS_ANALYTICS_KEY = "aulmT6Durv0u+YWkf+PVvA";
 const analyticsEnabled = process.env.NODE_ENV === "production";
 
 const plexSans = IBM_Plex_Sans({
@@ -118,6 +120,11 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${GA_ID}');`}
             </Script>
+            <Script
+              src="https://analytics.ahrefs.com/analytics.js"
+              data-key={AHREFS_ANALYTICS_KEY}
+              strategy="afterInteractive"
+            />
           </>
         )}
       </body>
