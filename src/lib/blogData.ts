@@ -588,4 +588,24 @@ export const sourceSets: Record<string, Source[]> = {
     { label: "Latin America's crypto moment: why 2026 could be LATAM's biggest year", href: "https://gomarkets.com/en/articles/latin-americas-crypto-moment-why-2026-could-be-latams-biggest-year-yet", publisher: "GO Markets" },
     { label: "The 2026 Global Digital Asset Adoption Index", href: "https://www.coindesk.com/research/the-2026-global-digital-asset-adoption-index", publisher: "CoinDesk" },
   ],
+  "crypto-derivatives-exchange-development": [
+    { label: "CCData Exchange Review (derivatives share of CEX volume)", href: "https://data.coindesk.com/reports/exchange-review-march-2026", publisher: "CCData" },
+    { label: "White-label crypto exchange vs. custom build", href: "https://codono.com/blog/white-label-crypto-exchange-vs-custom-build", publisher: "Codono" },
+    { label: "White-label crypto exchange cost", href: "https://b2broker.com/news/white-label-crypto-exchange-cost/", publisher: "B2Broker" },
+  ],
+  "crypto-exchange-liquidity-solutions": [
+    { label: "How market makers provide liquidity and stabilize crypto markets", href: "https://www.xbto.com/resources/how-market-makers-provide-liquidity-and-stabilize-crypto-markets", publisher: "XBTO" },
+    { label: "How to attract liquidity providers to a crypto exchange", href: "https://www.dappfort.com/blog/attract-liquidity-providers-crypto-exchange/", publisher: "Dappfort" },
+    { label: "Crypto liquidity solutions for exchange startups", href: "https://www.dappfort.com/blog/crypto-liquidity-solutions-for-exchange-startups/", publisher: "Dappfort" },
+    { label: "Crypto market making & liquidity services", href: "https://www.openware.com/solution/crypto-market-making-and-liquidity-services", publisher: "Openware" },
+  ],
+  "what-is-open-interest": [
+    { label: "Open Interest — definition and interpretation", href: "https://www.investopedia.com/terms/o/openinterest.asp", publisher: "Investopedia" },
+    { label: "Aggregated crypto open interest data", href: "https://www.coinglass.com/", publisher: "CoinGlass" },
+  ],
+  "white-label-crypto-exchange-development": [
+    { label: "White-label crypto exchange vs. custom build", href: "https://codono.com/blog/white-label-crypto-exchange-vs-custom-build", publisher: "Codono" },
+    { label: "Best white-label crypto exchange software providers", href: "https://b2broker.com/news/best-white-label-crypto-exchange-software/", publisher: "B2Broker" },
+    { label: "Crypto exchange software 2026 guide", href: "https://crassula.io/solutions/crypto-banking/guides/crypto-exchange-software/", publisher: "Crassula" },
+  ],
 };
