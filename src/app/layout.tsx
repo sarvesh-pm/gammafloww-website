@@ -7,7 +7,7 @@ import { HashCleanup } from "@/components/HashCleanup";
 
 // GA4 measurement ID. Public value; overridable via env. Analytics only loads
 // in production so local/dev traffic doesn't pollute the reports.
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-QTS675HP95";
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-FW5H748M6V";
 // Ahrefs Web Analytics (cookieless, no consent banner needed). Public site key.
 const AHREFS_ANALYTICS_KEY = "aulmT6Durv0u+YWkf+PVvA";
 const analyticsEnabled = process.env.NODE_ENV === "production";
