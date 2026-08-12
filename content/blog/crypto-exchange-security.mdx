@@ -1,0 +1,48 @@
+---
+title: "Crypto Exchange Security: The Operator's Checklist"
+description: "Crypto exchange security is layered defense of funds and data: cold storage, 2FA, whitelists, audits, proof of reserves — the operator checklist."
+cluster: "Operator Playbook"
+keyword: "crypto exchange security"
+date: "2026-08-01"
+author: "GammaFloww Team"
+---
+
+**Crypto exchange security is the layered set of defenses that protect user funds and data — cold storage, strong authentication, withdrawal controls, monitoring, and independent audits.** No single control is enough; security comes from defense in depth. Here's the operator's checklist, from the vault down to the login screen.
+
+## 1. Custody: keep most funds offline
+
+The single most important control is **cold storage** — holding the bulk of assets in offline wallets disconnected from the internet, with only a modest float in hot wallets for day-to-day withdrawals. Leading exchanges keep the vast majority of client assets in cold storage under physical and procedural controls ([Kraken](https://www.kraken.com/learn/most-secure-crypto-exchange)). How you split hot/cold and manage keys is your [custody model](/blog/crypto-exchange-custody-models) decision.
+
+## 2. Protect accounts and withdrawals
+
+Most losses hit at the account layer, not the vault:
+
+- **Strong 2FA** — support hardware keys / passkeys, not just SMS.
+- **Withdrawal whitelists** — funds can only leave to pre-approved addresses, with a time-lock on changes.
+- **Anti-phishing** — anti-phishing codes, device/session management, and login alerts ([PayBito](https://www.paybito.com/2fa-cold-storage-and-withdrawal-whitelists-security-tools-in-crypto-exchanges/)).
+
+## 3. Harden the platform
+
+- **Encryption** in transit and at rest; strict key management.
+- **Rate limiting, DDoS protection, and WAF** on public endpoints.
+- **Least-privilege admin access** with audit logging on every privileged action.
+- **Secure the API** — scoped keys, IP allow-lists (see [API integration](/blog/crypto-exchange-api-integration)).
+
+## 4. Detect and prove
+
+- **Independent security audits and penetration tests**, on a schedule — not once.
+- **[Market surveillance](/blog/market-surveillance-wash-trading)** to catch manipulation and abuse.
+- **[Proof of reserves](/blog/proof-of-reserves-crypto-exchange)** — verifiable evidence you hold user funds 1:1, the trust standard since FTX.
+- **An [insurance fund](/blog/insurance-fund-and-auto-deleveraging)** and a documented incident-response plan.
+
+<Callout title="If you buy your platform, security is a shared responsibility">
+A managed [white-label provider](/blog/white-label-crypto-derivatives-exchange-guide) handles infrastructure hardening, cold-storage architecture, and DDoS protection — a major reason operators buy rather than self-host a [script](/blog/crypto-exchange-script). But account security, withdrawal policy, and compliance stay yours. Confirm exactly who owns what during [vendor due diligence](/blog/white-label-exchange-vendor-due-diligence).
+</Callout>
+
+## The takeaway
+
+Exchange security is layered: cold storage protects the vault, 2FA and withdrawal whitelists protect accounts, platform hardening protects the perimeter, and audits plus proof of reserves prove it all works. Attackers only need one gap — so the operator's job is to leave none. If you're buying a platform, security is the first thing to interrogate, not the last.
+
+<SourceList id="crypto-exchange-security" />
+
+*This is general guidance, not a security audit. Engage qualified security professionals for your specific setup. As of 2026.*

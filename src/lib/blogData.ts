@@ -608,4 +608,29 @@ export const sourceSets: Record<string, Source[]> = {
     { label: "Best white-label crypto exchange software providers", href: "https://b2broker.com/news/best-white-label-crypto-exchange-software/", publisher: "B2Broker" },
     { label: "Crypto exchange software 2026 guide", href: "https://crassula.io/solutions/crypto-banking/guides/crypto-exchange-software/", publisher: "Crassula" },
   ],
+  "p2p-crypto-exchange-development": [
+    { label: "P2P crypto exchange development", href: "https://www.dappfort.com/blog/p2p-crypto-exchange-development/", publisher: "Dappfort" },
+    { label: "White-label crypto exchange vs. custom build", href: "https://codono.com/blog/white-label-crypto-exchange-vs-custom-build", publisher: "Codono" },
+    { label: "White-label crypto exchange cost", href: "https://b2broker.com/news/white-label-crypto-exchange-cost/", publisher: "B2Broker" },
+  ],
+  "crypto-exchange-script": [
+    { label: "Crypto exchange software 2026 guide", href: "https://crassula.io/solutions/crypto-banking/guides/crypto-exchange-software/", publisher: "Crassula" },
+    { label: "Best white-label crypto exchange software providers", href: "https://b2broker.com/news/best-white-label-crypto-exchange-software/", publisher: "B2Broker" },
+    { label: "White-label crypto exchange vs. custom build", href: "https://codono.com/blog/white-label-crypto-exchange-vs-custom-build", publisher: "Codono" },
+  ],
+  "crypto-launchpad-development": [
+    { label: "Crypto launchpad development", href: "https://www.antiersolutions.com/blogs/crypto-launchpad-development-company/", publisher: "Antier" },
+    { label: "Crypto launchpad development guide", href: "https://www.dappfort.com/blog/crypto-launchpad-development/", publisher: "Dappfort" },
+  ],
+  "twap-orders-explained": [
+    { label: "TWAP (Time-Weighted Average Price)", href: "https://help.crypto.com/en/articles/9291490-twap-time-weighted-average-price", publisher: "Crypto.com" },
+    { label: "Time-Weighted Average Price (TWAP)", href: "https://questdb.com/glossary/time-weighted-average-price-twap/", publisher: "QuestDB" },
+  ],
+  "crypto-copy-trading-platform": [
+    { label: "Copy trading software development", href: "https://www.antiersolutions.com/blogs/copy-trading-software-development/", publisher: "Antier" },
+  ],
+  "crypto-exchange-security": [
+    { label: "Most secure crypto exchange: how funds are protected", href: "https://www.kraken.com/learn/most-secure-crypto-exchange", publisher: "Kraken" },
+    { label: "2FA, cold storage, and withdrawal whitelists", href: "https://www.paybito.com/2fa-cold-storage-and-withdrawal-whitelists-security-tools-in-crypto-exchanges/", publisher: "PayBito" },
+  ],
 };
