@@ -1,0 +1,43 @@
+---
+title: "TWAP Orders Explained (and When to Use Them)"
+description: "A TWAP order splits a large trade into equal slices at set intervals to cut market impact. How TWAP works, TWAP vs VWAP, and when traders use it."
+cluster: "Trader Education"
+keyword: "twap order"
+date: "2026-08-01"
+author: "GammaFloww Team"
+---
+
+**A TWAP (Time-Weighted Average Price) order splits a large trade into smaller, equal-sized pieces executed at regular time intervals — so you fill closer to the average price over a window instead of moving the market with one big order.** It's a staple execution tool for anyone trading size. Here's how it works and when it's the right choice.
+
+## How a TWAP order works
+
+Instead of sending one large order that eats through the book and spikes the price, a TWAP algorithm divides it into equal slices spread evenly across a chosen duration. Set a 30-minute window with 6 slices, and it places one order every 5 minutes ([Crypto.com](https://help.crypto.com/en/articles/9291490-twap-time-weighted-average-price)). The goal is a fill near the **time-weighted average price** over that window, minimizing the market impact a single large order would cause ([QuestDB](https://questdb.com/glossary/time-weighted-average-price-twap/)).
+
+## TWAP vs. VWAP
+
+Both are execution benchmarks that slice orders over time, but they weight differently:
+
+| | TWAP | VWAP |
+|---|---|---|
+| Weights by | **Time** (equal slices) | **Volume** (more where volume is high) |
+| Best when | Volume is steady, or you want simplicity | You want to trade in line with market activity |
+
+TWAP is simpler and predictable; VWAP adapts to where the volume actually is. For thin or erratic markets, TWAP's even pacing is often easier to reason about.
+
+## Why traders (and market makers) use it
+
+- **Reduce slippage** — big orders move the price against you; slicing avoids that. (Related: [why liquidity depth matters](/blog/crypto-exchange-liquidity-cold-start).)
+- **Hide intent** — small, regular clips are harder to front-run than one large [market order](/blog/crypto-order-types-explained).
+- **Discipline** — a set schedule removes the temptation to mistime a big entry or exit.
+
+<Callout title="What TWAP doesn't do">
+TWAP optimizes *execution*, not *direction*. It won't get you a good price in a market moving hard against you — it just spreads your fills across the window. If price trends the whole time, your average simply reflects that trend. Use it to reduce impact, not to predict the market.
+</Callout>
+
+## The takeaway
+
+A TWAP order is a way to execute a large trade quietly — equal slices at regular intervals, aiming for the average price over a set window. It's about minimizing market impact and slippage, not calling direction. When you're trading meaningful size on a book that can't absorb it all at once, TWAP is one of the cleanest tools for the job.
+
+<SourceList id="twap-orders-explained" />
+
+*This is educational content, not financial or investment advice. Trading involves risk; do your own research.*
