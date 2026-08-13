@@ -633,4 +633,25 @@ export const sourceSets: Record<string, Source[]> = {
     { label: "Most secure crypto exchange: how funds are protected", href: "https://www.kraken.com/learn/most-secure-crypto-exchange", publisher: "Kraken" },
     { label: "2FA, cold storage, and withdrawal whitelists", href: "https://www.paybito.com/2fa-cold-storage-and-withdrawal-whitelists-security-tools-in-crypto-exchanges/", publisher: "PayBito" },
   ],
+  "crypto-options-trading-platform": [
+    { label: "Getting started with Deribit options", href: "https://insights.deribit.com/education/7-step-guide-to-getting-started-with-deribit-options/", publisher: "Deribit Insights" },
+    { label: "Crypto options & futures exchange", href: "https://www.deribit.com/", publisher: "Deribit" },
+    { label: "CCData Exchange Review (derivatives share of CEX volume)", href: "https://data.coindesk.com/reports/exchange-review-march-2026", publisher: "CCData" },
+  ],
+  "cryptocurrency-exchange-development": [
+    { label: "White-label crypto exchange vs. custom build", href: "https://codono.com/blog/white-label-crypto-exchange-vs-custom-build", publisher: "Codono" },
+    { label: "Best white-label crypto exchange software providers", href: "https://b2broker.com/news/best-white-label-crypto-exchange-software/", publisher: "B2Broker" },
+    { label: "Crypto exchange software 2026 guide", href: "https://crassula.io/solutions/crypto-banking/guides/crypto-exchange-software/", publisher: "Crassula" },
+  ],
+  "crypto-exchange-development-company": [
+    { label: "White-label crypto exchange vs. custom build", href: "https://codono.com/blog/white-label-crypto-exchange-vs-custom-build", publisher: "Codono" },
+    { label: "Best white-label crypto exchange software providers", href: "https://b2broker.com/news/best-white-label-crypto-exchange-software/", publisher: "B2Broker" },
+    { label: "Crypto exchange software 2026 guide", href: "https://crassula.io/solutions/crypto-banking/guides/crypto-exchange-software/", publisher: "Crassula" },
+  ],
+  "switzerland-crypto-license": [
+    { label: "FinTech authorisation", href: "https://www.finma.ch/en/authorisation/fintech/", publisher: "FINMA" },
+    { label: "CMS Expert Guide to Crypto Regulation — Switzerland", href: "https://cms.law/en/int/expert-guides/cms-expert-guide-to-crypto-regulation/switzerland", publisher: "CMS Law" },
+    { label: "Crypto licence in Switzerland — FINMA & SRO pathways", href: "https://gofaizen-sherle.com/crypto-license/switzerland", publisher: "Gofaizen-Sherle" },
+    { label: "Token and DLT regulation in Switzerland", href: "https://lindemannlaw.ch/expertise/blockchain-crypto-fintech-artificial-intelligence-technology/token-and-dlt-regulation-in-switzerland-2/", publisher: "Lindemann Law" },
+  ],
 };
