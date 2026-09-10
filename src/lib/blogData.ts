@@ -375,9 +375,9 @@ export const sourceSets: Record<string, Source[]> = {
       publisher: "Datawallet",
     },
     {
-      label: "Decentralized Perpetual Exchanges & Crypto Growth 2026",
-      href: "https://www.nadcab.com/blog/crypto-derivatives-perpetual-dex-growth",
-      publisher: "Nadcab Labs",
+      label: "Hyperliquid Captures 70% of On-Chain Perpetual Futures Market",
+      href: "https://finance.yahoo.com/news/hyperliquid-captures-70-chain-perpetual-010943264.html",
+      publisher: "Yahoo Finance",
     },
     {
       label: "Onchain Perpetuals Top $1T Monthly Volume",
