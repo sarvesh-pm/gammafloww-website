@@ -655,3 +655,95 @@ export const sourceSets: Record<string, Source[]> = {
     { label: "Token and DLT regulation in Switzerland", href: "https://lindemannlaw.ch/expertise/blockchain-crypto-fintech-artificial-intelligence-technology/token-and-dlt-regulation-in-switzerland-2/", publisher: "Lindemann Law" },
   ],
 };
+
+export type Faq = { q: string; a: string };
+
+// Post FAQs — rendered as a native <details> list (crawler-visible) and
+// emitted as FAQPage JSON-LD. Kept here, keyed by slug, alongside the other
+// centralized blog data. Added to the highest commercial-intent posts.
+export const faqSets: Record<string, Faq[]> = {
+  "crypto-exchange-development-company": [
+    {
+      q: "What does a crypto exchange development company actually do?",
+      a: "It builds, licenses, or customizes the platform your trading venue runs on — the matching engine, wallets, liquidity connections, risk systems, and admin tools — either as a custom build or a configurable white-label product you operate under your own brand.",
+    },
+    {
+      q: "How much does it cost to work with a crypto exchange development company?",
+      a: "A fully custom build typically runs into seven figures over 12–18 months, while licensing a proven white-label platform usually follows a setup-fee-plus-monthly or revenue-share model and launches in weeks. Be wary of a fixed \"$X and you're live\" quote with no discovery — real projects are scoped.",
+    },
+    {
+      q: "What is the biggest red flag when choosing one?",
+      a: "Hand-waving about the matching and risk engine — the parts that actually move money. If a provider cannot explain latency, throughput under load, and how the engine behaved during real market crashes, or cannot name its liquidity sources and give live references, walk away.",
+    },
+  ],
+  "cryptocurrency-exchange-development": [
+    {
+      q: "What are the core components of a cryptocurrency exchange?",
+      a: "Every exchange needs a matching engine, wallet and custody infrastructure, liquidity, and security with KYC/AML and licensing. A derivatives venue adds a risk and liquidation engine on top of all of that.",
+    },
+    {
+      q: "Should I build a crypto exchange or buy a white-label platform?",
+      a: "For most operators, and nearly all derivatives venues, buying wins. A custom build is a 12–18 month, multi-million-dollar project; a managed white-label platform launches in weeks on infrastructure already proven under real load. Build only if the engine itself is your competitive edge.",
+    },
+    {
+      q: "What are the main development paths?",
+      a: "Four: a self-hosted script (cheapest, for a spot MVP), a white-label managed platform (most serious operators), a P2P or escrow build (markets with weak banking rails), or a full custom build (when the engine is your edge).",
+    },
+  ],
+  "white-label-crypto-exchange-development": [
+    {
+      q: "What is white-label crypto exchange development?",
+      a: "It is licensing a ready-made, managed exchange platform that you configure and run under your own brand — the provider maintains the matching engine, liquidity, and risk systems while you control branding, trading pairs, fees, and users.",
+    },
+    {
+      q: "How long does a white-label crypto exchange take to launch?",
+      a: "Typically weeks, rather than the 12–18 months a custom build requires, because the core infrastructure is already built and proven under real trading load.",
+    },
+    {
+      q: "Is a white-label exchange customizable?",
+      a: "Yes — you control the entire front end (branding, UI, and user experience) and configure trading pairs, leverage tiers, fee schedules, and risk parameters. The exchange looks and behaves entirely like yours.",
+    },
+  ],
+  "crypto-derivatives-exchange-development": [
+    {
+      q: "What makes derivatives exchange development harder than spot?",
+      a: "The risk and liquidation engine. Derivatives involve leverage, margin, funding, and forced liquidations, so a safety-critical system must track positions and liquidate in real time. Get it wrong and the venue loses money — which is why most operators license this layer.",
+    },
+    {
+      q: "What does a crypto derivatives exchange need that a spot exchange does not?",
+      a: "Margin and collateral management, a mark-price and index-price system, funding-rate mechanics for perpetuals, and a real-time risk and liquidation engine — all on top of the standard matching, custody, and liquidity stack.",
+    },
+    {
+      q: "How long does it take to launch a crypto derivatives exchange?",
+      a: "With a white-label platform, weeks. A fully custom derivatives build with a production-grade risk engine is typically a multi-year, specialist-heavy project.",
+    },
+  ],
+  "crypto-options-trading-platform": [
+    {
+      q: "What does a crypto options platform need that a perps venue does not?",
+      a: "A pricing and Greeks engine (implied volatility and delta, gamma, theta, vega), portfolio margin that nets risk across positions, an options-aware matching engine handling thousands of strike-and-expiry instruments, and non-linear risk and liquidation logic.",
+    },
+    {
+      q: "Why do most operators buy rather than build an options platform?",
+      a: "Options are the deepest engineering lift in crypto derivatives — between the Greeks-aware pricing engine, portfolio margin, and non-linear risk management, a custom build is a multi-year specialist project. Unless options infrastructure is your edge, licensing a proven engine is the sensible path.",
+    },
+    {
+      q: "Are crypto options cash-settled?",
+      a: "Most crypto options are European-style and cash-settled: at expiry, in-the-money options are exercised automatically and out-of-the-money ones expire worthless.",
+    },
+  ],
+  "crypto-exchange-liquidity-solutions": [
+    {
+      q: "Why does exchange liquidity matter so much?",
+      a: "A great matching engine with an empty order book still fails — traders need depth and tight spreads to fill orders without slippage. Liquidity is often the difference between a venue that grows and one that stalls at launch.",
+    },
+    {
+      q: "How do new exchanges get liquidity?",
+      a: "Through market makers, liquidity aggregation across a partner network, and shared-liquidity arrangements with established venues — so order books stay deep from day one without the operator sourcing every counterparty itself.",
+    },
+    {
+      q: "What is the cold-start liquidity problem?",
+      a: "A new venue has no traders, so its books are thin, which deters the very traders it needs — a chicken-and-egg loop. It is solved by seeding liquidity via market makers or aggregation until organic volume takes over.",
+    },
+  ],
+};

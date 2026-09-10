@@ -10,6 +10,10 @@ import { ArticleScrollTracker } from "@/components/ArticleScrollTracker";
 import { ArrowRightIcon } from "@/components/Icons";
 import { mdxComponents } from "@/components/mdx";
 import { getAllSlugs, getAllPosts, getPostSource } from "@/lib/blog";
+import { faqSets } from "@/lib/blogData";
+import { authorSchema } from "@/lib/authors";
+import { PostFaq } from "@/components/PostFaq";
+import { AuthorBio } from "@/components/AuthorBio";
 import { DemoButton } from "@/components/demo/DemoButton";
 
 const siteUrl = "https://www.gammafloww.com";
@@ -88,6 +92,9 @@ export default async function ArticlePage({
           clusterPosts[(here + 1 + i) % clusterPosts.length],
         );
 
+  const faqs = faqSets[slug];
+  const isUpdated = meta.updated && meta.updated !== meta.date;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -106,11 +113,23 @@ export default async function ArticlePage({
         image: [`${siteUrl}/blog/${slug}/opengraph-image`],
         datePublished: meta.date,
         dateModified: meta.updated,
-        author: { "@type": "Organization", name: meta.author, url: siteUrl },
+        author: authorSchema(meta.author),
         publisher: { "@type": "Organization", name: "GammaFloww", url: siteUrl },
         mainEntityOfPage: `${siteUrl}/blog/${slug}`,
         keywords: meta.keyword,
       },
+      ...(faqs
+        ? [
+            {
+              "@type": "FAQPage",
+              mainEntity: faqs.map((f) => ({
+                "@type": "Question",
+                name: f.q,
+                acceptedAnswer: { "@type": "Answer", text: f.a },
+              })),
+            },
+          ]
+        : []),
     ],
   };
 
@@ -142,6 +161,12 @@ export default async function ArticlePage({
               <span>{meta.author}</span>
               <span aria-hidden>·</span>
               <span>{fmtDate(meta.date)}</span>
+              {isUpdated && (
+                <>
+                  <span aria-hidden>·</span>
+                  <span className="text-brand">Updated {fmtDate(meta.updated)}</span>
+                </>
+              )}
               <span aria-hidden>·</span>
               <span>{meta.readingTime}</span>
             </div>
@@ -149,6 +174,12 @@ export default async function ArticlePage({
 
           {/* Body */}
           <div className="mt-2">{content}</div>
+
+          {/* FAQ — rendered + emitted as FAQPage schema for the AI answer engines */}
+          {faqs && <PostFaq items={faqs} />}
+
+          {/* Author E-E-A-T box */}
+          <AuthorBio author={meta.author} />
 
           {/* Related articles — internal cross-links within the cluster */}
           {related.length > 0 && (
