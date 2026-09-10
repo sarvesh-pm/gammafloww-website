@@ -12,6 +12,7 @@ export type NewsItem = {
   ts: number; // publish time (ms) for sorting
   iso: string; // ISO date for <time datetime>
   snippet: string;
+  image?: string; // lead image, when the feed provides one
 };
 
 type Feed = { source: string; url: string };
@@ -79,6 +80,25 @@ function snippetOf(html: string, max = 180): string {
   return `${(lastSpace > 60 ? cut.slice(0, lastSpace) : cut).trim()}…`;
 }
 
+function extractImage(block: string): string | undefined {
+  let m =
+    block.match(/<media:content\b[^>]*\burl="([^"]+)"/i) ||
+    block.match(/<media:thumbnail\b[^>]*\burl="([^"]+)"/i);
+  if (!m) {
+    // <enclosure> only when it declares an image type
+    const enc = block.match(/<enclosure\b[^>]*>/i);
+    if (enc && /type="image/i.test(enc[0])) m = enc[0].match(/\burl="([^"]+)"/i);
+  }
+  if (!m) {
+    const desc = tag(block, "content:encoded") || tag(block, "description") || "";
+    m = desc.match(/<img\b[^>]*\bsrc="([^"]+)"/i);
+  }
+  if (!m) return undefined;
+  const url = decodeEntities(m[1]).trim();
+  // https-only to avoid mixed-content warnings on the site.
+  return /^https:\/\/\S+$/.test(url) ? url : undefined;
+}
+
 function parseFeed(xml: string, source: string): NewsItem[] {
   const items: NewsItem[] = [];
   const blocks = xml.match(/<item(?:\s[^>]*)?>[\s\S]*?<\/item>/gi) ?? [];
@@ -104,6 +124,7 @@ function parseFeed(xml: string, source: string): NewsItem[] {
       ts,
       iso: new Date(ts).toISOString(),
       snippet: snippetOf(rawDesc),
+      image: extractImage(block),
     });
   }
   return items;
