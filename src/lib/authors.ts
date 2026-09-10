@@ -32,18 +32,18 @@ export const authors: Record<string, Author> = {
   },
   // Named authors. LinkedIn/profile URLs to be added to `sameAs` when available
   // — that strengthens the author-trust (E-E-A-T) signal for AI answer engines.
-  Sara: {
-    name: "Sara",
+  "Sara Wilson": {
+    name: "Sara Wilson",
     type: "Person",
     role: "Head of Business Partnerships, GammaFloww",
-    bio: "Sara leads business partnerships at GammaFloww, working with operators launching white-label derivatives exchanges. She focuses on how teams evaluate infrastructure, structure commercials, and get to market — the practical side of buying versus building.",
+    bio: "Sara Wilson leads business partnerships at GammaFloww, working with operators launching white-label derivatives exchanges. She focuses on how teams evaluate infrastructure, structure commercials, and get to market — the practical side of buying versus building.",
     sameAs: undefined,
   },
-  Paul: {
-    name: "Paul",
+  "Paul Headword": {
+    name: "Paul Headword",
     type: "Person",
     role: "Head of Marketing, GammaFloww",
-    bio: "Paul heads marketing at GammaFloww and writes about the crypto derivatives market — where volume and demand are moving, and what that means for operators positioning a new venue.",
+    bio: "Paul Headword heads marketing at GammaFloww and writes about the crypto derivatives market — where volume and demand are moving, and what that means for operators positioning a new venue.",
     sameAs: undefined,
   },
 };
