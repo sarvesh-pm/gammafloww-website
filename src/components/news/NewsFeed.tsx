@@ -15,6 +15,28 @@ function relTime(iso: string, nowIso: string): string {
   return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" });
 }
 
+// Image area with a branded fallback for feeds that ship no image.
+function Thumb({ item }: { item: NewsItem }) {
+  const [broken, setBroken] = useState(false);
+  if (item.image && !broken) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element -- arbitrary publisher CDNs; native img avoids per-domain remotePatterns config
+      <img
+        src={item.image}
+        alt=""
+        loading="lazy"
+        onError={() => setBroken(true)}
+        className="h-44 w-full object-cover"
+      />
+    );
+  }
+  return (
+    <div className="flex h-44 w-full items-center justify-center bg-gradient-to-br from-brand/15 to-surface-2">
+      <span className="text-sm font-semibold text-brand/80">{item.source}</span>
+    </div>
+  );
+}
+
 export function NewsFeed({
   items,
   sources,
@@ -56,33 +78,35 @@ export function NewsFeed({
         })}
       </div>
 
-      {/* Feed */}
-      <ul className="mt-8 flex flex-col divide-y divide-border">
+      {/* Card grid */}
+      <div className="mt-8 grid gap-5 sm:grid-cols-2">
         {shown.map((item) => (
-          <li key={item.link} className="py-5 first:pt-0">
-            <article className="group">
+          <a
+            key={item.link}
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-colors hover:border-brand/40"
+          >
+            <div className="overflow-hidden">
+              <Thumb item={item} />
+            </div>
+            <div className="flex flex-1 flex-col p-5">
               <div className="flex items-center gap-2 text-xs text-faint">
                 <span className="font-semibold text-brand">{item.source}</span>
                 <span aria-hidden>·</span>
                 <time dateTime={item.iso}>{relTime(item.iso, fetchedAt)}</time>
               </div>
-              <h2 className="mt-1.5 text-lg font-semibold leading-snug tracking-tight">
-                <a
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-ink decoration-brand/30 underline-offset-2 transition-colors hover:text-brand hover:underline"
-                >
-                  {item.title}
-                </a>
+              <h2 className="mt-2 text-base font-semibold leading-snug tracking-tight text-ink transition-colors group-hover:text-brand">
+                {item.title}
               </h2>
               {item.snippet && (
-                <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted">{item.snippet}</p>
+                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">{item.snippet}</p>
               )}
-            </article>
-          </li>
+            </div>
+          </a>
         ))}
-      </ul>
+      </div>
 
       {shown.length === 0 && (
         <p className="mt-8 text-sm text-muted">No headlines from {active} right now.</p>
