@@ -21,6 +21,7 @@ const columns = [
     span: "lg:col-span-2",
     links: [
       { label: "Blog", href: href("Blog") },
+      { label: "News", href: href("News") },
       { label: "FAQ", href: href("FAQ") },
     ],
   },
