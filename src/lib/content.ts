@@ -15,6 +15,7 @@ export const nav = [
   { label: "Process", href: "/#process" },
   { label: "FAQ", href: "/#faq" },
   { label: "Blog", href: "/blog" },
+  { label: "News", href: "/news" },
 ];
 
 export const stats = [
