@@ -30,6 +30,22 @@ export const authors: Record<string, Author> = {
     bio: "The GammaFloww team builds white-label crypto derivatives exchange infrastructure — matching engines, liquidity, and risk systems — used by partners to launch futures and options venues. These guides distill what we've learned shipping and operating that stack.",
     sameAs: undefined,
   },
+  // Named authors. LinkedIn/profile URLs to be added to `sameAs` when available
+  // — that strengthens the author-trust (E-E-A-T) signal for AI answer engines.
+  "Sara Wilson": {
+    name: "Sara Wilson",
+    type: "Person",
+    role: "Head of Business Partnerships, GammaFloww",
+    bio: "Sara Wilson leads business partnerships at GammaFloww, working with operators launching white-label derivatives exchanges. She focuses on how teams evaluate infrastructure, structure commercials, and get to market — the practical side of buying versus building.",
+    sameAs: undefined,
+  },
+  "Paul Headword": {
+    name: "Paul Headword",
+    type: "Person",
+    role: "Head of Marketing, GammaFloww",
+    bio: "Paul Headword heads marketing at GammaFloww and writes about the crypto derivatives market — where volume and demand are moving, and what that means for operators positioning a new venue.",
+    sameAs: undefined,
+  },
 };
 
 const FALLBACK = authors["GammaFloww Team"];
@@ -46,7 +62,12 @@ export function authorSchema(name: string) {
   return {
     "@type": a.type,
     name: a.name,
-    ...(a.type === "Organization" ? { url: siteUrl } : {}),
+    ...(a.type === "Organization"
+      ? { url: siteUrl }
+      : {
+          jobTitle: a.role,
+          worksFor: { "@type": "Organization", name: "GammaFloww", url: siteUrl },
+        }),
     ...(a.sameAs && a.sameAs.length ? { sameAs: a.sameAs } : {}),
   };
 }
