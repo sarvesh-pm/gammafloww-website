@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   description:
     "The latest crypto news aggregated from leading industry sources — CoinDesk, Cointelegraph, The Block, Decrypt and more — in one recency-sorted feed.",
   alternates: { canonical: "/news" },
+  // Aggregated third-party headlines — a UX feature, not original content.
+  // noindex avoids any thin/duplicate-content signal; links stay followed.
+  robots: { index: false, follow: true },
   openGraph: {
     type: "website",
     url: "/news",
