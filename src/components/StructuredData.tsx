@@ -21,6 +21,18 @@ export function StructuredData() {
         width: 512,
         height: 512,
       },
+      // Topical authority signals — help AI answer engines and knowledge
+      // graphs resolve GammaFloww as the entity behind these subjects.
+      knowsAbout: [
+        "White-label crypto exchange",
+        "Crypto derivatives exchange",
+        "Perpetual futures",
+        "Crypto options trading",
+        "Matching engine",
+        "Exchange liquidity",
+        "Risk and liquidation engines",
+        "Crypto exchange licensing and compliance",
+      ],
       sameAs: socials.map((s) => s.href),
     },
     {
