@@ -60,7 +60,9 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
               {p.title}
             </h2>
             <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-muted">{p.description}</p>
-            <div className="mt-5 flex items-center gap-2 text-xs text-faint">
+            <div className="mt-5 flex flex-wrap items-center gap-2 text-xs text-faint">
+              <span className="text-muted">{p.author}</span>
+              <span aria-hidden>·</span>
               <span>{fmtDate(p.date)}</span>
               <span aria-hidden>·</span>
               <span>{p.readingTime}</span>
