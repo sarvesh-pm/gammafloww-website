@@ -675,6 +675,29 @@ export const sourceSets: Record<string, Source[]> = {
     { label: "Blockchain & Cryptocurrency Laws — India", href: "https://www.globallegalinsights.com/practice-areas/blockchain-cryptocurrency-laws-and-regulations/india/", publisher: "Global Legal Insights" },
     { label: "Financial Intelligence Unit — India (FIU-IND)", href: "https://fiuindia.gov.in/", publisher: "FIU-IND" },
   ],
+  "what-is-a-call-option": [
+    { label: "Call Option — what it is, how to use it", href: "https://www.investopedia.com/terms/c/calloption.asp", publisher: "Investopedia" },
+    { label: "Getting started with options", href: "https://insights.deribit.com/education/7-step-guide-to-getting-started-with-deribit-options/", publisher: "Deribit Insights" },
+  ],
+  "what-is-a-put-option": [
+    { label: "Put Option — what it is and how it works", href: "https://www.investopedia.com/terms/p/putoption.asp", publisher: "Investopedia" },
+    { label: "Getting started with options", href: "https://insights.deribit.com/education/7-step-guide-to-getting-started-with-deribit-options/", publisher: "Deribit Insights" },
+  ],
+  "dex-vs-cex": [
+    { label: "What Is a DEX (Decentralized Exchange)?", href: "https://www.gemini.com/cryptopedia/decentralized-exchange-crypto-dex", publisher: "Gemini Cryptopedia" },
+  ],
+  "funding-rate-arbitrage": [
+    { label: "Cash-and-Carry Trading — strategy guide", href: "https://www.investopedia.com/terms/c/cashandcarry.asp", publisher: "Investopedia" },
+    { label: "How investors use arbitrage", href: "https://www.investopedia.com/terms/a/arbitrage.asp", publisher: "Investopedia" },
+  ],
+  "hedging-crypto": [
+    { label: "Hedging — how it works in a portfolio", href: "https://www.investopedia.com/terms/h/hedge.asp", publisher: "Investopedia" },
+    { label: "Short Position — definition, types, risks", href: "https://www.investopedia.com/terms/s/short.asp", publisher: "Investopedia" },
+  ],
+  "south-korea-crypto-regulation": [
+    { label: "Act on the Protection of Virtual Asset Users to take effect July 19", href: "https://www.fsc.go.kr/eng/pr010101/82683", publisher: "FSC (Korea)" },
+    { label: "Financial Services Commission — English portal", href: "https://www.fsc.go.kr/eng/", publisher: "FSC (Korea)" },
+  ],
 };
 
 export type Faq = { q: string; a: string };

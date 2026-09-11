@@ -1,0 +1,44 @@
+---
+title: "Funding-Rate Arbitrage, Explained"
+description: "Funding-rate arbitrage holds spot long and a short perp of the same size to collect funding with no price exposure. How the cash-and-carry trade works."
+cluster: "Trader Education"
+keyword: "funding rate arbitrage"
+date: "2026-09-11"
+author: "GammaFloww Team"
+---
+
+**Funding-rate arbitrage is a market-neutral strategy: you hold a spot long and an equal short in a perpetual future, so price moves cancel out and you're left collecting the funding payment.** When funding is positive, shorts are paid by longs — so this position earns a yield with no directional bet on the price. It's the crypto version of the classic cash-and-carry trade. Here's how it works.
+
+## The setup
+
+[Perpetual futures](/blog/what-are-perpetual-futures) use a [funding rate](/blog/funding-rates-explained) to keep their price tethered to spot: when the perp trades above spot, longs pay shorts; when below, shorts pay longs. Funding-rate arbitrage exploits that payment:
+
+1. **Buy 1 BTC on the spot market.**
+2. **Short 1 BTC on the perpetual market** (same size).
+3. **Collect funding** each interval while the rate stays positive.
+
+Because your spot long and perp short are equal and opposite, a move in BTC gains on one leg what it loses on the other — the position is [delta-neutral](/blog/delta-neutral-strategy). What's left is the funding stream.
+
+## Why it's called cash-and-carry
+
+The strategy borrows its name and logic from traditional markets, where a trader holds the physical asset ("cash") and sells a future against it ("carry") to lock in a spread ([Investopedia](https://www.investopedia.com/terms/c/cashandcarry.asp)). In crypto, the perpetual's funding rate is the spread you're harvesting — a modern twist on a very old trade ([Investopedia](https://www.investopedia.com/terms/a/arbitrage.asp)).
+
+## It isn't free money
+
+The yield is real, but so are the risks:
+
+- **Funding can flip.** If the rate turns negative, you go from collecting to paying. The trade works only while funding stays favorable.
+- **Execution and fees.** Trading costs and slippage can eat a thin funding rate; the edge is often small per interval.
+- **Basis and liquidation risk.** The short perp still needs [margin](/blog/margin-trading-crypto); a sharp move can trigger margin calls even though the net position is neutral, if the legs aren't managed carefully.
+
+<Callout title="Neutral on price, not on everything">
+Funding-rate arbitrage removes directional risk — you don't care if Bitcoin goes up or down. It does not remove funding-reversal risk, execution costs, or the operational risk of managing two legs across spot and derivatives. "Market-neutral" is not "risk-free."
+</Callout>
+
+## The takeaway
+
+Funding-rate arbitrage — the crypto cash-and-carry — pairs a spot long with a short perp to collect funding while staying delta-neutral on price. It's one of the most popular yield strategies in crypto derivatives, and a big reason deep, liquid perpetual markets matter. Just remember the edge lives entirely in the funding rate: when that flips or fees eat it, so does the trade.
+
+<SourceList id="funding-rate-arbitrage" />
+
+*This is educational information, not financial advice. As of 2026.*
