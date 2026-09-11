@@ -1,0 +1,42 @@
+---
+title: "Delta-Neutral Strategy in Crypto, Explained"
+description: "A delta-neutral position has zero net directional exposure, so it profits from funding, basis or volatility instead. How it works and why traders use it."
+cluster: "Trader Education"
+keyword: "delta neutral strategy"
+date: "2026-09-11"
+author: "GammaFloww Team"
+---
+
+**A delta-neutral strategy is a position built so its net directional exposure — its delta — is roughly zero, meaning small moves up or down in the underlying don't change its value.** Instead of betting on direction, the trader profits from something else: funding payments, volatility, or a pricing spread. It's one of the most useful ideas in derivatives. Here's how it works.
+
+## What "delta neutral" means
+
+Delta measures directional exposure — how much a position gains or loses per $1 move in the underlying. A delta-neutral position combines longs and shorts so those exposures cancel out, leaving a net delta near zero ([Investopedia](https://www.investopedia.com/terms/d/deltaneutral.asp)). The position is deliberately indifferent to which way the market goes.
+
+## Why a trader would want that
+
+If you're not exposed to direction, you can isolate and harvest other sources of return:
+
+- **Funding capture** — hold a spot long and a short [perpetual future](/blog/what-are-perpetual-futures) of the same size. You're delta-neutral on price, but you collect (or pay) the [funding rate](/blog/funding-rates-explained). When funding is positive, shorts are paid — a classic delta-neutral carry trade.
+- **Basis / cash-and-carry** — capture the spread between spot and a dated future, which converges at expiry. This is the [basis trade](/blog/contango-backwardation-basis) in another form.
+- **Volatility** — with [options](/blog/crypto-options-trading-platform), a delta-neutral book profits from movement (or its absence) rather than direction, using vega and gamma.
+
+## Staying neutral is active work
+
+Delta neutral is a snapshot, not a set-and-forget state. As the market moves, the deltas of your legs drift — especially with options, where gamma constantly reshapes delta — so the position has to be rebalanced to stay neutral. This continuous adjustment is called delta hedging ([Investopedia](https://www.investopedia.com/terms/d/deltahedging.asp)).
+
+<Callout title="Neutral on direction is not risk-free">
+A delta-neutral position removes directional risk, not all risk. Funding can flip, the basis can widen before it converges, volatility can move against an options book, and rebalancing has costs. "Market-neutral" means you've traded directional risk for a different, subtler set of risks — not that you've removed them.
+</Callout>
+
+## Where it fits
+
+Delta-neutral strategies are how a lot of "market-neutral" desks and quant funds operate in crypto: they don't care if Bitcoin goes up or down, they care about the spread, the funding, or the volatility. It's also why deep derivatives markets matter — you need liquid perps, futures, and options to build and rebalance these positions efficiently.
+
+## The takeaway
+
+A delta-neutral strategy strips out direction so you can profit from funding, basis, or volatility instead. The trade-off is that it requires active rebalancing and carries its own non-directional risks. It's a foundational tool for anyone moving beyond simple long/short trades — and a big part of why liquid derivatives venues exist.
+
+<SourceList id="delta-neutral-strategy" />
+
+*This is educational information, not financial advice. As of 2026.*

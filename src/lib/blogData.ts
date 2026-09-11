@@ -654,6 +654,27 @@ export const sourceSets: Record<string, Source[]> = {
     { label: "Crypto licence in Switzerland — FINMA & SRO pathways", href: "https://gofaizen-sherle.com/crypto-license/switzerland", publisher: "Gofaizen-Sherle" },
     { label: "Token and DLT regulation in Switzerland", href: "https://lindemannlaw.ch/expertise/blockchain-crypto-fintech-artificial-intelligence-technology/token-and-dlt-regulation-in-switzerland-2/", publisher: "Lindemann Law" },
   ],
+  "options-greeks-explained": [
+    { label: "The Greeks — options risk measures", href: "https://www.investopedia.com/terms/g/greeks.asp", publisher: "Investopedia" },
+    { label: "Getting started with options (Greeks & margin)", href: "https://insights.deribit.com/education/7-step-guide-to-getting-started-with-deribit-options/", publisher: "Deribit Insights" },
+  ],
+  "margin-trading-crypto": [
+    { label: "Margin — definition and mechanics", href: "https://www.investopedia.com/terms/m/margin.asp", publisher: "Investopedia" },
+    { label: "Buying on Margin: how it's done, risks and rewards", href: "https://www.investopedia.com/terms/b/buying-on-margin.asp", publisher: "Investopedia" },
+  ],
+  "delta-neutral-strategy": [
+    { label: "Delta Neutral — definition and portfolio use", href: "https://www.investopedia.com/terms/d/deltaneutral.asp", publisher: "Investopedia" },
+    { label: "Delta Hedging — strategy and examples", href: "https://www.investopedia.com/terms/d/deltahedging.asp", publisher: "Investopedia" },
+  ],
+  "stop-loss-take-profit": [
+    { label: "Stop-Loss Orders — limiting investment losses", href: "https://www.investopedia.com/terms/s/stop-lossorder.asp", publisher: "Investopedia" },
+    { label: "Take-Profit Order (TP) explained", href: "https://www.investopedia.com/terms/t/take-profitorder.asp", publisher: "Investopedia" },
+  ],
+  "india-crypto-derivatives-regulation": [
+    { label: "Cryptocurrency taxation in India (30% + 1% TDS)", href: "https://cleartax.in/s/cryptocurrency-taxation-guide", publisher: "ClearTax" },
+    { label: "Blockchain & Cryptocurrency Laws — India", href: "https://www.globallegalinsights.com/practice-areas/blockchain-cryptocurrency-laws-and-regulations/india/", publisher: "Global Legal Insights" },
+    { label: "Financial Intelligence Unit — India (FIU-IND)", href: "https://fiuindia.gov.in/", publisher: "FIU-IND" },
+  ],
 };
 
 export type Faq = { q: string; a: string };
